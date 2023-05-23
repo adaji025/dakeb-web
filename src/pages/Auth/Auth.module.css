@@ -9,6 +9,7 @@
 .login {
     background: url(../../assets/images/login-bg.png);
     min-height: 100vh;
+    background-size: cover;
     border-top-right-radius: 34px;
     border-bottom-right-radius: 34px;
 }

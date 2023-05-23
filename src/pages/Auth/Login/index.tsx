@@ -8,7 +8,7 @@ const Login = () => {
     <div className={`${styles.container}`}>
       <div className="flex gap-[63px] max-w-[1400px] mx-auto">
         <div className={`w-1/2 hidden lg:block ${styles.login}`}></div>
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-start mb-10">
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-start mb-10 px-4">
           <div className="min-h-4/5 mt-[64px] w-4/5 border bg-white rounded-[5px] flex flex-col items-center justify-between pb-10">
             <div className="flex flex-col items-center">
               <img src={Logo} alt="" className="w-[80px] mt-6" />
@@ -33,13 +33,8 @@ const Login = () => {
                 <hr />
               </div>
               <Box mt={20} sx={{ maxWidth: 380 }} className="w-full">
-                <TextInput placeholder="Username" size="md" withAsterisk />
-                <TextInput
-                  placeholder="Password"
-                  size="md"
-                  mt={24}
-                  withAsterisk
-                />
+                <TextInput placeholder="Username" size="md" />
+                <TextInput placeholder="Password" size="md" mt={24} />
                 <div className="flex justify-between items-center mt-3">
                   <Checkbox
                     label={
@@ -57,7 +52,9 @@ const Login = () => {
                 </button>
               </Box>
             </div>
-            <div className="mt-10 text-dakeb-black-light">&copy; Dakeb 2023 | All rights reserved</div>
+            <div className="mt-10 text-dakeb-black-light">
+              &copy; Dakeb 2023 | All rights reserved
+            </div>
           </div>
         </div>
       </div>
