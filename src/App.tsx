@@ -7,7 +7,7 @@ import NewPassword from "./pages/Auth/New-password";
 import LoggedInContainer from "./components/LoggedIn";
 
 function App() {
-  const [loggedIn] = React.useState(false);
+  const [loggedIn] = React.useState(true);
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
