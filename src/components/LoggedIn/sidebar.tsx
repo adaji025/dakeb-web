@@ -2,7 +2,7 @@ import { Avatar } from "@mantine/core";
 import React from "react";
 import { BsCamera } from "react-icons/bs";
 // import { useNavigate } from "react-router";
-import Logo from "../../assets/svgs/dakeb-logo-light.svg"
+import Logo from "../../assets/svgs/dakeb-logo-light.svg";
 
 const Sidebar = () => {
   const [showOverlay, setShowOverlay] = React.useState(false);
@@ -26,7 +26,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="h-screen flex md:w-[200px] lg:w-[250px]  bg-dakeb-green-dark">
+    <aside className="h-screen hidden md:flex md:w-[200px] lg:w-[250px]  bg-dakeb-green-dark">
       <div className="flex flex-col w-full overflow-y-auto sidebar">
         <div className="flex flex-col mx-auto justify-center mt-5 relative">
           <div
@@ -76,41 +76,63 @@ const Sidebar = () => {
             className={`mt-3 grid gap-1 xs:gap-3 text-sm xs:text-base font-medium  transition-all duration-500 `}
           >
             <li
-              className={`flex items-center pl-3  py-3 bg-dakeb-yellow-mid/10 cursor-pointer border-r-4 border-dakeb-yellow-mid `}
+              className={`flex items-center pl-3  py-3 bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid  cursor-pointer`}
             >
               Menu
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer`}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer`}
+            >
               Dashboard
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer`}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer`}
+            >
               Notifications
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Users
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Reports
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Forms
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
-              Pay slip
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
+              Pay slip~
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Beef and chick hunters
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Out sourcing
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Maintenance chart
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               Barcode development
             </li>
-            <li className={`flex items-center gap-2 p-3  cursor-pointer `}>
+            <li
+              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
+            >
               System set-up
             </li>
           </ul>
@@ -129,7 +151,6 @@ const Sidebar = () => {
               <img src={Logo} alt="" className="w-[50px]" />
               <span>Dakeb Farms.</span>
             </li>
-            
           </ul>
         </div>
       </div>
