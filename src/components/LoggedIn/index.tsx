@@ -12,7 +12,7 @@ const LoggedInContainer = () => {
       <div className="md:hidden">
         {mobileNav && <MobileSidebar {...{ openMobileNav }} />}
       </div>
-      <div className="flex bg-[#EBFDFF]">
+      <div className="flex bg-[#EBFDFF] overflow-x-hidden">
         <div className="fixed hidden md:block md:w-[250px]">
           <Sidebar />
         </div>
