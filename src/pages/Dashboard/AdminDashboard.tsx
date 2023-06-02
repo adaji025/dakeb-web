@@ -1,9 +1,9 @@
+import React from "react";
 import ParkIcon from "../../assets/svgs/park.svg";
 import { StatCard } from "../../components/Dashboard";
 import { AdminTable } from "../../components/Dashboard/AdminTable";
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
-// import Table from "../../components/Dashboard/Table";
 import {columns} from "../../components/Dashboard/AdminTable/Column"
 
 const users = [
@@ -42,6 +42,8 @@ const users = [
 ];
 
 const AdminDashboard = () => {
+  const [rowSelection, setRowSelection] = React.useState({})
+  const [tableId] = React.useState("")
   const statsData = [
     {
       icon: ParkIcon,
@@ -73,8 +75,9 @@ const AdminDashboard = () => {
     },
   ];
 
+  console.log(rowSelection)
   return (
-    <div className="max-w-[1440px] mx-auto overflow-x-hidden">
+    <div className="max-w-[1300px] mx-auto overflow-x-hidden">
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
         {statsData.map((item, idx) => (
           <div
@@ -95,7 +98,7 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="mt-20 border">
-      {/* <AdminTable columns={columns} data={users} /> */}
+      <AdminTable data={users} {...{columns, tableId, setRowSelection, state: {rowSelection}}} />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { IndeterminateCheckbox } from "./IndeterminateCheckbox";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -15,6 +16,30 @@ type UserType = {
 
 
 export const columns: ColumnDef<UserType>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <IndeterminateCheckbox
+        {...{
+          checked: table.getIsAllRowsSelected(),
+          indeterminate: table.getIsSomeRowsSelected(),
+          onChange: table.getToggleAllRowsSelectedHandler(),
+        }}
+      />
+    ),
+    cell: ({ row }) => (
+      <div>
+        <IndeterminateCheckbox
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: row.getToggleSelectedHandler(),
+          }}
+        />
+      </div>
+    ),
+  },
   {
     header: "Full name",
     accessorKey: "name" as keyof UserType,
@@ -49,6 +74,7 @@ export const columns: ColumnDef<UserType>[] = [
     accessorKey: "salary" as keyof UserType,
   },
   {
+    id: 'more',
     header: "",
     accessorKey: "more" as keyof UserType,
   },
