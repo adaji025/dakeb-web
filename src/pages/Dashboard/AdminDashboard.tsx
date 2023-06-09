@@ -4,7 +4,8 @@ import { StatCard } from "../../components/Dashboard";
 import { AdminTable } from "../../components/Dashboard/AdminTable";
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
-import {columns} from "../../components/Dashboard/AdminTable/Column"
+import { columns } from "../../components/Dashboard/AdminTable/Column";
+import YearFilter from "../../components/Dashboard/YearFilter";
 
 const users = [
   {
@@ -42,8 +43,8 @@ const users = [
 ];
 
 const AdminDashboard = () => {
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [tableId] = React.useState("")
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [tableId] = React.useState("");
   const statsData = [
     {
       icon: ParkIcon,
@@ -75,9 +76,9 @@ const AdminDashboard = () => {
     },
   ];
 
-  console.log(rowSelection)
+  console.log(rowSelection);
   return (
-    <div className="max-w-[1300px] mx-auto overflow-x-hidden">
+    <div className="max-w-[1300px] mx-auto overflow-x-hidden pb-10">
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
         {statsData.map((item, idx) => (
           <div
@@ -98,7 +99,16 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="mt-20 border">
-      <AdminTable data={users} {...{columns, tableId, setRowSelection, state: {rowSelection}}} />
+        <div className="flex justify-between items-center pt-10">
+          <h2 className="font-medium pl-6">Employee</h2>
+          <div className="pr-6">
+            <YearFilter />
+          </div>
+        </div>
+        <AdminTable
+          data={users}
+          {...{ columns, tableId, setRowSelection, state: { rowSelection } }}
+        />
       </div>
     </div>
   );
