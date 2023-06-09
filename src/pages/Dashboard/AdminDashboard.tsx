@@ -1,5 +1,4 @@
 import React from "react";
-import ParkIcon from "../../assets/svgs/park.svg";
 import { StatCard } from "../../components/Dashboard";
 import { AdminTable } from "../../components/Dashboard/AdminTable";
 import BarChartComponent from "../../components/Dashboard/BarChart";
@@ -47,32 +46,28 @@ const AdminDashboard = () => {
   const [tableId] = React.useState("");
   const statsData = [
     {
-      icon: ParkIcon,
       increase: true,
       title: "Revenue",
       figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
     },
     {
-      icon: ParkIcon,
       increase: true,
-      title: "Revenue",
+      title: "Total employees",
       figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
     },
     {
-      icon: ParkIcon,
       increase: true,
-      title: "Revenue",
+      title: "Reports",
       figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
     },
     {
-      icon: ParkIcon,
       increase: true,
-      title: "Revenue",
+      title: "Referral",
       figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
     },
   ];
 
@@ -92,10 +87,43 @@ const AdminDashboard = () => {
       </div>
       <div className="my-20 border p-4 overflow-x-auto flex gap-10">
         <div className="border-r">
+          <div className="flex justify-between items-center px-4 font-medium">
+            <h2 className="font-medium">Payroll</h2>
+            <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-[#BDBDBD]" />
+                <span className="text-sm text-[#828282]">Net pay</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="h-2 w-2 rounded-full bg-[#002500]" />
+                <span className="text-sm text-[#002500]">Net pay</span>
+              </div>
+              <YearFilter />
+            </div>
+          </div>
           <BarChartComponent />
         </div>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
+          <h2 className="whitespace-nowrap">Team statistics (4)</h2>
           <PieChartComponent />
+          <div className="flex justify-between">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-[#157145]" />
+              <span className="text-sm text-[#157145]">6</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-[#1D08AF]" />
+              <span className="text-sm text-[#1D08AF]">9</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-[#DEA90A]" />
+              <span className="text-sm text-[#DEA90A]">19</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-[#DE4D86]" />
+              <span className="text-sm text-[#DE4D86]">26</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mt-20 border">

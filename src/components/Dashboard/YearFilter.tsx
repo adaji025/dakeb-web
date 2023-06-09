@@ -4,7 +4,7 @@ import { GoChevronDown } from "react-icons/go";
 
 export default function YearFilter() {
   return (
-    <div className="w-56 text-right">
+    <div className="w-56 z-50 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md ">

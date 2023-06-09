@@ -4,6 +4,7 @@ import Header from "./header";
 import Sidebar from "./sidebar";
 import AdminDashboard from "../../pages/Dashboard/AdminDashboard";
 import MobileSidebar from "./MobileSidebar";
+import StaffDashboard from "../../pages/Dashboard/StaffDashboard";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);

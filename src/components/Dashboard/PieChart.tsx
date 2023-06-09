@@ -2,12 +2,12 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
 const PieChartComponent = () => {
   const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
+    { name: "Group A", value: 200 },
+    { name: "Group B", value: 100 },
     { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
+    { name: "Group D", value: 450 },
   ];
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = ["#1D08AF", "#157145", "#DE4D86", "#DE4D86"];
   return (
     <PieChart width={250} height={400}>
       <Pie
@@ -16,7 +16,7 @@ const PieChartComponent = () => {
         cy={200}
         innerRadius={60}
         outerRadius={80}
-        fill="#8884d8"
+        // fill="#8884d8"
         paddingAngle={2}
         dataKey="value"
         label
