@@ -1,21 +1,18 @@
 import { ColumnDef } from "@tanstack/react-table";
+import {IoCopyOutline} from "react-icons/io5"
 import { IndeterminateCheckbox } from "./IndeterminateCheckbox";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 type UserType = {
   name: string;
   phone_number: string;
   email: string;
-  salary: number;
-  role: any;
-  date_joined: string;
+  codes: any;
+  type: string;
 };
-
 
 export const columns: ColumnDef<UserType>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <IndeterminateCheckbox
         {...{
@@ -59,21 +56,18 @@ export const columns: ColumnDef<UserType>[] = [
     accessorKey: "phone_number" as keyof UserType,
   },
   {
-    header: "Role",
-    accessorKey: "role" as keyof UserType,
+    header: "Typpe",
+    accessorKey: "type" as keyof UserType,
   },
   {
-    header: "Date joined",
-    accessorKey: "date_joined" as keyof UserType,
-  },
-
-  {
-    header: "Salary",
-    accessorKey: "salary" as keyof UserType,
-  },
-  {
-    id: 'more',
-    header: "",
-    accessorKey: "more" as keyof UserType,
+    id: "codes",
+    header: "codes",
+    accessorKey: "codes" as keyof UserType,
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        <div className="text-dakeb-green-mid font-semibold">{row.getValue("codes")}</div>
+        <IoCopyOutline color="#157145" />
+      </div>
+    ),
   },
 ];

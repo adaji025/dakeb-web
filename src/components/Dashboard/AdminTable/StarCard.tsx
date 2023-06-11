@@ -5,7 +5,7 @@ import {
   FileIcon,
   RevenueIcon,
   UserIcon,
-} from "../Svgs";
+} from "../../Svgs";
 
 type Props = {
   item: {

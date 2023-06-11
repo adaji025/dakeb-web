@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import Header from "./header";
 import Sidebar from "./sidebar";
-import AdminDashboard from "../../pages/Dashboard/AdminDashboard";
+// import AdminDashboard from "../../pages/Dashboard/AdminDashboard";
 import MobileSidebar from "./MobileSidebar";
 import StaffDashboard from "../../pages/Dashboard/StaffDashboard";
 
@@ -23,7 +23,7 @@ const LoggedInContainer = () => {
           </div>
           <main className="w-full bg-white pt-[100px] md:ml-[200px] lg:ml-[250px] md:w-[calc(100vw-200px)] lg:w-[calc(100vw-250px)] px-4 lg:px-10">
             <Routes>
-              <Route path="/" element={<AdminDashboard />} />
+              <Route path="/" element={<StaffDashboard />} />
             </Routes>
           </main>
         </div>

@@ -1,10 +1,10 @@
 import React from "react";
-import { StatCard } from "../../components/Dashboard";
 import { AdminTable } from "../../components/Dashboard/AdminTable";
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
 import { columns } from "../../components/Dashboard/AdminTable/Column";
 import YearFilter from "../../components/Dashboard/YearFilter";
+import { StatCard } from "../../components/Dashboard/AdminTable/StarCard";
 
 const users = [
   {
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
     },
   ];
 
-  console.log(rowSelection);
+
   return (
     <div className="max-w-[1300px] mx-auto overflow-x-hidden pb-10">
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">

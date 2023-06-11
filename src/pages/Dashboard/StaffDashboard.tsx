@@ -1,75 +1,72 @@
 import React from "react";
 import ParkIcon from "../../assets/svgs/park.svg";
-import { StatCard } from "../../components/Dashboard";
-import { AdminTable } from "../../components/Dashboard/AdminTable";
-import {columns} from "../../components/Dashboard/AdminTable/Column"
+import { columns } from "../../components/Dashboard/StaffTable/Column";
+import { StatCard } from "../../components/Dashboard/StaffTable/StarCard";
+import { StaffTable } from "../../components/Dashboard/StaffTable";
+import { HunterTable } from "../../components/Dashboard/HunterTable";
+
 
 const users = [
   {
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
+    category: "Cooper Lubin",
+    department: "dulcesanton@gmail.com",
+    submitted_to: "Roger Curtis",
+    date_submitted: "06 - 06 - 2010",
+    status: "accepted",
   },
   {
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
+    category: "Cooper Lubin",
+    department: "dulcesanton@gmail.com",
+    submitted_to: "Roger Curtis",
+    date_submitted: "06 - 06 - 2010",
+    status: "accepted",
   },
   {
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
+    category: "Cooper Lubin",
+    department: "dulcesanton@gmail.com",
+    submitted_to: "Lydia Workman",
+    date_submitted: "06 - 06 - 2010",
+    status: "pending",
   },
   {
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
+    category: "Cooper Lubin",
+    department: "dulcesanton@gmail.com",
+    submitted_to: "Roger Curtis",
+    date_submitted: "06 - 06 - 2010",
+    status: "accepted",
   },
 ];
 
+
+
 const StaffDashboard = () => {
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [tableId] = React.useState("")
+  const [tableId] = React.useState("");
+  const [tableType, setTableType] = React.useState("Reports");
   const statsData = [
     {
-      icon: ParkIcon,
       increase: true,
-      title: "Revenue",
+      title: "Total forms generated",
       figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
+    },
+    {
+      increase: true,
+      title: "Total code generated",
+      figure: 32787,
+      percentage: "3.3",
+    },
+    {
+      increase: true,
+      title: "Total reports generated",
+      figure: 32787,
+      percentage: "3.3",
     },
     {
       icon: ParkIcon,
       increase: true,
       title: "Revenue",
       figure: 32787,
-      percentage: 3.3,
-    },
-    {
-      icon: ParkIcon,
-      increase: true,
-      title: "Revenue",
-      figure: 32787,
-      percentage: 3.3,
-    },
-    {
-      icon: ParkIcon,
-      increase: true,
-      title: "Revenue",
-      figure: 32787,
-      percentage: 3.3,
+      percentage: "3.3",
     },
   ];
   return (
@@ -86,7 +83,37 @@ const StaffDashboard = () => {
         ))}
       </div>
       <div className="mt-20 border">
-      <AdminTable data={users} {...{columns, tableId, setRowSelection, state: {rowSelection}}} />
+        <div className="flex items-center gap-5 pl-6 pt-6">
+          <div
+            className={`border-b-4 font-semibold cursor-pointer text-[#4F4F4F] ${
+              tableType === "Reports"
+                ? "border-dakeb-green-mid text-[#333333]"
+                : "border-transparent"
+            }`}
+            onClick={() => setTableType("Reports")}
+          >
+            Reports
+          </div>
+          <div
+            className={`border-b-4 font-semibold cursor-pointer text-[#4F4F4F] ${
+              tableType === "Forms"
+                ? "border-dakeb-green-mid text-[#333333]"
+                : "border-transparent"
+            }`}
+            onClick={() => setTableType("Forms")}
+          >
+            Forms
+          </div>
+        </div>
+        <StaffTable data={users} {...{ columns, tableId }} />
+      </div>
+
+      <div className="mt-20 border">
+        <div className="flex items-center justify-between gap-5 px-6 pt-6">
+         <h2 className="font-semibold">Beef and chick hunter</h2>
+         <div className="text-sm">View all</div>
+        </div>
+        <HunterTable {...{tableId}} />
       </div>
     </div>
   );
