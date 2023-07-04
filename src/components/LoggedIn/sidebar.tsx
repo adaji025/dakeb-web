@@ -3,14 +3,25 @@ import React from "react";
 import { BsCamera } from "react-icons/bs";
 // import { useNavigate } from "react-router";
 import Logo from "../../assets/svgs/dakeb-logo-light.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+type Props = {
+  menuItem: Array<{
+    title: string;
+    url: string;
+  }>;
+};
+
+const Sidebar = ({ menuItem }: Props) => {
   const [showOverlay, setShowOverlay] = React.useState(false);
   const [image, setImage] = React.useState(Array<Blob>);
   const [imagePreview, setImagePreview] = React.useState("");
 
+  const navigate = useNavigate();
+  const history = useLocation();
+  console.log(history);
+
   const uploadRef = React.useRef<HTMLInputElement>(null);
-  //   const navigate = useNavigate()
 
   React.useEffect(() => {
     if (image.length) {
@@ -75,66 +86,19 @@ const Sidebar = () => {
           <ul
             className={`mt-3 grid gap-1 xs:gap-3 text-sm xs:text-base font-medium  transition-all duration-500 `}
           >
-            <li
-              className={`flex items-center pl-3  py-3 bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid  cursor-pointer`}
-            >
-              Menu
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer`}
-            >
-              Dashboard
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer`}
-            >
-              Notifications
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Users
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Reports
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Forms
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Pay slip~
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Beef and chick hunters
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Out sourcing
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Maintenance chart
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              Barcode development
-            </li>
-            <li
-              className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer `}
-            >
-              System set-up
-            </li>
+            {menuItem.map((menu, index) => (
+              <li
+                key={index}
+                className={`flex items-center gap-2 p-3 hover:bg-dakeb-yellow-mid/10  hover:border-r-4 border-dakeb-yellow-mid cursor-pointer ${
+                  location.pathname === menu.url
+                    ? "border-r-4 border-dakeb-yellow-mid bg-dakeb-yellow-mid/10"
+                    : ""
+                }`}
+                onClick={() => navigate(`${menu.url}`)}
+              >
+                {menu.title}
+              </li>
+            ))}
           </ul>
           <hr />
           <ul
