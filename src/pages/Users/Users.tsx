@@ -42,35 +42,41 @@ const Users = () => {
   const [active, setActive] = React.useState<"administrator" | "staff">(
     "administrator"
   );
-  const [tableId] = React.useState<string>("")
+  const [tableId] = React.useState<string>("");
+
   return (
-    <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
-      <div className="flex gap-5">
-        <div
-          className={`text-base font-medium cursor-pointer ${
-            active === "administrator"
-              ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-              : "text-[#828282]"
-          }`}
-          onClick={() => setActive("administrator")}
-        >
-          Administrator
+    <>
+      <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
+        <div className="flex gap-5">
+          <div
+            className={`text-base font-medium cursor-pointer ${
+              active === "administrator"
+                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                : "text-[#828282]"
+            }`}
+            onClick={() => setActive("administrator")}
+          >
+            Administrator
+          </div>
+          <div
+            className={`text-base font-medium cursor-pointer ${
+              active === "staff"
+                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                : "text-[#828282]"
+            }`}
+            onClick={() => setActive("staff")}
+          >
+            Staff
+          </div>
         </div>
-        <div
-          className={`text-base font-medium cursor-pointer ${
-            active === "staff"
-              ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-              : "text-[#828282]"
-          }`}
-          onClick={() => setActive("staff")}
-        >
-          Staff
+        <div className="mt-5">
+          <UserTable
+            data={users}
+            {...{ columns, tableId, setRowSelection, state: { rowSelection } }}
+          />
         </div>
       </div>
-      <div className="mt-5">
-        <UserTable data={users} {...{ columns, tableId, setRowSelection, state: { rowSelection } }}  />
-      </div>
-    </div>
+    </>
   );
 };
 
