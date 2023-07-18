@@ -1,7 +1,7 @@
 import {
-  Button,
   Divider,
   Drawer,
+  Group,
   NumberInput,
   Select,
   Text,
@@ -106,8 +106,11 @@ const AddUser = ({ close, opened }: Props) => {
           { value: "vue", label: "Vue" },
         ]}
       />
-
-      <Button mt={24} mx="auto" color="teal">Add User</Button>
+      <Group position="right">
+        <button className="bg-dakeb-green-mid rounded-md mt-[24px] text-white font-bold px-6 py-3">
+          Add User
+        </button>
+      </Group>
     </Drawer>
   );
 };
