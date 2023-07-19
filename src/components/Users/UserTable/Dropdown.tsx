@@ -1,6 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { DeactivateIcon, EditIcon, MoreIcon, ResetIcon } from "../../Svgs";
+import { BsTicketDetailed } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 type tableProps = {
   tableId: string;
@@ -10,13 +12,16 @@ type tableProps = {
 const links = [
   { label: "Update" },
   { label: "Reset password" },
+  { label: "User details" },
   { label: "Deactivate" },
 ];
 
-export default function DropDownMenu({ open}: tableProps) {
+export default function DropDownMenu({ open }: tableProps) {
+  const navigate = useNavigate()
   const handleBtnClick = (index: number) => {
-    index === 2 && open()
-  }
+    index === 2 && navigate("/users/user-details")
+    index === 3 && open();
+  };
   return (
     <Menu as="td" className="item title w-full relative border-b xl:pl-8">
       <Menu.Button>
@@ -45,6 +50,8 @@ export default function DropDownMenu({ open}: tableProps) {
                         <EditIcon />
                       ) : index === 1 ? (
                         <ResetIcon />
+                      ) : index === 2 ? (
+                        <BsTicketDetailed color="grey" />
                       ) : (
                         <DeactivateIcon />
                       )}

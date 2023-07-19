@@ -6,6 +6,7 @@ import AdminDashboard from "../../pages/Dashboard/AdminDashboard";
 import MobileSidebar from "./MobileSidebar";
 import StaffDashboard from "../../pages/Dashboard/StaffDashboard";
 import Users from "../../pages/Users/Users";
+import UserDetails from "../../pages/Users/UserDetails";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -18,6 +19,10 @@ const LoggedInContainer = () => {
     {
       title: "Users",
       url: "/users",
+    },
+    {
+      title: "Reprts",
+      url: "/reports",
     },
     {
       title: "Forms",
@@ -67,6 +72,7 @@ const LoggedInContainer = () => {
               <Route path="/" element={<StaffDashboard />} />
               <Route path="" element={<AdminDashboard />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/users/user-details" element={<UserDetails />} />
             </Routes>
           </main>
         </div>
