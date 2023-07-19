@@ -7,6 +7,7 @@ import MobileSidebar from "./MobileSidebar";
 import StaffDashboard from "../../pages/Dashboard/StaffDashboard";
 import Users from "../../pages/Users/Users";
 import UserDetails from "../../pages/Users/UserDetails";
+import Reports from "../../pages/Reports/Reports";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -73,6 +74,7 @@ const LoggedInContainer = () => {
               <Route path="" element={<AdminDashboard />} />
               <Route path="/users" element={<Users />} />
               <Route path="/users/user-details" element={<UserDetails />} />
+              <Route path="/reports" element={<Reports />} />
             </Routes>
           </main>
         </div>
