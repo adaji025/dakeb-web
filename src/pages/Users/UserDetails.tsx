@@ -51,6 +51,7 @@ const UserDetails = () => {
       </div>
 
       <div className="mt-10 font-semibold text-sm">Update user info</div>
+
       <div className="mt-5 flex items-start gap-10">
         <div className="flex-1 grid gap-3">
           <TextInput size="md" label="Name" />
@@ -70,6 +71,7 @@ const UserDetails = () => {
             placeholder="xxxxxxxxxx"
           />
         </div>
+        
         <div className="flex-1 grid gap-3">
           <Select
             label="Postion"
@@ -97,8 +99,11 @@ const UserDetails = () => {
           />
         </div>
       </div>
+
       <Group mt={42} position="center">
-        <button className="text-white font-semibold bg-dakeb-green-mid w-[200px] py-3 rounded-md">Update</button>
+        <button className="text-white font-semibold bg-dakeb-green-mid w-[200px] py-3 rounded-md">
+          Update
+        </button>
       </Group>
     </div>
   );

@@ -23,8 +23,26 @@ export const columns: ColumnDef<UserType>[] = [
     accessorKey: "priority" as keyof UserType,
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
-        <div className={`h-2 w-2  rounded-full ${row.getValue("priority") === "low" ? "bg-[#EB0E0B]" : "bg-[#1D08AF]"}`} />
-        <div className={`${row.getValue("priority") === "low" ? "text-[#EB0E0B]" : "text-[#1D08AF]"}`}>{row.getValue("priority")}</div>
+        <div
+          className={`h-2 w-2  rounded-full ${
+            row.getValue("priority") === "low"
+              ? "bg-[#EB0E0B]"
+              : row.getValue("priority") === "medium"
+              ? "bg-[#F2994A]"
+              : "bg-[#1D08AF]"
+          }`}
+        />
+        <div
+          className={`${
+            row.getValue("priority") === "low"
+              ? "text-[#EB0E0B]"
+              : row.getValue("priority") === "medium"
+              ? "text-[#F2994A]"
+              : "text-[#1D08AF]"
+          }`}
+        >
+          {row.getValue("priority")}
+        </div>
       </div>
     ),
   },

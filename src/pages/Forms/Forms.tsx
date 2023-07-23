@@ -3,7 +3,6 @@ import { columns } from "../../components/Reports/ReportsTable/Column";
 import { ReportsTable } from "../../components/Reports/ReportsTable";
 import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
-import CreateReports from "./CreateReports";
 
 const users = [
   {
@@ -48,17 +47,18 @@ const users = [
   },
 ];
 
-const Reports = () => {
+const Forms = () => {
   const [tableType, setTableType] = React.useState("All");
   const [tableId] = React.useState("");
 
   const { createReport } = React.useContext(DataContext);
   const tableList = [
     "All",
-    "Activity reports",
-    "Incident reports",
-    "Procedure reports",
-    "Vaccines reports",
+    "Purchase",
+    "Daily expense",
+    "Turn over ",
+    "Animal observation",
+    "Plantation observation",
   ];
   return (
     <div className="max-w-[1300px] mx-auto py-10">
@@ -91,4 +91,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Forms;

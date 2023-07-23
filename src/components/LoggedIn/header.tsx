@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -7,6 +7,7 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddUser from "../Users/AddUser";
 import React from "react";
+import { DataContext } from "../../context/DataProvider";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,9 +15,18 @@ type Props = {
 
 const Header: React.FC<Props> = ({ openMobileNav }) => {
   const [opened, { open, close }] = useDisclosure(false);
+
+  const { createReport } = React.useContext(DataContext);
   const history = useLocation();
+  const navigate = useNavigate()
 
   const currentRoute = history.pathname;
+
+  const handlePlusClick = () => {
+    history.pathname === "/users" && open();
+    history.pathname === "/reports" && navigate("/reports/create-report");
+    history.pathname === "/forms" && navigate("/reports/create-report");
+  };
 
   const pageTitle =
     history.pathname === "/"
@@ -46,14 +56,15 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             <div className="absolute h-2 w-2 rounded-full bg-dakeb-red top-1 right-1" />
           </div>
 
-          {currentRoute === "/users" && (
-            <div
-              className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
-              onClick={open}
-            >
-              <AiOutlinePlus color="white" />
-            </div>
-          )}
+          {(currentRoute === "/users" || currentRoute === "/reports" || currentRoute === "/forms") &&
+            !createReport && (
+              <div
+                className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
+                onClick={handlePlusClick}
+              >
+                <AiOutlinePlus color="white" />
+              </div>
+            )}
 
           <FiSettings color="#4F4F4F" size={24} />
         </div>

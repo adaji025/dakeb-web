@@ -8,6 +8,9 @@ import StaffDashboard from "../../pages/Dashboard/StaffDashboard";
 import Users from "../../pages/Users/Users";
 import UserDetails from "../../pages/Users/UserDetails";
 import Reports from "../../pages/Reports/Reports";
+import CreateReports from "../../pages/Reports/CreateReports";
+import ReportPreview from "../../pages/Reports/ReportPreview";
+import Forms from "../../pages/Forms/Forms";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -75,6 +78,15 @@ const LoggedInContainer = () => {
               <Route path="/users" element={<Users />} />
               <Route path="/users/user-details" element={<UserDetails />} />
               <Route path="/reports" element={<Reports />} />
+              <Route path="/forms" element={<Forms />} />
+              <Route
+                path="/reports/create-report"
+                element={<CreateReports />}
+              />
+              <Route
+                path="/reports/report-preview"
+                element={<ReportPreview />}
+              />
             </Routes>
           </main>
         </div>

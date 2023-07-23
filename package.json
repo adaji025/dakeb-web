@@ -15,9 +15,11 @@
     "@mantine/core": "^6.0.11",
     "@mantine/hooks": "^6.0.11",
     "@tanstack/react-table": "^8.9.2",
+    "n": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.11.2",
     "recharts": "^2.6.2"
   },
