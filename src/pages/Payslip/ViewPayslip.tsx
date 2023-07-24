@@ -57,11 +57,17 @@ const ViewPayslip = () => {
               </h2>
               <div className="mt-3 border-b flex  justify-between items-center pb-2">
                 <div>
-                  <div className="text-[#828282] mb-2 text-sm sm:text-base">Basic salary</div>
-                  <div className="text-[#828282] pr-5 text-sm sm:text-base">Bonus</div>
+                  <div className="text-[#828282] mb-2 text-sm sm:text-base">
+                    Basic salary
+                  </div>
+                  <div className="text-[#828282] pr-5 text-sm sm:text-base">
+                    Bonus
+                  </div>
                 </div>
                 <div>
-                  <div className="font-medium mb-2 text-sm sm:text-base">250,000</div>
+                  <div className="font-medium mb-2 text-sm sm:text-base">
+                    250,000
+                  </div>
                   <div className="font-medium text-sm sm:text-base">5,000</div>
                 </div>
               </div>
@@ -84,7 +90,9 @@ const ViewPayslip = () => {
               <div className="text-sm">
                 NET PAY (Gross earning - Deductions)
               </div>
-              <div className="font-semibold text-sm sm:text-base">NGN244,500</div>
+              <div className="font-semibold text-sm sm:text-base">
+                NGN244,500
+              </div>
             </div>
           </div>
 
@@ -94,6 +102,14 @@ const ViewPayslip = () => {
               <div className="text-xs">Employee signature</div>
             </div>
           </div>
+        </div>
+        <div className="flex justify-between mt-12">
+          <button className="text-xs sm:text-base border border-dakeb-green-mid font-semibold py-3 px-3 sm:px-6 rounded-md text-dakeb-green-mid hover:scale-95 transition-all duration-300">
+          Download pay slip
+          </button>
+          <button className="text-xs sm:text-base border bg-dakeb-green-mid font-semibold py-3 px-3 sm:px-6 rounded-md text-white hover:scale-95 transition-all duration-300">
+            Print pay slip
+          </button>
         </div>
       </div>
     </div>
