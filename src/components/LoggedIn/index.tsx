@@ -11,6 +11,8 @@ import Reports from "../../pages/Reports/Reports";
 import CreateReports from "../../pages/Reports/CreateReports";
 import ReportPreview from "../../pages/Reports/ReportPreview";
 import Forms from "../../pages/Forms/Forms";
+import Payslip from "../../pages/Payslip/Payslip";
+import PayslipDetails from "../../pages/Payslip/PayslipDetails";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -87,6 +89,8 @@ const LoggedInContainer = () => {
                 path="/reports/report-preview"
                 element={<ReportPreview />}
               />
+              <Route path="/pay-slip" element={<Payslip />} />
+              <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
             </Routes>
           </main>
         </div>

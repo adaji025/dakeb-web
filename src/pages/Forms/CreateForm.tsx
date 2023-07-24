@@ -4,9 +4,12 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
-// import { Quill } from "react-quill";
+import Comfirmation from "../../components/Reports/Comfirmation";
+import { useDisclosure } from "@mantine/hooks";
 
 const CreateForm = () => {
+  const [opened, { open, close }] = useDisclosure(true);
+
   const { reportData, setReportData } = useContext(DataContext);
 
   const navigate = useNavigate()
@@ -30,6 +33,9 @@ const CreateForm = () => {
   icons["redo"] = Redo;
 
   return (
+    <>
+      <Comfirmation {...{close, open, opened}} />
+      
     <div className="max-w-[1300px] mx-auto py-10">
       <div className="flex gap-10">
         <div className="flex-1">
@@ -76,6 +82,7 @@ const CreateForm = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
