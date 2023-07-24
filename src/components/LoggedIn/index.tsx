@@ -13,6 +13,7 @@ import ReportPreview from "../../pages/Reports/ReportPreview";
 import Forms from "../../pages/Forms/Forms";
 import Payslip from "../../pages/Payslip/Payslip";
 import PayslipDetails from "../../pages/Payslip/PayslipDetails";
+import ViewPayslip from "../../pages/Payslip/ViewPayslip";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -91,6 +92,7 @@ const LoggedInContainer = () => {
               />
               <Route path="/pay-slip" element={<Payslip />} />
               <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
+              <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
             </Routes>
           </main>
         </div>

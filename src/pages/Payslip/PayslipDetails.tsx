@@ -1,11 +1,32 @@
 import { Avatar, Menu, Table } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import GeneratePayslip from "../../components/Paylip/GeneratePayslip";
+import { useNavigate } from "react-router-dom";
 
 const PayslipDetails = () => {
-  const [opened, { open, close }] = useDisclosure(true);
+  const [opened, { open, close }] = useDisclosure(false);
+  const navigate = useNavigate()
   const rows = [
     {
+      id: 1,
+      generated_by: "Haylie Madsen",
+      payment_period: "January",
+      gross_earnings: 250000,
+      deduction: 10500,
+      net_pay: 239500,
+      pay_date: "06 - 06 - 2010",
+    },
+    {
+      id: 2,
+      generated_by: "Haylie Madsen",
+      payment_period: "January",
+      gross_earnings: 250000,
+      deduction: 10500,
+      net_pay: 239500,
+      pay_date: "06 - 06 - 2010",
+    },
+    {
+      id: 3,
       generated_by: "Haylie Madsen",
       payment_period: "January",
       gross_earnings: 250000,
@@ -119,18 +140,10 @@ const PayslipDetails = () => {
                   </td>
                   <td>{row.pay_date}</td>
                   <td>
-                    <Menu shadow="md" width={200}>
-                      <Menu.Target>
-                        <button>View</button>
-                      </Menu.Target>
-
-                      <Menu.Dropdown>
-                        <Menu.Label>Application</Menu.Label>
-                        <Menu.Item>Settings</Menu.Item>
-                        <Menu.Item>Messages</Menu.Item>
-                        <Menu.Item>Gallery</Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                  <button className="text-dakeb-green-mid font-bold"
+                  onClick={() => navigate(`/pay-slip/view-pay-slip/${row.id}`)}>
+                    View
+                  </button>
                   </td>
                 </tr>
               ))}
