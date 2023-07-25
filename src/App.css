@@ -14,3 +14,7 @@
   .sidebar::-webkit-scrollbar-track {
     background-color: #157145;
   }
+
+  th, td { 
+    border: none !important;
+  }

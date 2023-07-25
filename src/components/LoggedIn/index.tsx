@@ -14,6 +14,7 @@ import Forms from "../../pages/Forms/Forms";
 import Payslip from "../../pages/Payslip/Payslip";
 import PayslipDetails from "../../pages/Payslip/PayslipDetails";
 import ViewPayslip from "../../pages/Payslip/ViewPayslip";
+import BeafChickHunters from "../../pages/Beaf-Chick-Hunters/BeafChickHunters";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -40,8 +41,8 @@ const LoggedInContainer = () => {
       url: "/pay-slip",
     },
     {
-      title: "Beef and Chicken",
-      url: "/beef-and-chicken",
+      title: "Beef and Chick Hunters",
+      url: "/beef-and-chick-hunters",
     },
     {
       title: "Out Sourcing",
@@ -93,6 +94,7 @@ const LoggedInContainer = () => {
               <Route path="/pay-slip" element={<Payslip />} />
               <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
               <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
+              <Route path={`/beef-and-chick-hunters`} element={<BeafChickHunters />} />
             </Routes>
           </main>
         </div>

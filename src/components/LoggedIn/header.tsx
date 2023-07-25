@@ -1,20 +1,20 @@
+import React, {useState} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDisclosure } from "@mantine/hooks";
-
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddUser from "../Users/AddUser";
-import React from "react";
 import { DataContext } from "../../context/DataProvider";
+import AddHunter from "../BeafChickHunters/AddHunter";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Header: React.FC<Props> = ({ openMobileNav }) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [addUser, setAddUser] = useState<boolean>(false);
+  const [addHunter, setAddHunter] = useState<boolean>(false);
 
   const { createReport } = React.useContext(DataContext);
   const history = useLocation();
@@ -23,7 +23,8 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
   const currentRoute = history.pathname;
 
   const handlePlusClick = () => {
-    history.pathname === "/users" && open();
+    history.pathname === "/users" && setAddUser(true);
+    history.pathname === "/beef-and-chick-hunters" && setAddHunter(true);
     history.pathname === "/reports" && navigate("/reports/create-report");
     history.pathname === "/forms" && navigate("/reports/create-report");
   };
@@ -39,7 +40,8 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
 
   return (
     <>
-      <AddUser {...{ close, opened }} />
+      <AddUser opened={addUser} close={() => setAddUser(false)} />
+      <AddHunter opened={addHunter} close={() => setAddHunter(false)} />
       <div className="h-[100px] w-full flex justify-between items-center border-b px-4 lg:px-10">
         <div className="flex items-center gap-2">
           <div
@@ -56,7 +58,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             <div className="absolute h-2 w-2 rounded-full bg-dakeb-red top-1 right-1" />
           </div>
 
-          {(currentRoute === "/users" || currentRoute === "/reports" || currentRoute === "/forms") &&
+          {(currentRoute === "/users" || currentRoute === "/reports" || currentRoute === "/forms" || currentRoute === "/beef-and-chick-hunters") &&
             !createReport && (
               <div
                 className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
