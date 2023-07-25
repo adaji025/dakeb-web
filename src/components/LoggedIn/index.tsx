@@ -15,6 +15,7 @@ import Payslip from "../../pages/Payslip/Payslip";
 import PayslipDetails from "../../pages/Payslip/PayslipDetails";
 import ViewPayslip from "../../pages/Payslip/ViewPayslip";
 import BeafChickHunters from "../../pages/Beaf-Chick-Hunters/BeafChickHunters";
+import Outsourcing from "../../pages/Outsourcing/Outsourcing";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -95,6 +96,7 @@ const LoggedInContainer = () => {
               <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
               <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
               <Route path={`/beef-and-chick-hunters`} element={<BeafChickHunters />} />
+              <Route path={`/out-sourcing`} element={<Outsourcing />} />
             </Routes>
           </main>
         </div>
