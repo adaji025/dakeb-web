@@ -9,7 +9,7 @@ type Props = {
 
 const UploadImage: React.FC<Props> = ({ close, opened }) => {
   return (
-    <Modal centered opened={opened} onClose={close}>
+    <Modal centered opened={opened} onClose={close} title="Upload image">
       <div className=" p-5 border-dashed rounded-md">
         <DropzoneComponent />
       </div>
