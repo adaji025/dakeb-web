@@ -4,12 +4,16 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
+import { useDisclosure } from "@mantine/hooks";
+import Comfirmation from "../../components/Reports/Comfirmation";
 // import { Quill } from "react-quill";
 
 const CreateReports = () => {
+  const [opened, { open, close }] = useDisclosure(false);
+
   const { reportData, setReportData } = useContext(DataContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const modules = {
     toolbar: [
       ["undo", "redo"],
@@ -30,52 +34,57 @@ const CreateReports = () => {
   icons["redo"] = Redo;
 
   return (
-    <div className="max-w-[1300px] mx-auto py-10">
-      <div className="flex gap-10">
-        <div className="flex-1">
-          <Select
-            label="Category"
-            size="md"
-            data={[
-              { value: "activity report", label: "Activity report" },
-              { value: "incident report", label: "Incident report" },
-              { value: "procedure report", label: "Procedure report" },
-              { value: "vaccination report", label: "Vaccination report" },
-            ]}
-          />
+    <>
+      <Comfirmation {...{close, open, opened}} />
+      <div className="max-w-[1300px] mx-auto py-10">
+        <div className="flex gap-10">
+          <div className="flex-1">
+            <Select
+              label="Category"
+              size="md"
+              data={[
+                { value: "activity report", label: "Activity report" },
+                { value: "incident report", label: "Incident report" },
+                { value: "procedure report", label: "Procedure report" },
+                { value: "vaccination report", label: "Vaccination report" },
+              ]}
+            />
+          </div>
+
+          <div className="flex-1">
+            <Select
+              label="Priority"
+              size="md"
+              data={[
+                { value: "low", label: "low" },
+                { value: "medium", label: "medium" },
+                { value: "high", label: "high" },
+              ]}
+            />
+          </div>
         </div>
 
-        <div className="flex-1">
-          <Select
-            label="Priority"
-            size="md"
-            data={[
-              { value: "low", label: "low" },
-              { value: "medium", label: "medium" },
-              { value: "high", label: "high" },
-            ]}
+        <div className="min-h-screen mt-6">
+          <div className="mb-6 font-medium">Reports details</div>
+          <ReactQuill
+            theme="snow"
+            placeholder="type here ...."
+            value={reportData}
+            onChange={setReportData}
+            modules={modules}
+            className="h-[30vh] "
           />
+          <div className="mt-24 xl:mt-16">
+            <button
+              className="bg-dakeb-green-mid py-3 px-6 rounded-md text-white font-bold"
+              onClick={() => navigate("/reports/report-preview")}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="min-h-screen mt-6">
-        <div className="mb-6 font-medium">Reports details</div>
-        <ReactQuill
-          theme="snow"
-          placeholder="type here ...."
-          value={reportData}
-          onChange={setReportData}
-          modules={modules}
-          className="h-[30vh] "
-        />
-        <div className="mt-24 xl:mt-16">
-          <button className="bg-dakeb-green-mid py-3 px-6 rounded-md text-white font-bold"
-          onClick={() => navigate("/reports/report-preview")}>
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

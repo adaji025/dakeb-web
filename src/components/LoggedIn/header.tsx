@@ -1,29 +1,35 @@
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDisclosure } from "@mantine/hooks";
-
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddUser from "../Users/AddUser";
-import React from "react";
-import { DataContext } from "../../context/DataProvider";
+import AddHunter from "../BeafChickHunters/AddHunter";
+import AddReport from "../Outsourcing/AddReport";
+import AddBarcode from "../Barcode/AddBarcode";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Header: React.FC<Props> = ({ openMobileNav }) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [addUser, setAddUser] = useState<boolean>(false);
+  const [addHunter, setAddHunter] = useState<boolean>(false);
+  const [addOutsource, setAddOutsource] = useState<boolean>(false);
+  const [addBarcode, setActiveBarcode] = useState<boolean>(false);
 
-  const { createReport } = React.useContext(DataContext);
   const history = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const currentRoute = history.pathname;
 
   const handlePlusClick = () => {
-    history.pathname === "/users" && open();
+    history.pathname === "/users" && setAddUser(true);
+    history.pathname === "/beef-and-chick-hunters" && setAddHunter(true);
+    history.pathname === "/out-sourcing" && setAddOutsource(true);
+    history.pathname === "/maintenance-chart" && setAddOutsource(true);
+    history.pathname === "/barcode-develoment" && setActiveBarcode(true);
     history.pathname === "/reports" && navigate("/reports/create-report");
     history.pathname === "/forms" && navigate("/reports/create-report");
   };
@@ -39,7 +45,10 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
 
   return (
     <>
-      <AddUser {...{ close, opened }} />
+      <AddUser opened={addUser} close={() => setAddUser(false)} />
+      <AddHunter opened={addHunter} close={() => setAddHunter(false)} />
+      <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
+      <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
       <div className="h-[100px] w-full flex justify-between items-center border-b px-4 lg:px-10">
         <div className="flex items-center gap-2">
           <div
@@ -56,15 +65,20 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             <div className="absolute h-2 w-2 rounded-full bg-dakeb-red top-1 right-1" />
           </div>
 
-          {(currentRoute === "/users" || currentRoute === "/reports" || currentRoute === "/forms") &&
-            !createReport && (
-              <div
-                className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
-                onClick={handlePlusClick}
-              >
-                <AiOutlinePlus color="white" />
-              </div>
-            )}
+          {(currentRoute === "/users" ||
+            currentRoute === "/reports" ||
+            currentRoute === "/forms" ||
+            currentRoute === "/beef-and-chick-hunters" ||
+            currentRoute === "/out-sourcing" ||
+            currentRoute === "/maintenance-chart" ||
+            currentRoute === "/barcode-develoment") && (
+            <div
+              className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
+              onClick={handlePlusClick}
+            >
+              <AiOutlinePlus color="white" />
+            </div>
+          )}
 
           <FiSettings color="#4F4F4F" size={24} />
         </div>

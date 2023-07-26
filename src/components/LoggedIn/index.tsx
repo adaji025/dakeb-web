@@ -11,6 +11,14 @@ import Reports from "../../pages/Reports/Reports";
 import CreateReports from "../../pages/Reports/CreateReports";
 import ReportPreview from "../../pages/Reports/ReportPreview";
 import Forms from "../../pages/Forms/Forms";
+import Payslip from "../../pages/Payslip/Payslip";
+import PayslipDetails from "../../pages/Payslip/PayslipDetails";
+import ViewPayslip from "../../pages/Payslip/ViewPayslip";
+import BeafChickHunters from "../../pages/Beaf-Chick-Hunters/BeafChickHunters";
+import Outsourcing from "../../pages/Outsourcing/Outsourcing";
+import MaintenanceChart from "../../pages/MaintenanceChart/MaintenanceChart";
+import Barcode from "../../pages/Barcode/Barcode";
+import Settings from "../../pages/Settings/Settings";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -37,8 +45,8 @@ const LoggedInContainer = () => {
       url: "/pay-slip",
     },
     {
-      title: "Beef and Chicken",
-      url: "/beef-and-chicken",
+      title: "Beef and Chick Hunters",
+      url: "/beef-and-chick-hunters",
     },
     {
       title: "Out Sourcing",
@@ -53,8 +61,8 @@ const LoggedInContainer = () => {
       url: "/barcode-develoment",
     },
     {
-      title: "System Setup",
-      url: "/system-setup",
+      title: "Settings",
+      url: "/settings",
     },
   ];
 
@@ -87,6 +95,14 @@ const LoggedInContainer = () => {
                 path="/reports/report-preview"
                 element={<ReportPreview />}
               />
+              <Route path="/pay-slip" element={<Payslip />} />
+              <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
+              <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
+              <Route path={`/beef-and-chick-hunters`} element={<BeafChickHunters />} />
+              <Route path={`/out-sourcing`} element={<Outsourcing />} />
+              <Route path="/maintenance-chart" element={<MaintenanceChart />} />
+              <Route path="/barcode-develoment" element={<Barcode />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
         </div>
