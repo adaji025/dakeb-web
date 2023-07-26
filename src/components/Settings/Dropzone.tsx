@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, Image, SimpleGrid, Group } from "@mantine/core";
+import { Text, Image, Group } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
 import { IoImageOutline } from "react-icons/io5";
 
@@ -12,8 +12,8 @@ export function DropzoneComponent() {
       <Image
         key={index}
         src={imageUrl}
-            imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
-            radius="xl"
+        imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        radius="xl"
       />
     );
   });
@@ -21,17 +21,19 @@ export function DropzoneComponent() {
   return (
     <div>
       <Dropzone accept={IMAGE_MIME_TYPE} onDrop={setFiles}>
-        <Group position="center" my={16}>
-          <IoImageOutline size={30} />
-        </Group>
-        <div className="flex gap-5 justify-center">
-          <Text align="center" className="underline text-dakeb-green-mid">
-            Click to upload
-          </Text>
-          <Text align="center">Drop images here</Text>
+        <div>
+          <Group position="center" my={16}>
+            <IoImageOutline size={30} />
+          </Group>
+          <div className="flex gap-5 justify-center">
+            <Text align="center" className="underline text-dakeb-green-mid">
+              Click to upload
+            </Text>
+            <Text align="center">Drop images here</Text>
+          </div>
         </div>
 
-        <div className="mx-auto h-[100px] w-[100px] mt-10 rounded-full object-cover">
+        <div className={`mx-auto  mt-10 rounded-full object-cover ${previews.length !== 0 && "h-[100px] w-[100px]"}`}>
           {previews}
         </div>
       </Dropzone>
