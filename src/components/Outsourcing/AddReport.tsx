@@ -1,4 +1,4 @@
-import { Divider, Group, Modal, Select, Text, TextInput, Textarea } from "@mantine/core";
+import { Divider, Group, Modal, Select, Text, Textarea } from "@mantine/core";
 
 type Props = {
   close: () => void;

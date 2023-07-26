@@ -50,8 +50,8 @@ const users = [
   },
 ];
 
-const Outsourcing = () => {
-  const [active, setActive] = React.useState<"all" | "activity">("activity");
+const MaintenanceChart = () => {
+  const [active, setActive] = React.useState<"beaf" | "chick">("beaf");
 
   return (
     <div className="max-w-[1300px] mx-auto py-10">
@@ -59,23 +59,23 @@ const Outsourcing = () => {
         <div className="flex gap-5">
           <div
             className={`text-base font-medium cursor-pointer ${
-              active === "all"
+              active === "beaf"
                 ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
                 : "text-[#828282]"
             }`}
-            onClick={() => setActive("all")}
+            onClick={() => setActive("beaf")}
           >
-            All
+            Beef hunters
           </div>
           <div
             className={`text-base font-medium cursor-pointer ${
-              active === "activity"
+              active === "chick"
                 ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
                 : "text-[#828282]"
             }`}
-            onClick={() => setActive("activity")}
+            onClick={() => setActive("chick")}
           >
-            Activity Report
+            Chick hunters
           </div>
         </div>
 
@@ -98,6 +98,7 @@ const Outsourcing = () => {
                     <td>{element.submitted_by}</td>
                     <td>{element.unit}</td>
                     <td>
+                      {" "}
                       <div className="flex items-center gap-2">
                         <div
                           className={`h-2 w-2 rounded-full ${
@@ -108,13 +109,17 @@ const Outsourcing = () => {
                               : "bg-[#1D08AF]"
                           }`}
                         />
-                        <div className={`${
+                        <div
+                          className={`${
                             element.priority === "high"
                               ? "text-[#EB0E0B]"
                               : element.priority === "medium"
                               ? "text-[#F2994A]"
                               : "text-[#1D08AF]"
-                          }`}>{element.priority}</div>
+                          }`}
+                        >
+                          {element.priority}
+                        </div>
                       </div>
                     </td>
                     <td>
@@ -139,4 +144,4 @@ const Outsourcing = () => {
   );
 };
 
-export default Outsourcing;
+export default MaintenanceChart;

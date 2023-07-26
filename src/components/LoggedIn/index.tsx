@@ -16,6 +16,9 @@ import PayslipDetails from "../../pages/Payslip/PayslipDetails";
 import ViewPayslip from "../../pages/Payslip/ViewPayslip";
 import BeafChickHunters from "../../pages/Beaf-Chick-Hunters/BeafChickHunters";
 import Outsourcing from "../../pages/Outsourcing/Outsourcing";
+import MaintenanceChart from "../../pages/MaintenanceChart/MaintenanceChart";
+import Barcode from "../../pages/Barcode/Barcode";
+import Settings from "../../pages/Settings/Settings";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -58,8 +61,8 @@ const LoggedInContainer = () => {
       url: "/barcode-develoment",
     },
     {
-      title: "System Setup",
-      url: "/system-setup",
+      title: "Settings",
+      url: "/settings",
     },
   ];
 
@@ -97,6 +100,9 @@ const LoggedInContainer = () => {
               <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
               <Route path={`/beef-and-chick-hunters`} element={<BeafChickHunters />} />
               <Route path={`/out-sourcing`} element={<Outsourcing />} />
+              <Route path="/maintenance-chart" element={<MaintenanceChart />} />
+              <Route path="/barcode-develoment" element={<Barcode />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
         </div>
