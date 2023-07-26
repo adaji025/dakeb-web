@@ -19,6 +19,7 @@ import Outsourcing from "../../pages/Outsourcing/Outsourcing";
 import MaintenanceChart from "../../pages/MaintenanceChart/MaintenanceChart";
 import Barcode from "../../pages/Barcode/Barcode";
 import Settings from "../../pages/Settings/Settings";
+import Mangement from "../../pages/Management/Management";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -61,8 +62,8 @@ const LoggedInContainer = () => {
       url: "/barcode-develoment",
     },
     {
-      title: "Settings",
-      url: "/settings",
+      title: "Management",
+      url: "/system-setup",
     },
   ];
 
@@ -103,6 +104,7 @@ const LoggedInContainer = () => {
               <Route path="/maintenance-chart" element={<MaintenanceChart />} />
               <Route path="/barcode-develoment" element={<Barcode />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/system-setup" element={<Mangement />} />
             </Routes>
           </main>
         </div>

@@ -3,7 +3,6 @@ import { columns } from "../../components/Reports/ReportsTable/Column";
 import { ReportsTable } from "../../components/Reports/ReportsTable";
 import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
-import CreateReports from "./CreateReports";
 
 const users = [
   {

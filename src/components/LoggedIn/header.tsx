@@ -8,6 +8,7 @@ import AddUser from "../Users/AddUser";
 import AddHunter from "../BeafChickHunters/AddHunter";
 import AddReport from "../Outsourcing/AddReport";
 import AddBarcode from "../Barcode/AddBarcode";
+import CreateRole from "../Management/CreateRole";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +19,8 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
   const [addHunter, setAddHunter] = useState<boolean>(false);
   const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
+  const [createRoles, setCreateRoles] = React.useState<boolean>(true)
+
 
   const history = useLocation();
   const navigate = useNavigate();
@@ -49,6 +52,8 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
       <AddHunter opened={addHunter} close={() => setAddHunter(false)} />
       <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
       <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
+      <CreateRole opened={createRoles} close={() => setCreateRoles(false)} />
+
       <div className="h-[100px] w-full flex justify-between items-center border-b px-4 lg:px-10">
         <div className="flex items-center gap-2">
           <div
@@ -71,7 +76,9 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             currentRoute === "/beef-and-chick-hunters" ||
             currentRoute === "/out-sourcing" ||
             currentRoute === "/maintenance-chart" ||
-            currentRoute === "/barcode-develoment") && (
+            currentRoute === "/barcode-develoment" ||
+            currentRoute === "/system-setup" ||
+            currentRoute === "/system-setup") && (
             <div
               className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
               onClick={handlePlusClick}
@@ -79,8 +86,9 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
               <AiOutlinePlus color="white" />
             </div>
           )}
-
-          <FiSettings color="#4F4F4F" size={24} />
+          <div className="cursor-pointer" onClick={() => navigate("/settings")}>
+            <FiSettings color="#4F4F4F" size={24} />
+          </div>
         </div>
       </div>
     </>
