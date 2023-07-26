@@ -1,4 +1,4 @@
-import { Avatar, Menu, Table } from "@mantine/core";
+import { Avatar, Table } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import GeneratePayslip from "../../components/Paylip/GeneratePayslip";
 import { useNavigate } from "react-router-dom";
