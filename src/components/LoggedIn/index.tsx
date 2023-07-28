@@ -26,6 +26,7 @@ import ManageDepartments from "../../pages/Management/ManageDepartment";
 import ManagePositions from "../../pages/Management/ManagePositions";
 import AnimalObservation from "../../pages/Forms/AnimalObservation";
 import TurnOverForm from "../../pages/Forms/TurnOverform";
+import PurchaseForm from "../../pages/Forms/PurchaseForm";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -96,6 +97,7 @@ const LoggedInContainer = () => {
               <Route path="/forms" element={<Forms />} />
               <Route path="/forms/animal-observation-form" element={<AnimalObservation />} />
               <Route path="/forms/turn-over-form" element={<TurnOverForm />} />
+              <Route path="/forms/purchase-form" element={<PurchaseForm />} />
               <Route
                 path="/reports/create-report"
                 element={<CreateReports />}
