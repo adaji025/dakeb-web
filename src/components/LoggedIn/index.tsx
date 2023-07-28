@@ -24,6 +24,7 @@ import ManageReports from "../../pages/Management/ManageReports";
 import ManageForms from "../../pages/Management/ManageForms";
 import ManageDepartments from "../../pages/Management/ManageDepartment";
 import ManagePositions from "../../pages/Management/ManagePositions";
+import AnimalObservation from "../../pages/Forms/AnimalObservation";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -92,6 +93,7 @@ const LoggedInContainer = () => {
               <Route path="/users/user-details" element={<UserDetails />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/forms" element={<Forms />} />
+              <Route path="/forms/animal-observation-form" element={<AnimalObservation />} />
               <Route
                 path="/reports/create-report"
                 element={<CreateReports />}

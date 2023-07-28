@@ -9,6 +9,7 @@ import AddHunter from "../BeafChickHunters/AddHunter";
 import AddReport from "../Outsourcing/AddReport";
 import AddBarcode from "../Barcode/AddBarcode";
 import CreateRole from "../Management/CreateRole";
+import { BsArrowLeft } from "react-icons/bs";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,8 +20,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
   const [addHunter, setAddHunter] = useState<boolean>(false);
   const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
-  const [createRoles, setCreateRoles] = React.useState<boolean>(false)
-
+  const [createRoles, setCreateRoles] = React.useState<boolean>(false);
 
   const history = useLocation();
   const navigate = useNavigate();
@@ -47,9 +47,19 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
       ? "Dashboard"
       : history.pathname === "/users"
       ? "Users Management"
+      : currentRoute === "/users/user-details"
+      ? "User Details"
       : history.pathname === "/reports"
       ? "Reports"
-      : history.pathname === "/forms";
+      : history.pathname === "/forms"
+      ? "Forms"
+      : currentRoute === "/pay-slip"
+      ? "Pay Slip"
+      : currentRoute === `/pay-slip/`
+      ? "Pay slip Details"
+      : currentRoute === "/beef-and-chick-hunters"
+      ? "Beef and chick hunters"
+      : currentRoute.slice(1);
 
   return (
     <>
@@ -67,7 +77,12 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
           >
             <FaBars color="#157145" size={24} />
           </div>
-          <h2 className="text-lg font-semibold">{pageTitle}</h2>
+          <div className="flex items-center gap-2">
+            <div className="cursor-pointer" onClick={() => navigate(-1)}>
+              <BsArrowLeft size={24} />
+            </div>
+            <h2 className="text-lg font-semibold capitalize">{pageTitle}</h2>
+          </div>
         </div>
         <div className="flex items-center gap-5">
           <div className="relative">
