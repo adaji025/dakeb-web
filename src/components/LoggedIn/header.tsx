@@ -19,7 +19,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
   const [addHunter, setAddHunter] = useState<boolean>(false);
   const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
-  const [createRoles, setCreateRoles] = React.useState<boolean>(true)
+  const [createRoles, setCreateRoles] = React.useState<boolean>(false)
 
 
   const history = useLocation();
@@ -33,6 +33,11 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
     history.pathname === "/out-sourcing" && setAddOutsource(true);
     history.pathname === "/maintenance-chart" && setAddOutsource(true);
     history.pathname === "/barcode-develoment" && setActiveBarcode(true);
+    history.pathname === "/system-setup" && setCreateRoles(true);
+    history.pathname === "/system-setup/reports" && setCreateRoles(true);
+    history.pathname === "/system-setup/forms" && setCreateRoles(true);
+    history.pathname === "/system-setup/positions" && setCreateRoles(true);
+    history.pathname === "/system-setup/departments" && setCreateRoles(true);
     history.pathname === "/reports" && navigate("/reports/create-report");
     history.pathname === "/forms" && navigate("/reports/create-report");
   };
@@ -78,7 +83,11 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             currentRoute === "/maintenance-chart" ||
             currentRoute === "/barcode-develoment" ||
             currentRoute === "/system-setup" ||
-            currentRoute === "/system-setup") && (
+            currentRoute === "/system-setup/roles" ||
+            currentRoute === "/system-setup/positions" ||
+            currentRoute === "/system-setup/forms" ||
+            currentRoute === "/system-setup/departments" ||
+            currentRoute === "/system-setup/reports") && (
             <div
               className="h-[40px] w-[40px] rounded-full bg-dakeb-green-dark flex justify-center items-center cursor-pointer"
               onClick={handlePlusClick}

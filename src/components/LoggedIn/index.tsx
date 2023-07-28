@@ -20,6 +20,10 @@ import MaintenanceChart from "../../pages/MaintenanceChart/MaintenanceChart";
 import Barcode from "../../pages/Barcode/Barcode";
 import Settings from "../../pages/Settings/Settings";
 import Mangement from "../../pages/Management/Management";
+import ManageReports from "../../pages/Management/ManageReports";
+import ManageForms from "../../pages/Management/ManageForms";
+import ManageDepartments from "../../pages/Management/ManageDepartment";
+import ManagePositions from "../../pages/Management/ManagePositions";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -105,6 +109,10 @@ const LoggedInContainer = () => {
               <Route path="/barcode-develoment" element={<Barcode />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/system-setup" element={<Mangement />} />
+              <Route path="/system-setup/positions" element={<ManagePositions />} />
+              <Route path="/system-setup/reports" element={<ManageReports />} />
+              <Route path="/system-setup/forms" element={<ManageForms />} />
+              <Route path="/system-setup/departments" element={<ManageDepartments />} />
             </Routes>
           </main>
         </div>
