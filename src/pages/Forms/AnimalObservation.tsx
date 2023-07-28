@@ -4,7 +4,7 @@ const AnimalObservation = () => {
   return (
     <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
       <h2 className="font-semibold mb-5">A. Animal information</h2>
-      <div className="flex gap-10">
+      <div className="flex flex-col sm:flex-row gap-10">
         <div className="flex-1">
           <TextInput
             size="md"
@@ -68,7 +68,7 @@ const AnimalObservation = () => {
 
       <div className="mt-16">
         <h2 className="font-semibold mb-5">B. Animal facilities</h2>
-        <div className="flex gap-10">
+        <div className="flex flex-col sm:flex-row gap-10">
           <div className="flex-1">
             <TextInput
               size="md"
@@ -97,6 +97,10 @@ const AnimalObservation = () => {
             />
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-center mt-20">
+        <button className="min-w-[200px] bg-dakeb-green-mid text-white font-bold py-3 rounded-md">Submit</button>
       </div>
     </div>
   );
