@@ -1,12 +1,11 @@
 import { Select } from "@mantine/core";
 import { useContext } from "react";
-import ReactQuill, { Quill } from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import Comfirmation from "../../components/Reports/Comfirmation";
-// import { Quill } from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreateReports = () => {
   const [opened, { open, close }] = useDisclosure(false);

@@ -27,6 +27,8 @@ import ManagePositions from "../../pages/Management/ManagePositions";
 import AnimalObservation from "../../pages/Forms/AnimalObservation";
 import TurnOverForm from "../../pages/Forms/TurnOverform";
 import PurchaseForm from "../../pages/Forms/PurchaseForm";
+import DailyExpenseForm from "../../pages/Forms/DailyExpenseForm";
+import PlantationObservation from "../../pages/Forms/PlantationObservation";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -98,6 +100,8 @@ const LoggedInContainer = () => {
               <Route path="/forms/animal-observation-form" element={<AnimalObservation />} />
               <Route path="/forms/turn-over-form" element={<TurnOverForm />} />
               <Route path="/forms/purchase-form" element={<PurchaseForm />} />
+              <Route path="/forms/daily-expenses-form" element={<DailyExpenseForm />} />
+              <Route path="/forms/plantation-observation-form" element={<PlantationObservation />} />
               <Route
                 path="/reports/create-report"
                 element={<CreateReports />}
