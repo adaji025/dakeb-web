@@ -1,11 +1,11 @@
 import React from "react";
-import { columns } from "../../components/Reports/ReportsTable/Column";
-import { ReportsTable } from "../../components/Reports/ReportsTable";
 import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
+import ReportTable from "../../components/Reports/ReportTable";
 
-const users = [
+const datas = [
   {
+    id: 1,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_by: "Roger Curtis",
@@ -14,6 +14,7 @@ const users = [
     status: "accepted",
   },
   {
+    id: 2,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_by: "Roger Curtis",
@@ -21,7 +22,7 @@ const users = [
     date_submitted: "06 - 06 - 2010",
     status: "accepted",
   },
-  {
+  {id: 5,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_by: "Lydia Workman",
@@ -30,6 +31,7 @@ const users = [
     status: "pending",
   },
   {
+    id: 3,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_by: "Roger Curtis",
@@ -38,6 +40,7 @@ const users = [
     status: "accepted",
   },
   {
+    id: 4,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_by: "Roger Curtis",
@@ -49,7 +52,6 @@ const users = [
 
 const Forms = () => {
   const [tableType, setTableType] = React.useState("All");
-  const [tableId] = React.useState("");
 
   const { createReport } = React.useContext(DataContext);
   const tableList = [
@@ -84,7 +86,7 @@ const Forms = () => {
               <CatMenu />
             </div>
             <div className="mt-10">
-              <ReportsTable data={users} {...{ columns, tableId }} />
+              <ReportTable data={datas} />
             </div>
           </>
         )}

@@ -92,7 +92,7 @@ const BeafChickHunters = () => {
             Chick hunters
           </div>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 overflow-auto">
           <Table verticalSpacing="md">
             <thead>
               <tr>

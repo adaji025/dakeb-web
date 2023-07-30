@@ -80,7 +80,7 @@ const Outsourcing = () => {
         </div>
 
         <div className="mt-10">
-          <div className="mt-5">
+          <div className="mt-5 overflow-auto">
             <Table verticalSpacing="md">
               <thead>
                 <tr>

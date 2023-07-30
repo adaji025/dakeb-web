@@ -1,13 +1,12 @@
-import React from "react";
-import { AdminTable } from "../../components/Dashboard/AdminTable";
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
-import { columns } from "../../components/Dashboard/AdminTable/Column";
 import YearFilter from "../../components/Dashboard/YearFilter";
-import { StatCard } from "../../components/Dashboard/AdminTable/StarCard";
+import { StatCard } from "../../components/Dashboard/StarCard";
+import AdminStaffTable from "../../components/Dashboard/AdminTable";
 
-const users = [
+const dada = [
   {
+    id: 1,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -16,6 +15,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 2,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -24,6 +24,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 4,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -32,6 +33,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 3,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -42,8 +44,7 @@ const users = [
 ];
 
 const AdminDashboard = () => {
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [tableId] = React.useState("");
+  
   const statsData = [
     {
       increase: true,
@@ -133,10 +134,7 @@ const AdminDashboard = () => {
             <YearFilter />
           </div>
         </div>
-        <AdminTable
-          data={users}
-          {...{ columns, tableId, setRowSelection, state: { rowSelection } }}
-        />
+       <AdminStaffTable data={dada} />
       </div>
     </div>
   );

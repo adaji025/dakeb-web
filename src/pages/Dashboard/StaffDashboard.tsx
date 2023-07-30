@@ -1,47 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import ParkIcon from "../../assets/svgs/park.svg";
-import { columns } from "../../components/Dashboard/StaffTable/Column";
-import { StatCard } from "../../components/Dashboard/StaffTable/StarCard";
-import { StaffTable } from "../../components/Dashboard/StaffTable";
-import { HunterTable } from "../../components/Dashboard/HunterTable";
+import { StatCard } from "../../components/Dashboard/StarCard";
+import { Table } from "@mantine/core";
+import { IoCopyOutline } from "react-icons/io5";
+import StaffTable from "../../components/Dashboard/StaffTable";
 
-
-const users = [
+const data = [
   {
+    id: 1,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_to: "Roger Curtis",
     date_submitted: "06 - 06 - 2010",
     status: "accepted",
+    codes: "DGTHE564",
   },
   {
+    id: 2,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_to: "Roger Curtis",
     date_submitted: "06 - 06 - 2010",
     status: "accepted",
+    codes: "DGTHE564",
   },
   {
+    id: 3,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_to: "Lydia Workman",
     date_submitted: "06 - 06 - 2010",
     status: "pending",
+
+    codes: "DGTHE564",
   },
   {
+    id: 4,
     category: "Cooper Lubin",
     department: "dulcesanton@gmail.com",
     submitted_to: "Roger Curtis",
     date_submitted: "06 - 06 - 2010",
     status: "accepted",
+    codes: "DGTHE564",
   },
 ];
 
-
-
 const StaffDashboard = () => {
-  const [tableId] = React.useState("");
   const [tableType, setTableType] = React.useState("Reports");
+  const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+
+  const isAllRowsSelected =
+    data.length > 0 && selectedRowIds.length === data.length;
+
+  const handleRowCheckboxChange = (id: number) => {
+    setSelectedRowIds((prevId) =>
+      prevId.includes(id)
+        ? prevId.filter((rowId) => rowId !== id)
+        : [...prevId, id]
+    );
+  };
+
+  const handleSelectAllRows = () => {
+    if (isAllRowsSelected) {
+      setSelectedRowIds([]);
+    } else {
+      setSelectedRowIds(data.map((row) => row.id));
+    }
+  };
+
+  const isRowSelected = (id: number) => selectedRowIds.includes(id);
+
   const statsData = [
     {
       increase: true,
@@ -69,6 +97,7 @@ const StaffDashboard = () => {
       percentage: "3.3",
     },
   ];
+
   return (
     <div className="max-w-[1300px] mx-auto overflow-x-hidden">
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
@@ -105,15 +134,61 @@ const StaffDashboard = () => {
             Forms
           </div>
         </div>
-        <StaffTable data={users} {...{ columns, tableId }} />
+<StaffTable data={data} />
       </div>
 
-      <div className="mt-20 border">
+      <div className="mt-20 border min-h-[300px]">
         <div className="flex items-center justify-between gap-5 px-6 pt-6">
-         <h2 className="font-semibold">Beef and chick hunter</h2>
-         <div className="text-sm">View all</div>
+          <h2 className="font-semibold">Beef and chick hunter</h2>
+          <div className="text-sm">View all</div>
         </div>
-        <HunterTable {...{tableId}} />
+        <div className="px-3 mt-3">
+          <Table className="overflow-auto">
+            <thead>
+              <tr>
+                <th>
+                  <div className="flex gap-3">
+                    <input
+                      type="checkbox"
+                      checked={isAllRowsSelected}
+                      onChange={handleSelectAllRows}
+                    />
+                    <div>Full name</div>
+                  </div>
+                </th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Type</th>
+                <th>Codes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item) => (
+                <tr>
+                  <td>
+                    <div className="flex gap-3">
+                      <input
+                        type="checkbox"
+                        checked={isRowSelected(item.id)}
+                        onChange={() => handleRowCheckboxChange(item.id)}
+                      />
+                      {item.category}
+                    </div>
+                  </td>
+                  <td>{item.department}</td>
+                  <td>{item.submitted_to}</td>
+                  <td>{item.date_submitted}</td>
+                  <td>
+                    <div className="flex gap-5">
+                      <div className="text-dakeb-green-mid">{item.codes}</div>
+                      <IoCopyOutline color="#157145" />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
     </div>
   );

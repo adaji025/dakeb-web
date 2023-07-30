@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  DecreaseIcon,
-  EmployeeIcon,
-  FileIcon,
-  RevenueIcon,
-  UserIcon,
-} from "../../Svgs";
+import { CodeIcon, DecreaseIcon, FileIcon, UserIcon } from "../Svgs";
 
 type Props = {
   item: {
@@ -22,20 +16,20 @@ export const StatCard: React.FC<Props> = ({ item }) => {
       <div className="flex items-center gap-2 pl-2 pr-4 xl:pr-6 w-full">
         <div
           className={`flex justify-center items-center w-[40px] xl:w-[56px] h-[40px] xl:h-[56px]  rounded-full ${
-            item.title === "Revenue"
+            item.title === "Total forms generated"
               ? "bg-dakeb-green-mid"
-              : item.title === "Total employees"
+              : item.title === "Total code generated"
               ? "bg-[#1D08AF]"
-              : item.title === "Reports"
+              : item.title === "Total reports generated"
               ? "bg-[#DEA90A]"
               : "bg-[#DE4D86]"
           }`}
         >
-          {item.title === "Revenue" ? (
-            <RevenueIcon />
-          ) : item.title === "Total employees" ? (
-            <EmployeeIcon />
-          ) : item.title === "Reports" ? (
+          {item.title === "Total forms generated" ? (
+            <FileIcon />
+          ) : item.title === "Total code generated" ? (
+            <CodeIcon />
+          ) : item.title === "Total reports generated" ? (
             <FileIcon />
           ) : (
             <UserIcon />
