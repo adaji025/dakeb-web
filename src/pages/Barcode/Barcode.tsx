@@ -39,8 +39,8 @@ const users = [
 ];
 
 const Barcode = () => {
-  const [active, setActive] = React.useState<"all" | "activity">("activity");
-  const [opened, { open, close }] = useDisclosure(true);
+  const [active, setActive] = React.useState<"all" | "activity">("all");
+  const [opened, { open, close }] = useDisclosure(false);
   return (
     <>
       <Download {...{ opened, open, close }} />
@@ -68,39 +68,37 @@ const Barcode = () => {
           </div>
         </div>
 
-        <div className="mt-10">
-          <div className="mt-5">
-            <Table verticalSpacing="md">
-              <thead>
-                <tr>
-                  <th>Barcode type</th>
-                  <th>Data</th>
-                  <th>Width</th>
-                  <th>Output type</th>
-                  <th>Date generated</th>
+        <div className="mt-5 overflow-auto">
+          <Table verticalSpacing="md">
+            <thead>
+              <tr>
+                <th>Barcode type</th>
+                <th>Data</th>
+                <th>Width</th>
+                <th>Output type</th>
+                <th>Date generated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((element) => (
+                <tr key={element.id}>
+                  <td>{element.barcode_type}</td>
+                  <td>{element.data}</td>
+                  <td>{element.width}</td>
+                  <td>{element.output_type}</td>
+                  <td>{element.date_generated}</td>
+                  <td>
+                    <button
+                      className="font-semibold text-dakeb-green-mid"
+                      onClick={open}
+                    >
+                      Download
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {users.map((element) => (
-                  <tr key={element.id}>
-                    <td>{element.barcode_type}</td>
-                    <td>{element.data}</td>
-                    <td>{element.width}</td>
-                    <td>{element.output_type}</td>
-                    <td>{element.date_generated}</td>
-                    <td>
-                      <button
-                        className="font-semibold text-dakeb-green-mid"
-                        onClick={open}
-                      >
-                        Download
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+              ))}
+            </tbody>
+          </Table>
         </div>
       </div>
     </>

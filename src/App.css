@@ -17,4 +17,5 @@
 
   th, td { 
     border: none !important;
+    white-space: nowrap;
   }

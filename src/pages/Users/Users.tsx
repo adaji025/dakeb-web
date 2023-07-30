@@ -1,9 +1,9 @@
 import React from "react";
-import { UserTable } from "../../components/Users/UserTable";
-import { columns } from "../../components/Dashboard/AdminTable/Column";
+import AdminStaffTable from "../../components/Dashboard/AdminTable";
 
-const users = [
+const datas = [
   {
+    id: 1,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -12,6 +12,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 2,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -20,6 +21,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 4,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -28,6 +30,7 @@ const users = [
     date_joined: "06 - 06 - 2010",
   },
   {
+    id: 3,
     name: "Cooper Lubin",
     email: "dulcesanton@gmail.com",
     phone_number: "08156431267",
@@ -38,11 +41,9 @@ const users = [
 ];
 
 const Users = () => {
-  const [rowSelection, setRowSelection] = React.useState({});
   const [active, setActive] = React.useState<"administrator" | "staff">(
     "administrator"
   );
-  const [tableId] = React.useState<string>("");
 
   return (
     <>
@@ -69,11 +70,8 @@ const Users = () => {
             Staff
           </div>
         </div>
-        <div className="mt-5">
-          <UserTable
-            data={users}
-            {...{ columns, tableId, setRowSelection, state: { rowSelection } }}
-          />
+        <div className="mt-5 overflow-auto">
+          <AdminStaffTable data={datas} />
         </div>
       </div>
     </>
