@@ -2,14 +2,10 @@ import { Select } from "@mantine/core";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
-import { useDisclosure } from "@mantine/hooks";
-import Comfirmation from "../../components/Reports/Comfirmation";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const CreateReports = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-
   const { reportData, setReportData } = useContext(DataContext);
 
   const navigate = useNavigate();
@@ -34,7 +30,6 @@ const CreateReports = () => {
 
   return (
     <>
-      <Comfirmation {...{close, open, opened}} />
       <div className="max-w-[1300px] mx-auto py-10">
         <div className="flex gap-10">
           <div className="flex-1">

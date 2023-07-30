@@ -55,7 +55,6 @@ DataTableProps<TData, TValue>) {
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
-                  console.log(cell.row.original);
                   if (cell.column.id === "status") {
                     return (
                       <td key={idx} className="flex justify-center border-b py-4">

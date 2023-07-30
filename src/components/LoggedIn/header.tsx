@@ -10,6 +10,7 @@ import AddReport from "../Outsourcing/AddReport";
 import AddBarcode from "../Barcode/AddBarcode";
 import CreateRole from "../Management/CreateRole";
 import { BsArrowLeft } from "react-icons/bs";
+import Comfirmation from "../Forms/Comfirmation";
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,6 +22,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
   const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
   const [createRoles, setCreateRoles] = React.useState<boolean>(false);
+  const [createForm, setCreateForm] = React.useState<boolean>(false)
 
   const history = useLocation();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
     history.pathname === "/system-setup/positions" && setCreateRoles(true);
     history.pathname === "/system-setup/departments" && setCreateRoles(true);
     history.pathname === "/reports" && navigate("/reports/create-report");
-    history.pathname === "/forms" && navigate("/reports/create-report");
+    history.pathname === "/forms" && setCreateForm(true);
   };
 
   const pageTitle =
@@ -68,6 +70,8 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
       <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
       <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
       <CreateRole opened={createRoles} close={() => setCreateRoles(false)} />
+      <Comfirmation opened={createForm} close={() => setCreateForm(false)}  />
+
 
       <div className="h-[100px] w-full flex justify-between items-center border-b px-4 lg:px-10">
         <div className="flex items-center gap-2">

@@ -1,4 +1,4 @@
-import { Select, TextInput } from "@mantine/core";
+import { TextInput } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
