@@ -20,6 +20,15 @@ import MaintenanceChart from "../../pages/MaintenanceChart/MaintenanceChart";
 import Barcode from "../../pages/Barcode/Barcode";
 import Settings from "../../pages/Settings/Settings";
 import Mangement from "../../pages/Management/Management";
+import ManageReports from "../../pages/Management/ManageReports";
+import ManageForms from "../../pages/Management/ManageForms";
+import ManageDepartments from "../../pages/Management/ManageDepartment";
+import ManagePositions from "../../pages/Management/ManagePositions";
+import AnimalObservation from "../../pages/Forms/AnimalObservation";
+import TurnOverForm from "../../pages/Forms/TurnOverform";
+import PurchaseForm from "../../pages/Forms/PurchaseForm";
+import DailyExpenseForm from "../../pages/Forms/DailyExpenseForm";
+import PlantationObservation from "../../pages/Forms/PlantationObservation";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -88,6 +97,11 @@ const LoggedInContainer = () => {
               <Route path="/users/user-details" element={<UserDetails />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/forms" element={<Forms />} />
+              <Route path="/forms/animal-observation-form" element={<AnimalObservation />} />
+              <Route path="/forms/turn-over-form" element={<TurnOverForm />} />
+              <Route path="/forms/purchase-form" element={<PurchaseForm />} />
+              <Route path="/forms/daily-expenses-form" element={<DailyExpenseForm />} />
+              <Route path="/forms/plantation-observation-form" element={<PlantationObservation />} />
               <Route
                 path="/reports/create-report"
                 element={<CreateReports />}
@@ -105,6 +119,10 @@ const LoggedInContainer = () => {
               <Route path="/barcode-develoment" element={<Barcode />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/system-setup" element={<Mangement />} />
+              <Route path="/system-setup/positions" element={<ManagePositions />} />
+              <Route path="/system-setup/reports" element={<ManageReports />} />
+              <Route path="/system-setup/forms" element={<ManageForms />} />
+              <Route path="/system-setup/departments" element={<ManageDepartments />} />
             </Routes>
           </main>
         </div>
