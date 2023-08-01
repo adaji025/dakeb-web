@@ -82,10 +82,10 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
             <FaBars color="#157145" size={24} />
           </div>
           <div className="flex items-center gap-2">
-            <div className="cursor-pointer" onClick={() => navigate(-1)}>
-              <BsArrowLeft size={24} />
+            <div className="cursor-pointer sm:text-2xl" onClick={() => navigate(-1)}>
+              <BsArrowLeft />
             </div>
-            <h2 className="text-lg font-semibold capitalize">{pageTitle}</h2>
+            <h2 className="sm:text-lg font-semibold capitalize">{pageTitle}</h2>
           </div>
         </div>
         <div className="flex items-center gap-5">
