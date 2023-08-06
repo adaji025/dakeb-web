@@ -103,6 +103,7 @@ const StaffDashboard = () => {
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
         {statsData.map((item, idx) => (
           <div
+            key={idx}
             className={`border xs:border-0  w-full ${
               idx === 3 ? "lg:border-r-0" : "lg:border-r"
             }`}
