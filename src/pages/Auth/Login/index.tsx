@@ -8,7 +8,7 @@ import { decodeJWT } from "../../../lib/utils";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
-import { userLogin } from "../../../services/Auth/auth";
+import { userLogin } from "../../../services/auth/auth";
 
 const Login = () => {
   const [token, setToken] = useState<TokenType | null>(null)
