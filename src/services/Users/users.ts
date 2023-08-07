@@ -12,3 +12,15 @@ export const addUser = (data: any) => {
       });
   });
 };
+
+export const getUsers = () => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.get(`${APIS.USERS.GET_USERS}`)
+      .then((res: any) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
