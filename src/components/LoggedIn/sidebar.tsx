@@ -1,9 +1,8 @@
 import { Avatar } from "@mantine/core";
 import React from "react";
 import { BsCamera } from "react-icons/bs";
-// import { useNavigate } from "react-router";
 import Logo from "../../assets/svgs/dakeb-logo-light.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   menuItem: Array<{
@@ -18,8 +17,6 @@ const Sidebar = ({ menuItem }: Props) => {
   const [imagePreview, setImagePreview] = React.useState("");
 
   const navigate = useNavigate();
-  const history = useLocation();
-  console.log(history);
 
   const uploadRef = React.useRef<HTMLInputElement>(null);
 

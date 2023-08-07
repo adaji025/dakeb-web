@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import { Box, Checkbox, TextInput, PasswordInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { login } from "../../../services/auth/auth";
+import { login } from "../../../services/Auth/auth";
 import { TokenType } from "../../../types/util";
 import { decodeJWT } from "../../../lib/utils";
 
