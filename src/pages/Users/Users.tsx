@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { LoadingOverlay } from "@mantine/core";
 import AdminStaffTable from "../../components/Dashboard/AdminTable";
+import { getUsers } from "../../services/Users/users";
 
 const datas = [
   {
@@ -41,13 +43,35 @@ const datas = [
 ];
 
 const Users = () => {
+  const [loading, setLoading] = useState(false);
   const [active, setActive] = React.useState<"administrator" | "staff">(
     "administrator"
   );
+  const [users, setUsers] = React.useState([]);
 
+  console.log("users", users);
+
+  useEffect(() => {
+    handleGetUsers();
+  }, []);
+
+  const handleGetUsers = () => {
+    setLoading(true);
+    getUsers()
+      .then((res: any) => {
+        setUsers(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <>
+      <LoadingOverlay visible={loading} overlayBlur={2} />
       <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
         <div className="flex gap-5">
           <div

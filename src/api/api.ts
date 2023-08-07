@@ -6,7 +6,7 @@ export const APIS = {
     },
     USERS: {
         ADD_USER: `${api}/user`,
-        GET_USER: `${api}/users`,
+        GET_USERS: `${api}/user`,
         SINGLE_USER: (id: string) => `${api}/user/${id}`,
     },
     FORMS: {},
