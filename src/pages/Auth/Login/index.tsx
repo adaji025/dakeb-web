@@ -3,12 +3,12 @@ import { useForm } from "@mantine/form";
 import { Box, Checkbox, TextInput, PasswordInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { login } from "../../../services/Auth/auth";
 import { TokenType } from "../../../types/util";
 import { decodeJWT } from "../../../lib/utils";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
+import { login } from "../../../services/Auth/auth";
 
 const Login = () => {
   const [token, setToken] = useState<TokenType | null>(null)
