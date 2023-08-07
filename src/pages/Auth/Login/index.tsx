@@ -8,7 +8,7 @@ import { decodeJWT } from "../../../lib/utils";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
-import { login } from "../../../services/Auth/auth";
+import { userLogin } from "../../../services/Auth/auth";
 
 const Login = () => {
   const [token, setToken] = useState<TokenType | null>(null)
@@ -25,7 +25,7 @@ const Login = () => {
   });
 
   const submit = (values: { email: string; password: string }) => {
-    login(values.email, values.password)
+    userLogin(values.email, values.password)
       .then((res: any) => {
         console.log('jwt token ==>', decodeJWT(res.data.token));
         setToken(res.data.token)
