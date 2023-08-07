@@ -61,7 +61,7 @@ const StaffTable = ({ data }: Props) => {
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <td>
                 <div className="flex gap-3">
                   <input

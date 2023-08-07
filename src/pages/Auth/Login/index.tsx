@@ -1,15 +1,54 @@
+import {useState} from "react"
+import { useForm } from "@mantine/form";
+import { Box, Checkbox, TextInput, PasswordInput } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { Box, Checkbox, TextInput } from "@mantine/core";
-import styles from "../Auth.module.css";
+import { TokenType } from "../../../types/util";
+import { decodeJWT } from "../../../lib/utils";
+
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
+import styles from "../Auth.module.css";
+import { login } from "../../../services/Auth/auth";
 
 const Login = () => {
+  const [token, setToken] = useState<TokenType | null>(null)
+  const navigate = useNavigate();
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    },
+  });
+
+  const submit = (values: { email: string; password: string }) => {
+    login(values.email, values.password)
+      .then((res: any) => {
+        console.log('jwt token ==>', decodeJWT(res.data.token));
+        setToken(res.data.token)
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+        }
+        console.log(res.data.token);
+        navigate("/");
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+
+  
+
+  console.log("Payload",token?.payload)
   return (
     <div className={`${styles.container}`}>
-      <div className="flex gap-[63px] max-w-[1400px] mx-auto">
+      <div className="flex gap-[63px] mx-auto">
         <div className={`w-1/2 hidden lg:block ${styles.login}`}></div>
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-start mb-10 px-4">
-          <div className="min-h-4/5 mt-[64px] w-4/5 border bg-white rounded-[5px] flex flex-col items-center justify-between pb-10">
+          <div className="min-h-4/5 mt-[64px] w-[96%] sm:w-4/5 border bg-white rounded-[5px] flex flex-col items-center justify-between pb-10">
             <div className="flex flex-col items-center">
               <img src={Logo} alt="" className="w-[80px] mt-6" />
               <div className="font-medium text-lg text-center text-black-mid">
@@ -32,25 +71,39 @@ const Login = () => {
                 <div className="h-[1px] flex-1 w-[116px] bg-[#F2F2F2]" />
                 <hr />
               </div>
-              <Box mt={20} sx={{ maxWidth: 380 }} className="w-full">
-                <TextInput placeholder="Username" size="md" />
-                <TextInput placeholder="Password" size="md" mt={24} />
-                <div className="flex justify-between items-center mt-3">
-                  <Checkbox
-                    label={
-                      <span className="text-dakeb-black-light text-xs">
-                        Remember me
-                      </span>
-                    }
+              <form onSubmit={form.onSubmit((values) => submit(values))}>
+                <Box mt={20} sx={{ maxWidth: 380 }} className="w-full">
+                  <TextInput
+                    required
+                    placeholder="Username"
+                    size="md"
+                    {...form.getInputProps("email")}
+                    className="w-full"
                   />
-                  <div className="cursor-pointer text-xs text-dakeb-black-light">
-                    Forgot password?
+                  <PasswordInput
+                    required
+                    placeholder="Password"
+                    size="md"
+                    mt={24}
+                    {...form.getInputProps("password")}
+                  />
+                  <div className="flex justify-between items-center mt-3">
+                    <Checkbox
+                      label={
+                        <span className="text-dakeb-black-light text-xs">
+                          Remember me
+                        </span>
+                      }
+                    />
+                    <div className="cursor-pointer text-xs text-dakeb-black-light">
+                      Forgot password?
+                    </div>
                   </div>
-                </div>
-                <button className="mt-6 h-[52px] w-full bg-dakeb-green-mid text-white font-medium text-base rounded-[5px]">
-                  Log in
-                </button>
-              </Box>
+                  <button className="mt-6 h-[52px] w-full bg-dakeb-green-mid text-white font-medium text-base rounded-[5px]">
+                    Log in
+                  </button>
+                </Box>
+              </form>
             </div>
             <div className="mt-10 text-dakeb-black-light">
               &copy; Dakeb 2023 | All rights reserved
