@@ -12,9 +12,10 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@headlessui/react": "^1.7.15",
-    "@mantine/dates": "^6.0.17",
-    "@mantine/dropzone": "^6.0.17",
-    "@mantine/form": "^6.0.17",
+    "@mantine/dates": "^6.0.18",
+    "@mantine/dropzone": "^6.0.18",
+    "@mantine/form": "^6.0.18",
+    "@mantine/notifications": "^6.0.18",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

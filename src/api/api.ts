@@ -10,7 +10,11 @@ export const APIS = {
         SINGLE_USER: (id: string) => `${api}/user/${id}`,
     },
     FORMS: {},
-    DEPARTMENTS: {},
+    DEPARTMENTS: {
+        ADD_DEPARTMENT:  `${api}/department`,
+        GET_DEPARTMENT: `${api}/department`,
+        SINGLE_DEPARTMENT: (id: string) => `${api}/department/${id}`,
+    },
     ROLE: {},
     POSITION: {},
     PAYSLIP: {},
