@@ -1,17 +1,13 @@
-import {useState} from "react"
 import { useForm } from "@mantine/form";
 import { Box, Checkbox, TextInput, PasswordInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { TokenType } from "../../../types/util";
-import { decodeJWT } from "../../../lib/utils";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
 import { userLogin } from "../../../services/auth/auth";
 
 const Login = () => {
-  const [token, setToken] = useState<TokenType | null>(null)
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -27,12 +23,9 @@ const Login = () => {
   const submit = (values: { email: string; password: string }) => {
     userLogin(values.email, values.password)
       .then((res: any) => {
-        console.log('jwt token ==>', decodeJWT(res.data.token));
-        setToken(res.data.token)
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
         }
-        console.log(res.data.token);
         navigate("/");
       })
       .catch((err: any) => {
@@ -40,9 +33,6 @@ const Login = () => {
       });
   };
 
-  
-
-  console.log("Payload",token?.payload)
   return (
     <div className={`${styles.container}`}>
       <div className="flex gap-[63px] mx-auto">
