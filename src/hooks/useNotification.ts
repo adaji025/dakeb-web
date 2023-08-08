@@ -39,7 +39,7 @@ const useNotification = () => {
 
     if (typeof error?.response?.data?.errors === "object" && error !== null) {
       // eslint-disable-next-line
-      for (const [key, value] of Object?.entries(
+      for (const [_, value] of Object?.entries(
         error?.response?.data?.errors
       )) {
         showNotification({
