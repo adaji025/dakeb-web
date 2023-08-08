@@ -27,6 +27,7 @@ const CreateDepartment: React.FC<Props> = ({ close, opened }) => {
     },
   });
 
+  console.log(loading)
   const submit = (values: any) => {
     setLoading(true);
     addDepartments(values)
