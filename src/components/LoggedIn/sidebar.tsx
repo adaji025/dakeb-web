@@ -33,6 +33,11 @@ const Sidebar = ({ menuItem }: Props) => {
     setImage(e.target.files);
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <aside className="h-screen hidden md:flex md:w-[200px] lg:w-[250px]  bg-dakeb-green-dark">
       <div className="flex flex-col w-full overflow-y-auto sidebar">
@@ -103,6 +108,7 @@ const Sidebar = ({ menuItem }: Props) => {
           >
             <li
               className={`flex items-center pl-3  py-3 bg-dakeb-yellow-mid/10 cursor-pointer border-r-4 border-dakeb-yellow-mid `}
+              onClick={logout}
             >
               Log out
             </li>
