@@ -2,12 +2,15 @@ import { useForm } from "@mantine/form";
 import { Box, Checkbox, TextInput, PasswordInput } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../features/userSlice";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
 import { userLogin } from "../../../services/auth/auth";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -26,6 +29,8 @@ const Login = () => {
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
         }
+        dispatch(setUser(res.data.user))
+        console.log(res.data.user);
         navigate("/");
       })
       .catch((err: any) => {
