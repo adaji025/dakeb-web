@@ -3,6 +3,9 @@ import React from "react";
 import { BsCamera } from "react-icons/bs";
 import Logo from "../../assets/svgs/dakeb-logo-light.svg";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { UserType } from "../../types/user";
 
 type Props = {
   menuItem: Array<{
@@ -15,6 +18,8 @@ const Sidebar = ({ menuItem }: Props) => {
   const [showOverlay, setShowOverlay] = React.useState(false);
   const [image, setImage] = React.useState(Array<Blob>);
   const [imagePreview, setImagePreview] = React.useState("");
+
+  const userData: UserType = useSelector((state: RootState) => state.user.userData);
 
   const navigate = useNavigate();
 
@@ -75,12 +80,12 @@ const Sidebar = ({ menuItem }: Props) => {
           </div>
           <div className="flex items-center gap-2">
             <h2 className="mt-2 font-medium text-white text-start">
-              Brandon Franci
+              {userData && userData.name}
             </h2>
             <div className={`h-2 w-2 rounded-full bg-dakeb-yellow-mid mt-2`} />
           </div>
           <p className="text-[#F2F2F2] text-start text-sm mt-2">
-            Sales Manager
+          {userData && userData.position}
           </p>
         </div>
         <hr className="mt-2" />
