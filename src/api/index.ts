@@ -39,7 +39,10 @@ function getToken() {
 AxoisApi.interceptors.request.use(function (config) {
   if (getToken()) {
     config.headers.Authorization = `Bearer ${getToken()}`;
+
+    console.log("access token ====>", getToken())
   }
+
 
   return config;
 });
