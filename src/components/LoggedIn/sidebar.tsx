@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { UserType } from "../../types/user";
+import { getFirstLetterOfFullName } from "../../lib/utils";
 
 type Props = {
   menuItem: Array<{
@@ -59,7 +60,7 @@ const Sidebar = ({ menuItem }: Props) => {
               size={100}
               radius={50}
             >
-              VR
+              {getFirstLetterOfFullName(userData.name)}
             </Avatar>
             <div
               className={`absolute top-0 left-0 w-[100px] rounded-full h-[100px] bg-black/50 mx-auto  flex-col justify-center items-center  ${
