@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { Table } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { Table, LoadingOverlay } from "@mantine/core";
+import useNotification from "../../hooks/useNotification";
 import ManagementLayout from "../../components/Management/ManagementLayout";
+import { getDepartments } from "../../services/department/department";
 
 const users = [
   {
@@ -23,6 +25,9 @@ const users = [
 
 const ManageDepartments = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const {handleError} = useNotification()
 
   const isAllRowsSelected =
     users.length > 0 && selectedRowIds.length === users.length;
@@ -45,63 +50,83 @@ const ManageDepartments = () => {
 
   const isRowSelected = (id: number) => selectedRowIds.includes(id);
 
+  useEffect(() => {
+    handleGetDepartments();
+  }, []);
+
+  const handleGetDepartments = () => {
+    setLoading(true);
+
+    getDepartments()
+      .then()
+      .catch((error) => {
+       handleError(error); 
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
-    <ManagementLayout>
-      <Table verticalSpacing="md" mt={20}>
-        <thead>
-          <tr>
-            <th>
-              <div className="flex gap-5">
-                <input
-                  type="checkbox"
-                  checked={isAllRowsSelected}
-                  onChange={handleSelectAllRows}
-                />
-                <div>Role</div>
-              </div>
-            </th>
-            <th>Permissions</th>
-            <th>Created by</th>
-            <th> Date created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((element) => (
-            <tr
-              key={element.role}
-              className={`border-none ${
-                isRowSelected(element.id) ? "selected" : ""
-              }`}
-            >
-              <td>
-                <div className="flex items-center gap-5">
+    <>
+      <LoadingOverlay visible={loading} />
+      <ManagementLayout>
+        <Table verticalSpacing="md" mt={20}>
+          <thead>
+            <tr>
+              <th>
+                <div className="flex gap-5">
                   <input
                     type="checkbox"
-                    checked={isRowSelected(element.id)}
-                    onChange={() => handleRowCheckboxChange(element.id)}
+                    checked={isAllRowsSelected}
+                    onChange={handleSelectAllRows}
                   />
-                  {element.role}
+                  <div>Role</div>
                 </div>
-              </td>
-              <td>{element.permissions}</td>
-              <td>{element.created_by}</td>
-              <td>{element.date_created}</td>
-              <td>
-                <button
-                  className={`font-bold py-2 px-4 rounded-full ${
-                    element.status === "active"
-                      ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
-                      : "text-[#B95A06] bg-[#B95A06]/10"
-                  }`}
-                >
-                  {element.status === "active" ? "Active" : "Inactive"}
-                </button>
-              </td>
+              </th>
+              <th>Permissions</th>
+              <th>Created by</th>
+              <th> Date created</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </ManagementLayout>
+          </thead>
+          <tbody>
+            {users.map((element) => (
+              <tr
+                key={element.role}
+                className={`border-none ${
+                  isRowSelected(element.id) ? "selected" : ""
+                }`}
+              >
+                <td>
+                  <div className="flex items-center gap-5">
+                    <input
+                      type="checkbox"
+                      checked={isRowSelected(element.id)}
+                      onChange={() => handleRowCheckboxChange(element.id)}
+                    />
+                    {element.role}
+                  </div>
+                </td>
+                <td>{element.permissions}</td>
+                <td>{element.created_by}</td>
+                <td>{element.date_created}</td>
+                <td>
+                  <button
+                    className={`font-bold py-2 px-4 rounded-full ${
+                      element.status === "active"
+                        ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
+                        : "text-[#B95A06] bg-[#B95A06]/10"
+                    }`}
+                  >
+                    {element.status === "active" ? "Active" : "Inactive"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </ManagementLayout>
+    </>
   );
 };
 
