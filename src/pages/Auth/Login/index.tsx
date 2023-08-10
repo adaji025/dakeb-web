@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "@mantine/form";
 import {
   Box,
@@ -10,14 +11,16 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../features/userSlice";
+import useNotification from "../../../hooks/useNotification";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
 import styles from "../Auth.module.css";
 import { userLogin } from "../../../services/auth/auth";
-import { useState } from "react";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const {handleError} = useNotification()
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const form = useForm({
@@ -41,8 +44,8 @@ const Login = () => {
         navigate("/");
         dispatch(setUser(res.data.user));
       })
-      .catch((err: any) => {
-        console.log(err);
+      .catch((error: any) => {
+        handleError(error);
       })
       .finally(() => {
         setLoading(false);
