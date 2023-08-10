@@ -7,11 +7,11 @@ const useNotification = () => {
   const logoutUser = () => {
     showNotification({
       title: "User logged out",
-      message: `${"Sign in to continue "} 😑`,
+      message: `${"Login in to continue "} 😑`,
       color: "yellow",
     });
     localStorage.removeItem("token");
-    navigate("/signin");
+    navigate("/login");
   };
 
   const handleError = (error: any) => {
@@ -24,7 +24,7 @@ const useNotification = () => {
     }
 
     if (error?.response?.status === 401) {
-      return logoutUser();
+      // return logoutUser();
     }
 
     if (error?.response?.status === 500) {
@@ -57,6 +57,7 @@ const useNotification = () => {
   };
   return {
     handleError,
+    logoutUser
   };
 };
 

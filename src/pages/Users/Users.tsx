@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LoadingOverlay } from "@mantine/core";
 import AdminStaffTable from "../../components/Dashboard/AdminTable";
+import useNotification from "../../hooks/useNotification";
 import { getUsers } from "../../services/Users/users";
 
 const datas = [
@@ -48,6 +49,7 @@ const Users = () => {
     "administrator"
   );
   const [users, setUsers] = React.useState([]);
+  const { handleError } = useNotification();
 
   console.log("users", users);
 
@@ -62,7 +64,7 @@ const Users = () => {
         setUsers(res);
       })
       .catch((error) => {
-        console.log(error);
+        handleError(error);
       })
       .finally(() => {
         setLoading(false);

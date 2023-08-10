@@ -6,13 +6,16 @@ import NewPassword from "./pages/Auth/New-password";
 import LoggedInContainer from "./components/LoggedIn";
 
 import "./App.css";
+// import { validateToken } from "./lib/utils";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") ?? "";
+  // const loggedIn = validateToken(token) 
+  // console.log(loggedIn)
 
   return (
     <>
-      <Notifications />
+      <Notifications position="top-right" />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />

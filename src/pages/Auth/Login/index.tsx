@@ -38,9 +38,8 @@ const Login = () => {
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
         }
-        dispatch(setUser(res.data.user));
-        console.log(res.data.user);
         navigate("/");
+        dispatch(setUser(res.data.user));
       })
       .catch((err: any) => {
         console.log(err);

@@ -1,12 +1,13 @@
 import { Avatar } from "@mantine/core";
 import React from "react";
 import { BsCamera } from "react-icons/bs";
-import Logo from "../../assets/svgs/dakeb-logo-light.svg";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { UserType } from "../../types/user";
 import { getFirstLetterOfFullName } from "../../lib/utils";
+import useNotification from "../../hooks/useNotification";
+import Logo from "../../assets/svgs/dakeb-logo-light.svg";
 
 type Props = {
   menuItem: Array<{
@@ -19,6 +20,7 @@ const Sidebar = ({ menuItem }: Props) => {
   const [showOverlay, setShowOverlay] = React.useState(false);
   const [image, setImage] = React.useState(Array<Blob>);
   const [imagePreview, setImagePreview] = React.useState("");
+  const {logoutUser} = useNotification()
 
   const userData: UserType = useSelector((state: RootState) => state.user.userData);
 
@@ -39,11 +41,7 @@ const Sidebar = ({ menuItem }: Props) => {
     setImage(e.target.files);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
+  
   return (
     <aside className="h-screen hidden md:flex md:w-[200px] lg:w-[250px]  bg-dakeb-green-dark">
       <div className="flex flex-col w-full overflow-y-auto sidebar">
@@ -114,7 +112,7 @@ const Sidebar = ({ menuItem }: Props) => {
           >
             <li
               className={`flex items-center pl-3  py-3 bg-dakeb-yellow-mid/10 cursor-pointer border-r-4 border-dakeb-yellow-mid `}
-              onClick={logout}
+              onClick={logoutUser}
             >
               Log out
             </li>
