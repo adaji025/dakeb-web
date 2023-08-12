@@ -38,10 +38,11 @@ const Login = () => {
     setLoading(true);
     userLogin(values.email, values.password)
       .then((res: any) => {
+        navigate("/");
+        console.log(res)
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
         }
-        navigate("/");
         dispatch(setUser(res.data.user));
       })
       .catch((error: any) => {

@@ -6,12 +6,10 @@ import NewPassword from "./pages/Auth/New-password";
 import LoggedInContainer from "./components/LoggedIn";
 
 import "./App.css";
-// import { validateToken } from "./lib/utils";
+
 
 function App() {
-  const token = localStorage.getItem("token") ?? "";
-  // const loggedIn = validateToken(token) 
-  // console.log(loggedIn)
+  const token = localStorage.getItem("token");
 
   return (
     <>

@@ -7,9 +7,10 @@ type DataProviderTypes = {
 type DataContextTypes = {
   reportData: string;
   createReport: boolean;
- 
+ loading: boolean
   setReportData: React.Dispatch<React.SetStateAction<string>>;
   setCreateReports: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   
 };
 
@@ -18,6 +19,8 @@ export const DataContext = React.createContext({} as DataContextTypes);
 const DataProvider: React.FC<DataProviderTypes> = ({ children }) => {
   const [createReport, setCreateReports] = useState<boolean>(false);
   const [reportData, setReportData] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
   
 
   return (
@@ -27,7 +30,7 @@ const DataProvider: React.FC<DataProviderTypes> = ({ children }) => {
         setCreateReports,
         reportData,
         setReportData,
-      
+        loading, setLoading
       }}
     >
       {children}
