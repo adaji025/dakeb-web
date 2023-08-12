@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Table, LoadingOverlay } from "@mantine/core";
 import useNotification from "../../hooks/useNotification";
 import ManagementLayout from "../../components/Management/ManagementLayout";
 import { getDepartments } from "../../services/department/department";
+import { DataContext } from "../../context/DataProvider";
 
 const users = [
   {
@@ -25,7 +26,7 @@ const users = [
 
 const ManageDepartments = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(DataContext);
 
   const {handleError} = useNotification()
 

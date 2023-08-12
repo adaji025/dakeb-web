@@ -1,6 +1,7 @@
 import { showNotification } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 
+
 const useNotification = () => {
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ const useNotification = () => {
     navigate("/login");
   };
 
+ 
+  
   const handleError = (error: any) => {
     if (!error.response) {
       return showNotification({
@@ -39,9 +42,7 @@ const useNotification = () => {
 
     if (typeof error?.response?.data?.errors === "object" && error !== null) {
       // eslint-disable-next-line
-      for (const [_, value] of Object?.entries(
-        error?.response?.data?.errors
-      )) {
+      for (const [_, value] of Object?.entries(error?.response?.data?.errors)) {
         showNotification({
           message: `${value}`,
           color: "red",
@@ -57,7 +58,7 @@ const useNotification = () => {
   };
   return {
     handleError,
-    logoutUser
+    logoutUser,
   };
 };
 

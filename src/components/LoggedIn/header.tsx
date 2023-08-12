@@ -72,7 +72,7 @@ const Header: React.FC<Props> = ({ openMobileNav }) => {
       <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
       <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
       <CreateRole opened={createRoles} close={() => setCreateRoles(false)} />
-      <CreateDepartment opened={createDepartments} close={() => setCreateRoles(false)} />
+      <CreateDepartment opened={createDepartments} close={() => setCreateDepartments(false)} />
       <Comfirmation opened={createForm} close={() => setCreateForm(false)}  />
 
    
