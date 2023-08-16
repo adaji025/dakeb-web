@@ -5,15 +5,18 @@ import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: UserType[];
 };
 
-const AdminStaffTable = ({ data }: Props) => {
+const UserTable = ({ data }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const [rowId, setRowId] = useState<string>("");
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const isAllRowsSelected =
     data.length > 0 && selectedRowIds.length === data.length;
@@ -37,7 +40,7 @@ const AdminStaffTable = ({ data }: Props) => {
   const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
   const handleOpenDropdown = (id: string) => {
-    setRowId(id)
+    setRowId(id);
     if (rowId === id) {
       setOpenDropdown(!openDropdown);
     }
@@ -92,9 +95,15 @@ const AdminStaffTable = ({ data }: Props) => {
                 >
                   <AiOutlineMore size={24} />
                 </div>
-                {rowId === item._id && openDropdown  && (
-                  <div className="shadow bg-white z-10 absolute p-3 flex flex-col gap-3" onClick={() => setOpenDropdown(false)}>
-                    <div className="flex items-center gap-2 cursor-pointer">
+                {rowId === item._id && openDropdown && (
+                  <div
+                    className="shadow bg-white z-10 absolute p-3 flex flex-col gap-3"
+                    onClick={() => setOpenDropdown(false)}
+                  >
+                    <div
+                      className="flex items-center gap-2 cursor-pointer"
+                      onClick={() => navigate(`/users/${item._id}`)}
+                    >
                       <BiSolidEdit />
                       <div>Update</div>
                     </div>
@@ -117,4 +126,4 @@ const AdminStaffTable = ({ data }: Props) => {
   );
 };
 
-export default AdminStaffTable;
+export default UserTable;

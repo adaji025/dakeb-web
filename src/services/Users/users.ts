@@ -24,3 +24,15 @@ export const getUsers = () => {
       });
   });
 };
+export const getUser = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.get(`${APIS.USERS.SINGLE_USER(id)}`)
+      .then((res: any) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+

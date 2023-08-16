@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LoadingOverlay } from "@mantine/core";
-import AdminStaffTable from "../../components/Dashboard/AdminTable";
+import UserTable from "../../components/Users/UserTable";
 import useNotification from "../../hooks/useNotification";
 import { getUsers } from "../../services/Users/users";
 import { UserType } from "../../types/user";
@@ -13,13 +13,8 @@ const Users = () => {
   const [users, setUsers] = React.useState<UserType[]>([]);
   const { handleError } = useNotification();
 
-  
-  const addminUsers = users.filter(user => user.role === "Admin");
-  const staffUsers = users.filter(user => user.role === "User");
-  
-  // console.log("Adminusers", addminUser);
-  // console.log("Staffusers", staffUser);
-
+  const addminUsers = users.filter((user) => user.role === "Admin");
+  const staffUsers = users.filter((user) => user.role === "User");
 
   useEffect(() => {
     handleGetUsers();
@@ -66,8 +61,9 @@ const Users = () => {
           </div>
         </div>
         <div className="mt-5 overflow-auto">
-          < AdminStaffTable data={active === "administrator" ? addminUsers : staffUsers} />
-         
+          <UserTable
+            data={active === "administrator" ? addminUsers : staffUsers}
+          />
         </div>
       </div>
     </>

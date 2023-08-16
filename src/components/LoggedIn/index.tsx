@@ -94,7 +94,7 @@ const LoggedInContainer = () => {
               <Route path="/" element={<StaffDashboard />} />
               <Route path="" element={<AdminDashboard />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/users/user-details" element={<UserDetails />} />
+              <Route path="/users/:id" element={<UserDetails />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/forms" element={<Forms />} />
               <Route

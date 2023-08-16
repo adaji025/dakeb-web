@@ -2,7 +2,7 @@ import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
 import YearFilter from "../../components/Dashboard/YearFilter";
 import { StatCard } from "../../components/Dashboard/StarCard";
-import AdminStaffTable from "../../components/Dashboard/AdminTable";
+import AdminStaffTable from "../../components/Users/UserTable";
 
 const dada = [
   {
