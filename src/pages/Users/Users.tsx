@@ -1,57 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { LoadingOverlay } from "@mantine/core";
-import AdminStaffTable from "../../components/Dashboard/AdminTable";
+import UserTable from "../../components/Users/UserTable";
 import useNotification from "../../hooks/useNotification";
 import { getUsers } from "../../services/Users/users";
-
-const datas = [
-  {
-    id: 1,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 2,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 4,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 3,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-];
+import { UserType } from "../../types/user";
 
 const Users = () => {
   const [loading, setLoading] = useState(false);
   const [active, setActive] = React.useState<"administrator" | "staff">(
     "administrator"
   );
-  const [users, setUsers] = React.useState([]);
+  const [users, setUsers] = React.useState<UserType[]>([]);
   const { handleError } = useNotification();
 
-  console.log("users", users);
+  const addminUsers = users.filter((user) => user.role === "Admin");
+  const staffUsers = users.filter((user) => user.role === "User");
 
   useEffect(() => {
     handleGetUsers();
@@ -61,7 +24,7 @@ const Users = () => {
     setLoading(true);
     getUsers()
       .then((res: any) => {
-        setUsers(res);
+        setUsers(res.data);
       })
       .catch((error) => {
         handleError(error);
@@ -98,7 +61,9 @@ const Users = () => {
           </div>
         </div>
         <div className="mt-5 overflow-auto">
-          <AdminStaffTable data={datas} />
+          <UserTable
+            data={active === "administrator" ? addminUsers : staffUsers}
+          />
         </div>
       </div>
     </>
