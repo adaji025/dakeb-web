@@ -9,15 +9,23 @@ export const APIS = {
         GET_USERS: `${api}/user`,
         SINGLE_USER: (id: string) => `${api}/user/${id}`,
     },
-    FORMS: {},
+    FORMS: {
+        GET_FORMS: `${api}/form`
+    },
     DEPARTMENTS: {
         ADD_DEPARTMENT:  `${api}/department`,
         GET_DEPARTMENT: `${api}/department`,
         SINGLE_DEPARTMENT: (id: string) => `${api}/department/${id}`,
     },
-    ROLE: {},
-    POSITION: {},
+    ROLE: {
+        GET_ROLES: `${api}/role`
+    },
+    POSITION: {
+        GET_POSITION: `${api}/position`
+    },
     PAYSLIP: {},
-    REPORT: {},
+    REPORTS: {
+        GET_REPORT: `${api}/report`,
+    },
     HUNTER: {},
 };
