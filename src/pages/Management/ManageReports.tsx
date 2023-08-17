@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { Table } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { Table, LoadingOverlay } from "@mantine/core";
 import ManagementLayout from "../../components/Management/ManagementLayout";
+import { DataContext } from "../../context/DataProvider";
+import useNotification from "../../hooks/useNotification";
+import { getReports } from "../../services/reports/reports";
 
 const users = [
   {
@@ -23,6 +26,12 @@ const users = [
 
 const ManageReports = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const { loading, setLoading } = useContext(DataContext);
+  const [reports, setReports] = useState([])
+
+  const { handleError } = useNotification()
+  
+  console.log("reports ==>", reports)
 
   const isAllRowsSelected =
     users.length > 0 && selectedRowIds.length === users.length;
@@ -45,7 +54,25 @@ const ManageReports = () => {
 
   const isRowSelected = (id: number) => selectedRowIds.includes(id);
 
+  useEffect(() => {
+    handleGetReports();
+  }, [])
+
+  const handleGetReports = () => { 
+    setLoading(true);
+
+    getReports().then((res: any) => { 
+      setReports(res.data);
+    }).then((error) => {
+      handleError(error);
+    }).finally(() => {
+      setLoading(false);
+    })
+  }
+
   return (
+    <>
+    <LoadingOverlay visible={loading} />
     <ManagementLayout>
       <Table verticalSpacing="md" mt={20}>
         <thead>
@@ -102,6 +129,7 @@ const ManageReports = () => {
         </tbody>
       </Table>
     </ManagementLayout>
+    </>
   );
 };
 

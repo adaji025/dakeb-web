@@ -1,9 +1,19 @@
 import { useEffect, useState, useContext } from "react";
 import { Table, LoadingOverlay } from "@mantine/core";
+import moment from "moment";
 import useNotification from "../../hooks/useNotification";
 import ManagementLayout from "../../components/Management/ManagementLayout";
 import { getDepartments } from "../../services/department/department";
 import { DataContext } from "../../context/DataProvider";
+
+type departmentsTypes = {
+  _id: string
+  name: string
+  description: string
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
 
 const users = [
   {
@@ -25,15 +35,18 @@ const users = [
 ];
 
 const ManageDepartments = () => {
-  const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const [departments, setDepartments] = useState<departmentsTypes[]>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const { loading, setLoading } = useContext(DataContext);
 
-  const {handleError} = useNotification()
+  console.log(departments)
+
+  const { handleError } = useNotification();
 
   const isAllRowsSelected =
     users.length > 0 && selectedRowIds.length === users.length;
 
-  const handleRowCheckboxChange = (id: number) => {
+  const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((rowId) => rowId !== id)
@@ -45,11 +58,11 @@ const ManageDepartments = () => {
     if (isAllRowsSelected) {
       setSelectedRowIds([]);
     } else {
-      setSelectedRowIds(users.map((row) => row.id));
+      setSelectedRowIds(departments.map((row) => row._id));
     }
   };
 
-  const isRowSelected = (id: number) => selectedRowIds.includes(id);
+  const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
   useEffect(() => {
     handleGetDepartments();
@@ -59,9 +72,11 @@ const ManageDepartments = () => {
     setLoading(true);
 
     getDepartments()
-      .then()
+      .then((res: any) => {
+        setDepartments(res.data);
+      })
       .catch((error) => {
-       handleError(error); 
+        handleError(error);
       })
       .finally(() => {
         setLoading(false);
@@ -82,44 +97,43 @@ const ManageDepartments = () => {
                     checked={isAllRowsSelected}
                     onChange={handleSelectAllRows}
                   />
-                  <div>Role</div>
+                  <div>Name</div>
                 </div>
               </th>
-              <th>Permissions</th>
-              <th>Created by</th>
+              <th>Description</th>
               <th> Date created</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((element) => (
+            {departments.map((element) => (
               <tr
-                key={element.role}
+                key={element._id}
                 className={`border-none ${
-                  isRowSelected(element.id) ? "selected" : ""
+                  isRowSelected(element._id) ? "selected" : ""
                 }`}
               >
                 <td>
                   <div className="flex items-center gap-5">
                     <input
                       type="checkbox"
-                      checked={isRowSelected(element.id)}
-                      onChange={() => handleRowCheckboxChange(element.id)}
+                      checked={isRowSelected(element._id)}
+                      onChange={() => handleRowCheckboxChange(element._id)}
                     />
-                    {element.role}
+                    {element.name}
                   </div>
                 </td>
-                <td>{element.permissions}</td>
-                <td>{element.created_by}</td>
-                <td>{element.date_created}</td>
+                <td>{element.description?.slice(0,15)}</td>
+                <td>{moment(element.createdAt).format("DD-MM-YY")}</td>
                 <td>
                   <button
-                    className={`font-bold py-2 px-4 rounded-full ${
-                      element.status === "active"
-                        ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
-                        : "text-[#B95A06] bg-[#B95A06]/10"
-                    }`}
+                    // className={`font-bold py-2 px-4 rounded-full ${
+                    //   element.status === "active"
+                    //     ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
+                    //     : "text-[#B95A06] bg-[#B95A06]/10"
+                    // }`}
                   >
-                    {element.status === "active" ? "Active" : "Inactive"}
+                     Active
                   </button>
                 </td>
               </tr>

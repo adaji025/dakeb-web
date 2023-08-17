@@ -1,6 +1,9 @@
-import  { useState } from "react";
-import { Table } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { Table, LoadingOverlay } from "@mantine/core";
 import ManagementLayout from "../../components/Management/ManagementLayout";
+import { DataContext } from "../../context/DataProvider";
+import { getRoles } from "../../services/roles/roles";
+import useNotification from "../../hooks/useNotification";
 
 const users = [
   {
@@ -23,6 +26,11 @@ const users = [
 
 const Mangement = () => {
   const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const [roles, setRoles] = useState([]);
+  const { loading, setLoading } = useContext(DataContext);
+  const { handleError } = useNotification();
+
+  console.log(roles);
 
   const isAllRowsSelected =
     users.length > 0 && selectedRowIds.length === users.length;
@@ -45,9 +53,28 @@ const Mangement = () => {
 
   const isRowSelected = (id: number) => selectedRowIds.includes(id);
 
+  useEffect(() => {
+    handleGetRole();
+  }, []);
+
+  const handleGetRole = () => {
+    setLoading(true);
+
+    getRoles()
+      .then((res: any) => {
+        setRoles(res.data);
+      })
+      .catch((error: any) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <>
+      <LoadingOverlay visible={loading} />
       <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
         <ManagementLayout>
           <div className="mt-5">
