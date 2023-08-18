@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Divider,
   Drawer,
@@ -12,6 +12,8 @@ import {
 import { useForm } from "@mantine/form";
 import { addUser } from "../../services/Users/users";
 import { showNotification } from "@mantine/notifications";
+import { getDepartments } from "../../services/department/department";
+import useNotification from "../../hooks/useNotification";
 
 type Props = {
   opened: boolean;
@@ -20,6 +22,10 @@ type Props = {
 
 const AddUser = ({ close, opened }: Props) => {
   const [loading, setLoading] = useState(false);
+  const [departments, setDepartments] = useState<departmentsTypes[]>([]);
+
+  const { handleError } = useNotification();
+
   const form = useForm({
     initialValues: {
       name: "",
@@ -47,6 +53,25 @@ const AddUser = ({ close, opened }: Props) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleGetDepartments();
+  }, []);
+
+  const handleGetDepartments = () => {
+    setLoading(true);
+
+    getDepartments()
+      .then((res: any) => {
+        setDepartments(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
       })
       .finally(() => {
         setLoading(false);
@@ -102,10 +127,8 @@ const AddUser = ({ close, opened }: Props) => {
             label="User type"
             placeholder="Choose user type"
             data={[
-              { value: "react", label: "React" },
-              { value: "ng", label: "Angular" },
-              { value: "svelte", label: "Svelte" },
-              { value: "vue", label: "Vue" },
+              { value: "admin", label: "Admin" },
+              { value: "user", label: "User" },
             ]}
             required
             {...form.getInputProps("usertype")}
@@ -116,12 +139,10 @@ const AddUser = ({ close, opened }: Props) => {
             size="md"
             label="Department"
             placeholder="Choose user department"
-            data={[
-              { value: "react", label: "React" },
-              { value: "ng", label: "Angular" },
-              { value: "svelte", label: "Svelte" },
-              { value: "vue", label: "Vue" },
-            ]}
+            data={departments.map((department) => ({
+              label: department.name,
+              value: department._id,
+            }))}
             required
             {...form.getInputProps("departmentId")}
           />

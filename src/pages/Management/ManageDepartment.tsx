@@ -6,45 +6,19 @@ import ManagementLayout from "../../components/Management/ManagementLayout";
 import { getDepartments } from "../../services/department/department";
 import { DataContext } from "../../context/DataProvider";
 
-type departmentsTypes = {
-  _id: string
-  name: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
 
-const users = [
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "active",
-  },
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "inactive",
-  },
-];
+
+
 
 const ManageDepartments = () => {
   const [departments, setDepartments] = useState<departmentsTypes[]>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const { loading, setLoading } = useContext(DataContext);
 
-  console.log(departments)
-
   const { handleError } = useNotification();
 
   const isAllRowsSelected =
-    users.length > 0 && selectedRowIds.length === users.length;
+    departments.length > 0 && selectedRowIds.length === departments.length;
 
   const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
