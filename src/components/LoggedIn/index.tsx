@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
+import { useSelector } from "react-redux";
+import { UserType } from "../../types/user";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import AdminDashboard from "../../pages/Dashboard/AdminDashboard";
@@ -29,9 +31,15 @@ import TurnOverForm from "../../pages/Forms/TurnOverform";
 import PurchaseForm from "../../pages/Forms/PurchaseForm";
 import DailyExpenseForm from "../../pages/Forms/DailyExpenseForm";
 import PlantationObservation from "../../pages/Forms/PlantationObservation";
+import { RootState } from "../../app/store";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
+  const userData: UserType = useSelector((state: RootState) => state.user.userData)
+
+  const role = userData.role
+
+  console.log("role ==>", role);
 
   const menuItem = [
     {
@@ -91,7 +99,7 @@ const LoggedInContainer = () => {
           </div>
           <main className="w-full bg-white pt-[100px] md:ml-[200px] lg:ml-[250px] md:w-[calc(100vw-200px)] lg:w-[calc(100vw-250px)] px-4 lg:px-10">
             <Routes>
-              <Route path="/" element={<StaffDashboard />} />
+              <Route path="/" element={role === "Admin" ? <AdminDashboard /> : <StaffDashboard />} />
               <Route path="" element={<AdminDashboard />} />
               <Route path="/users" element={<Users />} />
               <Route path="/users/:id" element={<UserDetails />} />

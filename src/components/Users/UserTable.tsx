@@ -1,11 +1,11 @@
 import { useState } from "react";
 import moment from "moment";
 import { Table } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: UserType[];

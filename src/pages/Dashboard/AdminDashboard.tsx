@@ -1,50 +1,21 @@
+import { useState, useEffect } from "react";
+import {LoadingOverlay} from "@mantine/core"
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
 import YearFilter from "../../components/Dashboard/YearFilter";
 import { StatCard } from "../../components/Dashboard/StarCard";
 import AdminStaffTable from "../../components/Users/UserTable";
+import { getUsers } from "../../services/Users/users";
+import { UserType } from "../../types/user";
+import useNotification from "../../hooks/useNotification";
 
-const dada = [
-  {
-    id: 1,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 2,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 4,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-  {
-    id: 3,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    date_joined: "06 - 06 - 2010",
-  },
-];
 
 const AdminDashboard = () => {
-  
+  const [loading, setLoading] = useState<boolean>(false);
+  const [users, setUsers] = useState<UserType[]>([]);
+
+  const {handleError} = useNotification()
+
   const statsData = [
     {
       increase: true,
@@ -72,8 +43,27 @@ const AdminDashboard = () => {
     },
   ];
 
+  useEffect(() => {
+    handleGetUsers()
+   }, []);
+  
+  const handleGetUsers = () => {
+    setLoading(true);
+    getUsers()
+      .then((res: any) => {
+        setUsers(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   return (
+    <>
+    <LoadingOverlay visible={loading} />
     <div className="max-w-[1300px] mx-auto overflow-x-hidden pb-10">
       <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
         {statsData.map((item, idx) => (
@@ -134,9 +124,10 @@ const AdminDashboard = () => {
             <YearFilter />
           </div>
         </div>
-       <AdminStaffTable data={dada} />
+       <AdminStaffTable data={users} />
       </div>
     </div>
+    </>
   );
 };
 
