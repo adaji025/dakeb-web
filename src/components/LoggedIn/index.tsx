@@ -39,7 +39,6 @@ const LoggedInContainer = () => {
 
   const role = userData.role
 
-  console.log("role ==>", role);
 
   const menuItem = [
     {
@@ -99,7 +98,7 @@ const LoggedInContainer = () => {
           </div>
           <main className="w-full bg-white pt-[100px] md:ml-[200px] lg:ml-[250px] md:w-[calc(100vw-200px)] lg:w-[calc(100vw-250px)] px-4 lg:px-10">
             <Routes>
-              <Route path="/" element={role === "Admin" ? <AdminDashboard /> : <StaffDashboard />} />
+              <Route path="/" element={role.name === "Admin" ? <AdminDashboard /> : <StaffDashboard />} />
               <Route path="" element={<AdminDashboard />} />
               <Route path="/users" element={<Users />} />
               <Route path="/users/:id" element={<UserDetails />} />
