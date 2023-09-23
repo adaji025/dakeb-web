@@ -38,24 +38,25 @@ const ReportTable = ({ data }: Props) => {
   const isRowSelected = (id: number) => selectedRowIds.includes(id);
 
   return (
-    <div className="px-3 mt-3">
+    <div className="px-3 mt-3 overflow-auto">
       <Table className="overflow-auto">
         <thead>
           <tr>
-            <th>
+            <th className="whitespace-nowrap">
               <div className="flex gap-3">
                 <input
                   type="checkbox"
                   checked={isAllRowsSelected}
                   onChange={handleSelectAllRows}
                 />
-                <div>Full name</div>
+                <div>Category</div>
               </div>
             </th>
-            <th>Email</th>
-            <th>Phone number</th>
-            <th>Type</th>
-            <th>Codes</th>
+            <th className="whitespace-nowrap">Submitted by</th>
+            <th className="whitespace-nowrap">Department</th>
+            <th className="whitespace-nowrap">Priority</th>
+            <th className="whitespace-nowrap">Date Submitted</th>
+            <th className="whitespace-nowrap">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -72,10 +73,14 @@ const ReportTable = ({ data }: Props) => {
                 </div>
               </td>
               <td>{item.department}</td>
-                  <td>{item.submitted_by}</td>
+              <td>{item.submitted_by}</td>
               <td>{item.date_submitted}</td>
-                  <td>
-                      {item.status === "accepted" ? <AcceptedIcon /> : <PendingIcon />}
+              <td>
+                {item.status === "accepted" ? (
+                  <AcceptedIcon />
+                ) : (
+                  <PendingIcon />
+                )}
               </td>
             </tr>
           ))}
