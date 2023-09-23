@@ -1,54 +1,22 @@
-import React, { useState } from "react";
-import { Avatar, Table } from "@mantine/core";
+import React, { useState, useEffect } from "react";
+import { Avatar, Table, LoadingOverlay } from "@mantine/core";
 import { IoCopyOutline } from "react-icons/io5";
-const users = [
-  {
-    id: 1,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 2,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 3,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 4,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "",
-  },
-];
+import { getHunters } from "../../services/hunters/hunters";
+import useNotification from "../../hooks/useNotification";
+import { HuntersType } from "../../types/hunters";
 
 const BeafChickHunters = () => {
-  const [active, setActive] = React.useState<"beaf" | "chick">("beaf");
-  const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const [active, setActive] = useState<"beaf" | "chick">("beaf");
+  const [loading, setLoading] = useState(false);
+  const [hunters, setHunters] = useState<HuntersType[]>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+
+  const { handleError } = useNotification();
 
   const isAllRowsSelected =
-    users.length > 0 && selectedRowIds.length === users.length;
-  
+    hunters.length > 0 && selectedRowIds.length === hunters.length;
 
-  const handleRowCheckboxChange = (id: number) => {
+  const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((rowId) => rowId !== id)
@@ -60,15 +28,39 @@ const BeafChickHunters = () => {
     if (isAllRowsSelected) {
       setSelectedRowIds([]);
     } else {
-      setSelectedRowIds(users.map((row) => row.id));
+      setSelectedRowIds(hunters.map((row) => row._id));
     }
   };
 
-  const isRowSelected = (id: number) => selectedRowIds.includes(id);
+  const isRowSelected = (id: string) => selectedRowIds.includes(id);
+  useEffect(() => {
+    handleGetHunters();
+  }, []);
+
+  const handleGetHunters = () => {
+    setLoading(true);
+    getHunters()
+      .then((res: any) => {
+        setHunters(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const beafHunters = hunters.filter((hunter) => hunter.type === "Beef Hunter");
+  const chickHunters = hunters.filter(
+    (hunter) => hunter.type === "Chick Hunter"
+  );
+
+  const data = active === "beaf" ? beafHunters : chickHunters;
 
   return (
     <>
-   
+      <LoadingOverlay visible={loading} />
       <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
         <div className="flex gap-5">
           <div
@@ -93,7 +85,7 @@ const BeafChickHunters = () => {
           </div>
         </div>
         <div className="mt-5 overflow-auto">
-          <Table verticalSpacing="md">
+          <Table verticalSpacing="sm">
             <thead>
               <tr>
                 <th>
@@ -113,19 +105,19 @@ const BeafChickHunters = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((element) => (
+              {data.map((element) => (
                 <tr
                   key={element.name}
                   className={`border-none ${
-                    isRowSelected(element.id) ? "selected" : ""
+                    isRowSelected(element._id) ? "selected" : ""
                   }`}
                 >
                   <td>
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
-                        checked={isRowSelected(element.id)}
-                        onChange={() => handleRowCheckboxChange(element.id)}
+                        checked={isRowSelected(element._id)}
+                        onChange={() => handleRowCheckboxChange(element._id)}
                       />
                       <div className="flex items-center gap-2">
                         <Avatar
@@ -138,22 +130,22 @@ const BeafChickHunters = () => {
                           VR
                         </Avatar>
 
-                        {element.email}
+                        {element.name}
                       </div>
                     </div>
                   </td>
-                  <td>{element.phone_number}</td>
-                  <td>{element.role}</td>
-                  <td>{element.salary}</td>
+                  <td>{element.email}</td>
+                  <td>{element.phonenumber}</td>
+                  <td>{element.type}</td>
                   <td>
                     <div className="flex">
-                      {element.codes === "" ? (
+                      {element.code === "" ? (
                         <button className="text-dakeb-green-mid font-bold">
                           Generates code
                         </button>
                       ) : (
                         <div className="flex items-center gap-5 text-dakeb-green-mid font-bold">
-                          {element.codes} <IoCopyOutline />
+                          {element.code} <IoCopyOutline />
                         </div>
                       )}
                     </div>
