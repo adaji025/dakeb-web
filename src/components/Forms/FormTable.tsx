@@ -3,6 +3,7 @@ import { Table, Menu, Text } from "@mantine/core";
 import { AcceptedIcon, PendingIcon } from "../Svgs";
 import { FormsTypes } from "../../types/forms";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: FormsTypes[];
@@ -10,6 +11,8 @@ type Props = {
 
 const FormTable = ({ data }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   const isAllRowsSelected =
     data.length > 0 && selectedRowIds.length === data.length;
@@ -75,11 +78,13 @@ const FormTable = ({ data }: Props) => {
                 {item.status === "0" ? <PendingIcon /> : <AcceptedIcon />}
               </td>
               <td>
-                <Menu>
-                  <Menu.Target>
-                    <Text className="cursor-pointer text-sm" weight={500}>View details</Text>
-                  </Menu.Target>
-                </Menu>
+                <Text
+                  className="cursor-pointer text-sm"
+                  weight={500}
+                  onClick={() => navigate(`/forms/${item._id}`)}
+                >
+                  View details
+                </Text>
               </td>
             </tr>
           ))}

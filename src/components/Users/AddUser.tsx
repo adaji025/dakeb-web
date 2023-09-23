@@ -32,7 +32,6 @@ const AddUser = ({ close, opened }: Props) => {
   const [positions, setPositions] = useState<PositionsTypes[]>([]);
   const [roles, setRoles] = useState<RolesType[]>([]);
   const [permission, setPermission] = useState<any[]>([]);
-  
 
   const { handleError } = useNotification();
 
@@ -134,16 +133,16 @@ const AddUser = ({ close, opened }: Props) => {
       .finally();
   };
 
-  
-
   const options = [];
 
-  for (const item of permission) {
-    for (const action of item.actions) {
-      options.push({
-        cat: item.name,
-        key: item.name + "-" + action,
-      });
+  if (permission) {
+    for (const item of permission) {
+      for (const action of item.actions) {
+        options.push({
+          cat: item?.name,
+          key: item?.name + "-" + action,
+        });
+      }
     }
   }
 

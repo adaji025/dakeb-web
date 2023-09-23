@@ -10,7 +10,8 @@ export const APIS = {
         SINGLE_USER: (id: string) => `${api}/user/${id}`,
     },
     FORMS: {
-        GET_FORMS: `${api}/form`
+        GET_FORMS: `${api}/form`,
+        GET_SINGLE_FORM: (id: string) => `${api}/form/${id}`
     },
     DEPARTMENTS: {
         ADD_DEPARTMENT:  `${api}/department`,

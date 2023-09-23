@@ -32,6 +32,7 @@ import PurchaseForm from "../../pages/Forms/PurchaseForm";
 import DailyExpenseForm from "../../pages/Forms/DailyExpenseForm";
 import PlantationObservation from "../../pages/Forms/PlantationObservation";
 import { RootState } from "../../app/store";
+import FormDetail from "../../pages/Forms/FormDetail";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = React.useState(false);
@@ -117,6 +118,10 @@ const LoggedInContainer = () => {
               <Route
                 path="/forms/plantation-observation-form"
                 element={<PlantationObservation />}
+              />
+              <Route
+                path="/forms/:id"
+                element={<FormDetail />}
               />
               <Route
                 path="/reports/create-report"
