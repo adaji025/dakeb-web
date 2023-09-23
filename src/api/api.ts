@@ -28,4 +28,5 @@ export const APIS = {
         GET_REPORT: `${api}/report`,
     },
     HUNTER: {},
+    PERMISSION: `${api}/permission`
 };

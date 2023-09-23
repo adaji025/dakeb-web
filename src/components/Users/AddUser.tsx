@@ -14,6 +14,12 @@ import { addUser } from "../../services/Users/users";
 import { showNotification } from "@mantine/notifications";
 import { getDepartments } from "../../services/department/department";
 import useNotification from "../../hooks/useNotification";
+import { getPositions } from "../../services/positions/positions";
+import { PositionsTypes } from "../../types/position";
+import { getRoles } from "../../services/roles/roles";
+import Multiselect from "multiselect-react-dropdown";
+import { RolesType } from "../../types/role";
+import { getPermission } from "../../services/permission/permission";
 
 type Props = {
   opened: boolean;
@@ -23,8 +29,19 @@ type Props = {
 const AddUser = ({ close, opened }: Props) => {
   const [loading, setLoading] = useState(false);
   const [departments, setDepartments] = useState<departmentsTypes[]>([]);
+  const [positions, setPositions] = useState<PositionsTypes[]>([]);
+  const [roles, setRoles] = useState<RolesType[]>([]);
+  const [permission, setPermission] = useState<any[]>([]);
+  
 
   const { handleError } = useNotification();
+
+  useEffect(() => {
+    handleGetDepartments();
+    handleGetPositions();
+    handleGetRole();
+    handleGetPermissions();
+  }, []);
 
   const form = useForm({
     initialValues: {
@@ -48,20 +65,18 @@ const AddUser = ({ close, opened }: Props) => {
     addUser(values)
       .then(() => {
         showNotification({
-          message: "",
+          title: "Success",
+          message: "User added successfully",
+          color: "green",
         });
       })
       .catch((err) => {
-        console.log(err);
+        handleError(err);
       })
       .finally(() => {
         setLoading(false);
       });
   };
-
-  useEffect(() => {
-    handleGetDepartments();
-  }, []);
 
   const handleGetDepartments = () => {
     setLoading(true);
@@ -77,6 +92,60 @@ const AddUser = ({ close, opened }: Props) => {
         setLoading(false);
       });
   };
+
+  const handleGetPositions = () => {
+    setLoading(true);
+
+    getPositions()
+      .then((res: any) => {
+        setPositions(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleGetRole = () => {
+    setLoading(true);
+
+    getRoles()
+      .then((res: any) => {
+        setRoles(res.data);
+      })
+      .catch((error: any) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleGetPermissions = () => {
+    getPermission()
+      .then((res: any) => {
+        setPermission(res.data);
+      })
+      .catch((err) => {
+        handleError(err);
+      })
+      .finally();
+  };
+
+  
+
+  const options = [];
+
+  for (const item of permission) {
+    for (const action of item.actions) {
+      options.push({
+        cat: item.name,
+        key: item.name + "-" + action,
+      });
+    }
+  }
 
   return (
     <>
@@ -126,10 +195,10 @@ const AddUser = ({ close, opened }: Props) => {
             size="md"
             label="User type"
             placeholder="Choose user type"
-            data={[
-              { value: "admin", label: "Admin" },
-              { value: "user", label: "User" },
-            ]}
+            data={roles.map((role) => ({
+              label: role.name,
+              value: role._id,
+            }))}
             required
             {...form.getInputProps("usertype")}
           />
@@ -152,19 +221,17 @@ const AddUser = ({ close, opened }: Props) => {
             size="md"
             label="Position"
             placeholder="Choose position"
-            data={[
-              { value: "react", label: "React" },
-              { value: "ng", label: "Angular" },
-              { value: "svelte", label: "Svelte" },
-              { value: "vue", label: "Vue" },
-            ]}
+            data={positions.map((position) => ({
+              label: position.name,
+              value: position._id,
+            }))}
             required
             {...form.getInputProps("positionId")}
           />
 
           <NumberInput
             size="md"
-            mt="sm"
+            my="sm"
             label="Salary"
             placeholder="###"
             hideControls
@@ -172,24 +239,29 @@ const AddUser = ({ close, opened }: Props) => {
             {...form.getInputProps("salary")}
           />
 
-          <Select
-            mt="sm"
-            size="md"
-            label="Role"
-            placeholder="Choose role"
-            data={[
-              { value: "react", label: "React" },
-              { value: "ng", label: "Angular" },
-              { value: "svelte", label: "Svelte" },
-              { value: "vue", label: "Vue" },
-            ]}
-            required
-            {...form.getInputProps("roleId")}
-          />
+          <div>
+            <Text weight={500}>Permissions</Text>
+            <Multiselect
+              displayValue="key"
+              groupBy="cat"
+              onKeyPressFn={function noRefCheck() {}}
+              onRemove={function noRefCheck() {}}
+              onSearch={function noRefCheck() {}}
+              onSelect={function noRefCheck() {}}
+              options={options}
+              showCheckbox
+              // selectedValues={handleSelectChange}
+            />
+          </div>
+
           <Group position="right">
             <button
+              type="submit"
               className="bg-dakeb-green-mid rounded-md mt-[24px] text-white font-bold px-6 py-3"
-              onClick={close}
+              onClick={() => {
+                close();
+                submit(form.values);
+              }}
             >
               Add User
             </button>

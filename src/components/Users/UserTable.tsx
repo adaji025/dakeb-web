@@ -83,7 +83,7 @@ const UserTable = ({ data }: Props) => {
               </td>
               <td>{item.email}</td>
               <td>0{item.phonenumber}</td>
-              <td>{item.role}</td>
+              <td>{item.role.name}</td>
               <td>{item.salary}</td>
               <td className="text-start">
                 {moment(item.createdAt).format("DD-MM-YY")}

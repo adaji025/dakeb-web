@@ -5,15 +5,9 @@ import ManagementLayout from "../../components/Management/ManagementLayout";
 import { DataContext } from "../../context/DataProvider";
 import useNotification from "../../hooks/useNotification";
 import { getPositions } from "../../services/positions/positions";
+import { PositionsTypes } from "../../types/position";
 
-type PositionsTypes = {
-  _id: string
-  name: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
+
 
 const users = [
   {

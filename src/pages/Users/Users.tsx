@@ -13,8 +13,8 @@ const Users = () => {
   const [users, setUsers] = React.useState<UserType[]>([]);
   const { handleError } = useNotification();
 
-  const addminUsers = users.filter((user) => user.role === "Admin");
-  const staffUsers = users.filter((user) => user.role === "User");
+  const addminUsers = users.filter((user) => user.role.name === "Admin");
+  const staffUsers = users.filter((user) => user.role.name === "User");
 
   useEffect(() => {
     handleGetUsers();

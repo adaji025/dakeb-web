@@ -5,16 +5,20 @@ export interface UserState {
   }
   
   export type UserType = {
-    _id: string;
-    name: string;
-    email: string;
-    salary: string;
-    phonenumber: number;
-    department: string;
-    createdAt: string;
-    position: string;
-    role: string;
-    password: string;
-    __v: number;
-    usertype?: string;
-  }
+    role: Role
+  _id: string
+  name: string
+  email: string
+  salary: string
+  phonenumber: number
+  department: string
+  position: string
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+  
+export type Role = {
+  id: string
+  name: string
+}
