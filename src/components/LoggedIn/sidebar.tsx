@@ -9,20 +9,58 @@ import { getFirstLetterOfFullName } from "../../lib/utils";
 import useNotification from "../../hooks/useNotification";
 import Logo from "../../assets/svgs/dakeb-logo-light.svg";
 
-type Props = {
-  menuItem: Array<{
-    title: string;
-    url: string;
-  }>;
-};
+const menuItem = [
+  {
+    title: "Dasboard",
+    url: "/",
+  },
+  {
+    title: "Users",
+    url: "/users",
+  },
+  {
+    title: "Reprts",
+    url: "/reports",
+  },
+  {
+    title: "Forms",
+    url: "/forms",
+  },
+  {
+    title: "Pay Slip",
+    url: "/pay-slip",
+  },
+  {
+    title: "Beef and Chick Hunters",
+    url: "/beef-and-chick-hunters",
+  },
+  {
+    title: "Out Sourcing",
+    url: "/out-sourcing",
+  },
+  {
+    title: "Maintenance Chart",
+    url: "/maintenance-chart",
+  },
+  {
+    title: "Barcode Development",
+    url: "/barcode-develoment",
+  },
+  {
+    title: "Management",
+    url: "/system-setup",
+  },
+];
 
-const Sidebar = ({ menuItem }: Props) => {
+const Sidebar = () => {
   const [showOverlay, setShowOverlay] = React.useState(false);
   const [image, setImage] = React.useState(Array<Blob>);
   const [imagePreview, setImagePreview] = React.useState("");
-  const {logoutUser} = useNotification()
+  const { logoutUser } = useNotification();
 
-  const userData: UserType = useSelector((state: RootState) => state.user.userData);
+  const userData: UserType = useSelector(
+    (state: RootState) => state.user.userData
+  );
 
   const navigate = useNavigate();
 
@@ -41,7 +79,6 @@ const Sidebar = ({ menuItem }: Props) => {
     setImage(e.target.files);
   };
 
-  
   return (
     <aside className="h-screen hidden md:flex md:w-[200px] lg:w-[250px]  bg-dakeb-green-dark">
       <div className="flex flex-col w-full overflow-y-auto sidebar">
@@ -84,7 +121,7 @@ const Sidebar = ({ menuItem }: Props) => {
             <div className={`h-2 w-2 rounded-full bg-dakeb-yellow-mid mt-2`} />
           </div>
           <p className="text-[#F2F2F2] text-start text-sm mt-2">
-          {userData && userData.position}
+            {userData && userData.position}
           </p>
         </div>
         <hr className="mt-2" />
