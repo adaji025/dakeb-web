@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { Table, LoadingOverlay } from "@mantine/core";
 import ManagementLayout from "../../components/Management/ManagementLayout";
 import { DataContext } from "../../context/DataProvider";
@@ -14,7 +14,8 @@ const Mangement = () => {
   const { loading, setLoading } = useContext(DataContext);
   const { handleError } = useNotification();
 
-  console.log(roles);
+  const memoisedRoles = useMemo(() => roles, [roles])
+  console.log("memoised roles", memoisedRoles)
   const isAllRowsSelected =
     roles.length > 0 && selectedRowIds.length === roles.length;
 
@@ -82,7 +83,7 @@ const Mangement = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {roles.map((element) => (
+                  {memoisedRoles.map((element) => (
                     <tr
                       key={element._id}
                       className={`border-none ${
