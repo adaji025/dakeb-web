@@ -24,7 +24,10 @@ export const APIS = {
   POSITION: {
     GET_POSITION: `${api}/position`,
   },
-  PAYSLIP: {},
+  PAYSLIP: {
+    GET_PAYSLIP: `${api}/payslip`,
+    GET_SINGLE_PAYSLIP: (id: string) => `${api}/payslip/${id}`,
+  },
   REPORTS: {
     GET_REPORT: `${api}/report`,
     GET_SINGLE_REPORT: (id: string) => `${api}/report/${id}`,
