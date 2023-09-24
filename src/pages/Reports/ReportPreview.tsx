@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { Avatar, LoadingOverlay } from "@mantine/core";
-import { useContext } from "react";
-import { DataContext } from "../../context/DataProvider";
 import { IoSend } from "react-icons/io5";
 
 import DakebLogo from "../../assets/svgs/dakeb-logo.svg";
@@ -15,7 +13,6 @@ import moment from "moment";
 const ReportPreview = () => {
   const [report, setReport] = useState<ReportTypes>();
   const [loading, setLoading] = useState(false);
-  const { reportData } = useContext(DataContext);
   const { id } = useParams();
 
   const { handleError } = useNotification();
