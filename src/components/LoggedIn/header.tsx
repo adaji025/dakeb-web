@@ -14,7 +14,7 @@ import CreateDepartment from "../Management/CreateDepartment";
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
-  handleBtnClick: () => void;
+  handleBtnClick?: () => void;
 };
 
 const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {

@@ -6,7 +6,7 @@ import MobileSidebar from "./MobileSidebar";
 type Props = {
   children: React.ReactNode;
   title: string;
-  handleBtnClick: () => void;
+  handleBtnClick?: () => void;
 };
 const Layout = ({ children, handleBtnClick, title }: Props) => {
   const [mobileNav, openMobileNav] = React.useState(false);
