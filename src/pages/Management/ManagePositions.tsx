@@ -5,15 +5,8 @@ import ManagementLayout from "../../components/Management/ManagementLayout";
 import { DataContext } from "../../context/DataProvider";
 import useNotification from "../../hooks/useNotification";
 import { getPositions } from "../../services/positions/positions";
-
-type PositionsTypes = {
-  _id: string
-  name: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
+import { PositionsTypes } from "../../types/position";
+import Layout from "../../components/LoggedIn/Layout";
 
 const users = [
   {
@@ -86,63 +79,65 @@ const ManagePositions = () => {
   return (
     <>
       <LoadingOverlay visible={loading} />
-      <ManagementLayout>
-        <Table verticalSpacing="md" mt={20}>
-          <thead>
-            <tr>
-              <th>
-                <div className="flex gap-5">
-                  <input
-                    type="checkbox"
-                    checked={isAllRowsSelected}
-                    onChange={handleSelectAllRows}
-                  />
-                  <div>name</div>
-                </div>
-              </th>
-              <th>Permissions</th>
-              <th>Created by</th>
-              <th> Date created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {positions.map((element) => (
-              <tr
-                key={element._id}
-                className={`border-none ${
-                  isRowSelected(element._id) ? "selected" : ""
-                }`}
-              >
-                <td>
-                  <div className="flex items-center gap-5">
+      <Layout title="Manage Position" handleBtnClick={() => {}}>
+        <ManagementLayout>
+          <Table verticalSpacing="md" mt={20}>
+            <thead>
+              <tr>
+                <th>
+                  <div className="flex gap-5">
                     <input
                       type="checkbox"
-                      checked={isRowSelected(element._id)}
-                      onChange={() => handleRowCheckboxChange(element._id)}
+                      checked={isAllRowsSelected}
+                      onChange={handleSelectAllRows}
                     />
-                    {element.name}
+                    <div>name</div>
                   </div>
-                </td>
-                {/* <td>{element.permissions}</td> */}
-                <td>{element.description?.slice(0,15)}</td>
-                <td>{moment(element.createdAt).format("DD-MM-YY")}</td>
-                <td>
-                  <button
+                </th>
+                <th>Permissions</th>
+                <th>Created by</th>
+                <th> Date created</th>
+              </tr>
+            </thead>
+            <tbody>
+              {positions.map((element) => (
+                <tr
+                  key={element._id}
+                  className={`border-none ${
+                    isRowSelected(element._id) ? "selected" : ""
+                  }`}
+                >
+                  <td>
+                    <div className="flex items-center gap-5">
+                      <input
+                        type="checkbox"
+                        checked={isRowSelected(element._id)}
+                        onChange={() => handleRowCheckboxChange(element._id)}
+                      />
+                      {element.name}
+                    </div>
+                  </td>
+                  {/* <td>{element.permissions}</td> */}
+                  <td>{element.description?.slice(0, 15)}</td>
+                  <td>{moment(element.createdAt).format("DD-MM-YY")}</td>
+                  <td>
+                    <button
                     // className={`font-bold py-2 px-4 rounded-full ${
                     //   element.status === "active"
                     //     ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
                     //     : "text-[#B95A06] bg-[#B95A06]/10"
                     // }`}
-                  >
-                    {/* {element.status === "active" ? "Active" : "Inactive"} */}
-                    active
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </ManagementLayout>
+                    >
+                      {/* {element.status === "active" ? "Active" : "Inactive"} */}
+                      active
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </ManagementLayout>
+      </Layout>
     </>
   );
 };

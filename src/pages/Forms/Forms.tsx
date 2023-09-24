@@ -1,57 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { LoadingOverlay } from "@mantine/core";
 import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
-import ReportTable from "../../components/Reports/ReportTable";
-
-const datas = [
-  {
-    id: 1,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "low",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {
-    id: 2,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "high",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {id: 5,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Lydia Workman",
-    priority: "low",
-    date_submitted: "06 - 06 - 2010",
-    status: "pending",
-  },
-  {
-    id: 3,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "high",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {
-    id: 4,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "medium",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-];
+import { getForms } from "../../services/forms/forms";
+import { FormsTypes } from "../../types/forms";
+import useNotification from "../../hooks/useNotification";
+import FormTable from "../../components/Forms/FormTable";
 
 const Forms = () => {
-  const [tableType, setTableType] = React.useState("All");
+  const [tableType, setTableType] = useState<
+    | "All"
+    | "Purchase"
+    | "Daily expense"
+    | "Turn over"
+    | "Animal observation"
+    | "Plantation observation"
+  >("All");
+  const [forms, setForms] = useState<FormsTypes[]>([]);
+  const { loading, setLoading } = useContext(DataContext);
+  const { handleError } = useNotification();
 
   const { createReport } = React.useContext(DataContext);
   const tableList = [
@@ -62,8 +29,34 @@ const Forms = () => {
     "Animal observation",
     "Plantation observation",
   ];
+
+  const animalObservationForm = forms.filter(
+    (form) => form.name === "Animal Observation Form"
+  );
+
+  useEffect(() => {
+    handleGetForms();
+  }, []);
+  console.log("forms ==>", forms);
+
+  const handleGetForms = () => {
+    setLoading(true);
+
+    getForms()
+      .then((res: any) => {
+        setForms(res.data);
+      })
+      .then((errors: any) => {
+        handleError(errors);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <>
+      <LoadingOverlay visible={loading} />
       <div className="max-w-[1300px] mx-auto py-10">
         {!createReport && (
           <>
@@ -77,6 +70,7 @@ const Forms = () => {
                         ? "border-dakeb-green-mid text-[#333333] font-semibold"
                         : "border-transparent"
                     }`}
+                    // @ts-ignore
                     onClick={() => setTableType(item)}
                   >
                     {item}
@@ -85,8 +79,14 @@ const Forms = () => {
               </div>
               <CatMenu />
             </div>
-            <div className="mt-10">
-              <ReportTable data={datas} />
+            <div className="mt-10 overflow-auto">
+              <FormTable
+                data={
+                  tableType === "Animal observation"
+                    ? animalObservationForm
+                    : forms
+                }
+              />
             </div>
           </>
         )}

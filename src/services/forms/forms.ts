@@ -12,3 +12,15 @@ export const getForms = () => {
       });
   });
 };
+
+export const getForm = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.get(`${APIS.FORMS.GET_SINGLE_FORM(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

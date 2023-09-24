@@ -1,11 +1,11 @@
 import { useState } from "react";
 import moment from "moment";
 import { Table } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: UserType[];
@@ -70,7 +70,7 @@ const UserTable = ({ data }: Props) => {
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr>
+            <tr key={item._id}>
               <td>
                 <div className="flex gap-3">
                   <input
@@ -83,7 +83,7 @@ const UserTable = ({ data }: Props) => {
               </td>
               <td>{item.email}</td>
               <td>0{item.phonenumber}</td>
-              <td>{item.role}</td>
+              <td>{item.role.name}</td>
               <td>{item.salary}</td>
               <td className="text-start">
                 {moment(item.createdAt).format("DD-MM-YY")}

@@ -5,46 +5,17 @@ import useNotification from "../../hooks/useNotification";
 import ManagementLayout from "../../components/Management/ManagementLayout";
 import { getDepartments } from "../../services/department/department";
 import { DataContext } from "../../context/DataProvider";
-
-type departmentsTypes = {
-  _id: string
-  name: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
-
-const users = [
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "active",
-  },
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "inactive",
-  },
-];
+import Layout from "../../components/LoggedIn/Layout";
 
 const ManageDepartments = () => {
   const [departments, setDepartments] = useState<departmentsTypes[]>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const { loading, setLoading } = useContext(DataContext);
 
-  console.log(departments)
-
   const { handleError } = useNotification();
 
   const isAllRowsSelected =
-    users.length > 0 && selectedRowIds.length === users.length;
+    departments.length > 0 && selectedRowIds.length === departments.length;
 
   const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
@@ -86,61 +57,63 @@ const ManageDepartments = () => {
   return (
     <>
       <LoadingOverlay visible={loading} />
-      <ManagementLayout>
-        <Table verticalSpacing="md" mt={20}>
-          <thead>
-            <tr>
-              <th>
-                <div className="flex gap-5">
-                  <input
-                    type="checkbox"
-                    checked={isAllRowsSelected}
-                    onChange={handleSelectAllRows}
-                  />
-                  <div>Name</div>
-                </div>
-              </th>
-              <th>Description</th>
-              <th> Date created</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {departments.map((element) => (
-              <tr
-                key={element._id}
-                className={`border-none ${
-                  isRowSelected(element._id) ? "selected" : ""
-                }`}
-              >
-                <td>
-                  <div className="flex items-center gap-5">
+      <Layout title="Manage Department" handleBtnClick={() => {}}>
+        <ManagementLayout>
+          <Table verticalSpacing="md" mt={20}>
+            <thead>
+              <tr>
+                <th>
+                  <div className="flex gap-5">
                     <input
                       type="checkbox"
-                      checked={isRowSelected(element._id)}
-                      onChange={() => handleRowCheckboxChange(element._id)}
+                      checked={isAllRowsSelected}
+                      onChange={handleSelectAllRows}
                     />
-                    {element.name}
+                    <div>Name</div>
                   </div>
-                </td>
-                <td>{element.description?.slice(0,15)}</td>
-                <td>{moment(element.createdAt).format("DD-MM-YY")}</td>
-                <td>
-                  <button
+                </th>
+                <th>Description</th>
+                <th> Date created</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {departments.map((element) => (
+                <tr
+                  key={element._id}
+                  className={`border-none ${
+                    isRowSelected(element._id) ? "selected" : ""
+                  }`}
+                >
+                  <td>
+                    <div className="flex items-center gap-5">
+                      <input
+                        type="checkbox"
+                        checked={isRowSelected(element._id)}
+                        onChange={() => handleRowCheckboxChange(element._id)}
+                      />
+                      {element.name}
+                    </div>
+                  </td>
+                  <td>{element.description?.slice(0, 15)}</td>
+                  <td>{moment(element.createdAt).format("DD-MM-YY")}</td>
+                  <td>
+                    <button
                     // className={`font-bold py-2 px-4 rounded-full ${
                     //   element.status === "active"
                     //     ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
                     //     : "text-[#B95A06] bg-[#B95A06]/10"
                     // }`}
-                  >
-                     Active
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </ManagementLayout>
+                    >
+                      Active
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </ManagementLayout>
+      </Layout>
     </>
   );
 };

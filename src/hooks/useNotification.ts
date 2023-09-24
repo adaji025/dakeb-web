@@ -27,7 +27,7 @@ const useNotification = () => {
     }
 
     if (error?.response?.status === 401) {
-      // return logoutUser();
+      return logoutUser();
     }
 
     if (error?.response?.status === 500) {

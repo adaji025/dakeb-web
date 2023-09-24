@@ -12,3 +12,15 @@ export const getReports = () => {
       });
   });
 };
+
+export const getReport = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.get(`${APIS.REPORTS.GET_SINGLE_REPORT(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

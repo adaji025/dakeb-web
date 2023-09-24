@@ -1,54 +1,25 @@
-import React, { useState } from "react";
-import { Avatar, Table } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Avatar, Table, LoadingOverlay } from "@mantine/core";
 import { IoCopyOutline } from "react-icons/io5";
-const users = [
-  {
-    id: 1,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 2,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 3,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "DGTHE564",
-  },
-  {
-    id: 4,
-    name: "Cooper Lubin",
-    email: "dulcesanton@gmail.com",
-    phone_number: "08156431267",
-    role: "Sales manager",
-    salary: 250000,
-    codes: "",
-  },
-];
+import { getHunters } from "../../services/hunters/hunters";
+import useNotification from "../../hooks/useNotification";
+import { HuntersType } from "../../types/hunters";
+import Layout from "../../components/LoggedIn/Layout";
+import AddHunter from "../../components/BeafChickHunters/AddHunter";
 
 const BeafChickHunters = () => {
-  const [active, setActive] = React.useState<"beaf" | "chick">("beaf");
-  const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
+  const [active, setActive] = useState<"beaf" | "chick">("beaf");
+  const [loading, setLoading] = useState(false);
+  const [hunters, setHunters] = useState<HuntersType[]>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+  const [addHunter, setAddHunter] = useState<boolean>(false);
+
+  const { handleError } = useNotification();
 
   const isAllRowsSelected =
-    users.length > 0 && selectedRowIds.length === users.length;
-  
+    hunters.length > 0 && selectedRowIds.length === hunters.length;
 
-  const handleRowCheckboxChange = (id: number) => {
+  const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((rowId) => rowId !== id)
@@ -60,110 +31,141 @@ const BeafChickHunters = () => {
     if (isAllRowsSelected) {
       setSelectedRowIds([]);
     } else {
-      setSelectedRowIds(users.map((row) => row.id));
+      setSelectedRowIds(hunters.map((row) => row._id));
     }
   };
 
-  const isRowSelected = (id: number) => selectedRowIds.includes(id);
+  const isRowSelected = (id: string) => selectedRowIds.includes(id);
+  useEffect(() => {
+    handleGetHunters();
+  }, []);
+
+  const handleGetHunters = () => {
+    setLoading(true);
+    getHunters()
+      .then((res: any) => {
+        setHunters(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const beafHunters = hunters.filter((hunter) => hunter.type === "Beef Hunter");
+  const chickHunters = hunters.filter(
+    (hunter) => hunter.type === "Chick Hunter"
+  );
+
+  const data = active === "beaf" ? beafHunters : chickHunters;
 
   return (
     <>
-   
-      <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
-        <div className="flex gap-5">
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "beaf"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("beaf")}
-          >
-            Beef hunters
+      <AddHunter opened={addHunter} close={() => setAddHunter(false)} />
+
+      <LoadingOverlay visible={loading} />
+      <Layout
+        title="Beef and chick hunters"
+        handleBtnClick={() => setAddHunter(true)}
+      >
+        <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
+          <div className="flex gap-5">
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "beaf"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("beaf")}
+            >
+              Beef hunters
+            </div>
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "chick"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("chick")}
+            >
+              Chick hunters
+            </div>
           </div>
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "chick"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("chick")}
-          >
-            Chick hunters
-          </div>
-        </div>
-        <div className="mt-5 overflow-auto">
-          <Table verticalSpacing="md">
-            <thead>
-              <tr>
-                <th>
-                  <div className="flex gap-5">
-                    <input
-                      type="checkbox"
-                      checked={isAllRowsSelected}
-                      onChange={handleSelectAllRows}
-                    />
-                    <div>Full name</div>
-                  </div>
-                </th>
-                <th>Email</th>
-                <th>Phone number</th>
-                <th>Type</th>
-                <th>Codes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((element) => (
-                <tr
-                  key={element.name}
-                  className={`border-none ${
-                    isRowSelected(element.id) ? "selected" : ""
-                  }`}
-                >
-                  <td>
-                    <div className="flex items-center gap-2">
+          <div className="mt-5 overflow-auto">
+            <Table verticalSpacing="sm">
+              <thead>
+                <tr>
+                  <th>
+                    <div className="flex gap-5">
                       <input
                         type="checkbox"
-                        checked={isRowSelected(element.id)}
-                        onChange={() => handleRowCheckboxChange(element.id)}
+                        checked={isAllRowsSelected}
+                        onChange={handleSelectAllRows}
                       />
-                      <div className="flex items-center gap-2">
-                        <Avatar
-                          src={null}
-                          alt="Profile Picture"
-                          color="red"
-                          size={40}
-                          radius={40}
-                        >
-                          VR
-                        </Avatar>
-
-                        {element.email}
-                      </div>
+                      <div>Full name</div>
                     </div>
-                  </td>
-                  <td>{element.phone_number}</td>
-                  <td>{element.role}</td>
-                  <td>{element.salary}</td>
-                  <td>
-                    <div className="flex">
-                      {element.codes === "" ? (
-                        <button className="text-dakeb-green-mid font-bold">
-                          Generates code
-                        </button>
-                      ) : (
-                        <div className="flex items-center gap-5 text-dakeb-green-mid font-bold">
-                          {element.codes} <IoCopyOutline />
-                        </div>
-                      )}
-                    </div>
-                  </td>
+                  </th>
+                  <th>Email</th>
+                  <th>Phone number</th>
+                  <th>Type</th>
+                  <th>Codes</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {data.map((element) => (
+                  <tr
+                    key={element.name}
+                    className={`border-none ${
+                      isRowSelected(element._id) ? "selected" : ""
+                    }`}
+                  >
+                    <td>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={isRowSelected(element._id)}
+                          onChange={() => handleRowCheckboxChange(element._id)}
+                        />
+                        <div className="flex items-center gap-2">
+                          <Avatar
+                            src={null}
+                            alt="Profile Picture"
+                            color="red"
+                            size={40}
+                            radius={40}
+                          >
+                            VR
+                          </Avatar>
+
+                          {element.name}
+                        </div>
+                      </div>
+                    </td>
+                    <td>{element.email}</td>
+                    <td>{element.phonenumber}</td>
+                    <td>{element.type}</td>
+                    <td>
+                      <div className="flex">
+                        {element.code === "" ? (
+                          <button className="text-dakeb-green-mid font-bold">
+                            Generates code
+                          </button>
+                        ) : (
+                          <div className="flex items-center gap-5 text-dakeb-green-mid font-bold">
+                            {element.code} <IoCopyOutline />
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

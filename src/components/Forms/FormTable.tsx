@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Table } from "@mantine/core";
+import { Table, Menu, Text } from "@mantine/core";
 import { AcceptedIcon, PendingIcon } from "../Svgs";
-import { ReportTypes } from "../../types/reports";
+import { FormsTypes } from "../../types/forms";
 import moment from "moment";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
-  data: ReportTypes[];
+  data: FormsTypes[];
 };
 
-const ReportTable = ({ data }: Props) => {
+const FormTable = ({ data }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   const isAllRowsSelected =
     data.length > 0 && selectedRowIds.length === data.length;
@@ -33,10 +35,8 @@ const ReportTable = ({ data }: Props) => {
 
   const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
-  const navigate = useNavigate();
-
   return (
-    <div className="px-3 mt-3 overflow-auto">
+    <div className="px-3 mt-3">
       <Table className="overflow-auto">
         <thead>
           <tr>
@@ -58,8 +58,8 @@ const ReportTable = ({ data }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
+          {data.map((item) => (
+            <tr>
               <td>
                 <div className="flex gap-3">
                   <input
@@ -67,42 +67,24 @@ const ReportTable = ({ data }: Props) => {
                     checked={isRowSelected(item._id)}
                     onChange={() => handleRowCheckboxChange(item._id)}
                   />
-                  {item.category}
+                  {item.name}
                 </div>
               </td>
-              <td>{item.submittedBy.name}</td>
-              <td>{item.submittedBy.department}</td>
-              <td
-                className={`${
-                  item.priority === "High"
-                    ? "text-[#EB0E0B]"
-                    : item.priority === "Medium"
-                    ? "text-[#F2994A]"
-                    : "text-[#1D08AF]"
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`h-2 w-2 rounded-full ${
-                      item.priority === "High"
-                        ? "bg-[#EB0E0B]"
-                        : item.priority === "Medium"
-                        ? "bg-[#F2994A]"
-                        : "bg-[#1D08AF]"
-                    }`}
-                  />
-                  {item.priority}
-                </div>
-              </td>
+              <td>{item.createdBy.department}</td>
+              <td>{item.createdBy.name}</td>
+              <td>Low</td>
               <td>{moment(item.createdAt).format("DD-MM-YY")}</td>
               <td>
-                {item.status === true ? <AcceptedIcon /> : <PendingIcon />}
+                {item.status === "0" ? <PendingIcon /> : <AcceptedIcon />}
               </td>
-              <td
-                className="cursor-pointer font-medium"
-                onClick={() => navigate(`/reports/${item._id}`)}
-              >
-                View Details
+              <td>
+                <Text
+                  className="cursor-pointer text-sm"
+                  weight={500}
+                  onClick={() => navigate(`/forms/${item._id}`)}
+                >
+                  View details
+                </Text>
               </td>
             </tr>
           ))}
@@ -112,4 +94,4 @@ const ReportTable = ({ data }: Props) => {
   );
 };
 
-export default ReportTable;
+export default FormTable;
