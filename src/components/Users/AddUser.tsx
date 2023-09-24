@@ -17,9 +17,8 @@ import useNotification from "../../hooks/useNotification";
 import { getPositions } from "../../services/positions/positions";
 import { PositionsTypes } from "../../types/position";
 import { getRoles } from "../../services/roles/roles";
-import Multiselect from "multiselect-react-dropdown";
+// import Multiselect from "multiselect-react-dropdown";
 import { RolesType } from "../../types/role";
-import { getPermission } from "../../services/permission/permission";
 
 type Props = {
   opened: boolean;
@@ -31,7 +30,7 @@ const AddUser = ({ close, opened }: Props) => {
   const [departments, setDepartments] = useState<departmentsTypes[]>([]);
   const [positions, setPositions] = useState<PositionsTypes[]>([]);
   const [roles, setRoles] = useState<RolesType[]>([]);
-  const [permission, setPermission] = useState<any[]>([]);
+
 
   const { handleError } = useNotification();
 
@@ -39,7 +38,6 @@ const AddUser = ({ close, opened }: Props) => {
     handleGetDepartments();
     handleGetPositions();
     handleGetRole();
-    handleGetPermissions();
   }, []);
 
   const form = useForm({
@@ -122,29 +120,29 @@ const AddUser = ({ close, opened }: Props) => {
       });
   };
 
-  const handleGetPermissions = () => {
-    getPermission()
-      .then((res: any) => {
-        setPermission(res.data);
-      })
-      .catch((err) => {
-        handleError(err);
-      })
-      .finally();
-  };
+  // const handleGetPermissions = () => {
+  //   getPermission()
+  //     .then((res: any) => {
+  //       setPermission(res.data);
+  //     })
+  //     .catch((err) => {
+  //       handleError(err);
+  //     })
+  //     .finally();
+  // };
 
-  const options = [];
+  // const options = [];
 
-  if (permission) {
-    for (const item of permission) {
-      for (const action of item.actions) {
-        options.push({
-          cat: item?.name,
-          key: item?.name + "-" + action,
-        });
-      }
-    }
-  }
+  // if (permission) {
+  //   for (const item of permission) {
+  //     for (const action of item.actions) {
+  //       options.push({
+  //         cat: item?.name,
+  //         key: item?.name + "-" + action,
+  //       });
+  //     }
+  //   }
+  // }
 
   return (
     <>
@@ -238,7 +236,7 @@ const AddUser = ({ close, opened }: Props) => {
             {...form.getInputProps("salary")}
           />
 
-          <div>
+          {/* <div>
             <Text weight={500}>Permissions</Text>
             <Multiselect
               displayValue="key"
@@ -249,9 +247,8 @@ const AddUser = ({ close, opened }: Props) => {
               onSelect={function noRefCheck() {}}
               options={options}
               showCheckbox
-              // selectedValues={handleSelectChange}
             />
-          </div>
+          </div> */}
 
           <Group position="right">
             <button

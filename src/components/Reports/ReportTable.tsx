@@ -60,8 +60,8 @@ const ReportTable = ({ data }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr>
+          {data.map((item, index) => (
+            <tr key={index}>
               <td>
                 <div className="flex gap-3">
                   <input

@@ -4,6 +4,7 @@ import UserTable from "../../components/Users/UserTable";
 import useNotification from "../../hooks/useNotification";
 import { getUsers } from "../../services/Users/users";
 import { UserType } from "../../types/user";
+import Layout from "../../components/LoggedIn/Layout";
 
 const Users = () => {
   const [loading, setLoading] = useState(false);
@@ -37,35 +38,37 @@ const Users = () => {
   return (
     <>
       <LoadingOverlay visible={loading} overlayBlur={2} />
-      <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
-        <div className="flex gap-5">
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "administrator"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("administrator")}
-          >
-            Administrator
+      <Layout title="User" handleBtnClick={() => {}}>
+        <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
+          <div className="flex gap-5">
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "administrator"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("administrator")}
+            >
+              Administrator
+            </div>
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "staff"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("staff")}
+            >
+              Staff
+            </div>
           </div>
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "staff"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("staff")}
-          >
-            Staff
+          <div className="mt-5 overflow-auto">
+            <UserTable
+              data={active === "administrator" ? addminUsers : staffUsers}
+            />
           </div>
         </div>
-        <div className="mt-5 overflow-auto">
-          <UserTable
-            data={active === "administrator" ? addminUsers : staffUsers}
-          />
-        </div>
-      </div>
+      </Layout>
     </>
   );
 };

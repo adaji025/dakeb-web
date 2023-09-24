@@ -50,6 +50,7 @@ const LoggedInContainer = () => {
       <Route path="/users/:id" element={<UserDetails />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/forms" element={<Forms />} />
+      <Route path="/reports/:id" element={<ReportPreview />} />
       <Route
         path="/forms/animal-observation-form"
         element={<AnimalObservation />}
@@ -63,7 +64,6 @@ const LoggedInContainer = () => {
       />
       <Route path="/forms/:id" element={<FormDetail />} />
       <Route path="/reports/create-report" element={<CreateReports />} />
-      <Route path="/reports/report-preview" element={<ReportPreview />} />
       <Route path="/pay-slip" element={<Payslip />} />
       <Route path={`/pay-slip/:id`} element={<PayslipDetails />} />
       <Route path={`/pay-slip/view-pay-slip/:id`} element={<ViewPayslip />} />
