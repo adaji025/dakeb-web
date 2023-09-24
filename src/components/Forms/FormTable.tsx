@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table, Menu, Text } from "@mantine/core";
+import { Table, Text } from "@mantine/core";
 import { AcceptedIcon, PendingIcon } from "../Svgs";
 import { FormsTypes } from "../../types/forms";
 import moment from "moment";
