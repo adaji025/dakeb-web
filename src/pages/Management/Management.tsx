@@ -5,38 +5,20 @@ import { DataContext } from "../../context/DataProvider";
 import { getRoles } from "../../services/roles/roles";
 import useNotification from "../../hooks/useNotification";
 import Layout from "../../components/LoggedIn/Layout";
-
-const users = [
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "active",
-  },
-  {
-    id: 1,
-    role: "Accountant",
-    permissions: "Reports, Forms, Pay slip",
-    created_by: "john Doe",
-    date_created: "06 - 06 - 2010",
-    status: "inactive",
-  },
-];
+import { RolesType } from "../../types/role";
+import moment from "moment";
 
 const Mangement = () => {
-  const [selectedRowIds, setSelectedRowIds] = useState<number[]>([]);
-  const [roles, setRoles] = useState([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+  const [roles, setRoles] = useState<RolesType[]>([]);
   const { loading, setLoading } = useContext(DataContext);
   const { handleError } = useNotification();
 
   console.log(roles);
-
   const isAllRowsSelected =
-    users.length > 0 && selectedRowIds.length === users.length;
+    roles.length > 0 && selectedRowIds.length === roles.length;
 
-  const handleRowCheckboxChange = (id: number) => {
+  const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((rowId) => rowId !== id)
@@ -48,11 +30,11 @@ const Mangement = () => {
     if (isAllRowsSelected) {
       setSelectedRowIds([]);
     } else {
-      setSelectedRowIds(users.map((row) => row.id));
+      setSelectedRowIds(roles.map((row) => row._id));
     }
   };
 
-  const isRowSelected = (id: number) => selectedRowIds.includes(id);
+  const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
   useEffect(() => {
     handleGetRole();
@@ -90,46 +72,65 @@ const Mangement = () => {
                           checked={isAllRowsSelected}
                           onChange={handleSelectAllRows}
                         />
-                        <div>Role</div>
+                        <div>Name</div>
                       </div>
                     </th>
                     <th>Permissions</th>
                     <th>Created by</th>
                     <th> Date created</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((element) => (
+                  {roles.map((element) => (
                     <tr
-                      key={element.role}
+                      key={element._id}
                       className={`border-none ${
-                        isRowSelected(element.id) ? "selected" : ""
+                        isRowSelected(element._id) ? "selected" : ""
                       }`}
                     >
-                      <td>
+                      <td className="align-top">
                         <div className="flex items-center gap-5">
                           <input
                             type="checkbox"
-                            checked={isRowSelected(element.id)}
-                            onChange={() => handleRowCheckboxChange(element.id)}
+                            checked={isRowSelected(element._id)}
+                            onChange={() =>
+                              handleRowCheckboxChange(element._id)
+                            }
                           />
-                          {element.role}
+                          {element.name}
                         </div>
                       </td>
-                      <td>{element.permissions}</td>
-                      <td>{element.created_by}</td>
-                      <td>{element.date_created}</td>
-                      <td>
+                      <td className="align-top">
+                        {element.permissions.map((item, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <div className="capitalize font-bold">
+                              {item.name}
+                            </div>{" "}
+                            :
+                            {item.actions.map((action, index) => (
+                              <div key={index} className="flex">
+                                {action}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </td>
+                      <td className="align-top">Adji Mukhtar</td>
+                      <td className="align-top">
+                        {moment(element.createdAt).format("DD-MM-YY")}
+                      </td>
+                      {/* <td>
                         <button
                           className={`font-bold py-2 px-4 rounded-full ${
-                            element.status === "active"
+                            element. === "active"
                               ? "bg-dakeb-green-mid/10 text-dakeb-green-mid"
                               : "text-[#B95A06] bg-[#B95A06]/10"
                           }`}
                         >
                           {element.status === "active" ? "Active" : "Inactive"}
                         </button>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

@@ -4,7 +4,6 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
-import AddUser from "../Users/AddUser";
 import AddReport from "../Outsourcing/AddReport";
 import AddBarcode from "../Barcode/AddBarcode";
 import CreateRole from "../Management/CreateRole";
@@ -19,7 +18,6 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
-  const [addUser, setAddUser] = useState<boolean>(false);
   const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
   const [createRoles, setCreateRoles] = useState<boolean>(false);
@@ -33,7 +31,6 @@ const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
 
   return (
     <>
-      <AddUser opened={addUser} close={() => setAddUser(false)} />
       <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
       <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
       <CreateRole opened={createRoles} close={() => setCreateRoles(false)} />

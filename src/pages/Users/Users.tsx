@@ -5,6 +5,7 @@ import useNotification from "../../hooks/useNotification";
 import { getUsers } from "../../services/Users/users";
 import { UserType } from "../../types/user";
 import Layout from "../../components/LoggedIn/Layout";
+import AddUser from "../../components/Users/AddUser";
 
 const Users = () => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,8 @@ const Users = () => {
     "administrator"
   );
   const [users, setUsers] = React.useState<UserType[]>([]);
+  const [addUser, setAddUser] = useState<boolean>(false);
+
   const { handleError } = useNotification();
 
   const addminUsers = users.filter((user) => user.role.name === "Admin");
@@ -37,8 +40,10 @@ const Users = () => {
 
   return (
     <>
+      <AddUser opened={addUser} close={() => setAddUser(false)} />
+
       <LoadingOverlay visible={loading} overlayBlur={2} />
-      <Layout title="User" handleBtnClick={() => {}}>
+      <Layout title="User" handleBtnClick={() => setAddUser(true)}>
         <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
           <div className="flex gap-5">
             <div
