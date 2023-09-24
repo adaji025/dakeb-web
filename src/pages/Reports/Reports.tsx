@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { LoadingOverlay } from "@mantine/core";
 import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
@@ -6,54 +6,6 @@ import ReportTable from "../../components/Reports/ReportTable";
 import useNotification from "../../hooks/useNotification";
 import { getReports } from "../../services/reports/reports";
 import Layout from "../../components/LoggedIn/Layout";
-
-const datas = [
-  {
-    id: 1,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "low",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {
-    id: 2,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "high",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {
-    id: 5,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Lydia Workman",
-    priority: "low",
-    date_submitted: "06 - 06 - 2010",
-    status: "pending",
-  },
-  {
-    id: 3,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "high",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-  {
-    id: 4,
-    category: "Cooper Lubin",
-    department: "dulcesanton@gmail.com",
-    submitted_by: "Roger Curtis",
-    priority: "medium",
-    date_submitted: "06 - 06 - 2010",
-    status: "accepted",
-  },
-];
 
 const Reports = () => {
   const [tableType, setTableType] = useState("All");
@@ -89,7 +41,7 @@ const Reports = () => {
       });
   };
 
-  console.log("reports", reports)
+  const memoisedReports = useMemo(() => reports, [reports]);
   return (
     <>
       <LoadingOverlay visible={loading} />
@@ -116,7 +68,7 @@ const Reports = () => {
                 <CatMenu />
               </div>
               <div className="mt-10">
-                <ReportTable data={datas} />
+                <ReportTable data={memoisedReports} />
               </div>
             </>
           )}
