@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { Avatar } from "@mantine/core";
-import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { IoSend } from "react-icons/io5";
 
-import { DataContext } from "../../context/DataProvider";
 import DakebLogo from "../../assets/svgs/dakeb-logo.svg";
 import { FormsTypes } from "../../types/forms";
 import { getForm } from "../../services/forms/forms";
@@ -13,7 +11,6 @@ import moment from "moment";
 
 const FormDetail = () => {
   const [form, setForm] = useState<FormsTypes>();
-  const { reportData } = useContext(DataContext);
   const { id } = useParams();
 
   const { handleError } = useNotification();
