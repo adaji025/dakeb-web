@@ -31,7 +31,6 @@ const AddUser = ({ close, opened }: Props) => {
   const [positions, setPositions] = useState<PositionsTypes[]>([]);
   const [roles, setRoles] = useState<RolesType[]>([]);
 
-
   const { handleError } = useNotification();
 
   useEffect(() => {
@@ -49,7 +48,6 @@ const AddUser = ({ close, opened }: Props) => {
       departmentId: "",
       positionId: "",
       roleId: "",
-      usertype: "",
       password: "",
     },
     validate: {
@@ -187,18 +185,18 @@ const AddUser = ({ close, opened }: Props) => {
             {...form.getInputProps("phonenumber")}
           />
 
-          <Select
+          {/* <Select
             mt="sm"
             size="md"
             label="User type"
             placeholder="Choose user type"
-            data={roles.map((role) => ({
-              label: role.name,
-              value: role._id,
-            }))}
+            data={[
+              { label: "Staff", value: "User" },
+              { label: "Admin", value: "Admin" },
+            ]}
             required
             {...form.getInputProps("usertype")}
-          />
+          /> */}
 
           <Select
             mt="sm"
@@ -224,6 +222,19 @@ const AddUser = ({ close, opened }: Props) => {
             }))}
             required
             {...form.getInputProps("positionId")}
+          />
+
+          <Select
+            mt="sm"
+            size="md"
+            label="Role"
+            placeholder="Choose role"
+            data={roles.map((role) => ({
+              label: role.name,
+              value: role._id,
+            }))}
+            required
+            {...form.getInputProps("roleId")}
           />
 
           <NumberInput
