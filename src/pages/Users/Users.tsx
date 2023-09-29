@@ -40,7 +40,7 @@ const Users = () => {
 
   return (
     <>
-      <AddUser opened={addUser} close={() => setAddUser(false)} />
+      <AddUser opened={addUser} close={() => setAddUser(false)} setUsers={setUsers} />
 
       <LoadingOverlay visible={loading} overlayBlur={2} />
       <Layout title="User" handleBtnClick={() => setAddUser(true)}>
