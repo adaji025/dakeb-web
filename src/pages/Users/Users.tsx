@@ -14,6 +14,7 @@ const Users = () => {
   );
   const [users, setUsers] = React.useState<UserType[]>([]);
   const [addUser, setAddUser] = useState<boolean>(false);
+ 
 
   const { handleError } = useNotification();
 
@@ -37,6 +38,8 @@ const Users = () => {
         setLoading(false);
       });
   };
+
+
 
   return (
     <>

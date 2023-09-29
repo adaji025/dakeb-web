@@ -7,14 +7,16 @@ import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
 
+
 type Props = {
   data: UserType[];
 };
 
-const UserTable = ({ data }: Props) => {
+const UserTable = ({ data,  }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const [rowId, setRowId] = useState<string>("");
-  const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+ 
+
 
   const navigate = useNavigate();
 
@@ -40,11 +42,14 @@ const UserTable = ({ data }: Props) => {
   const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
   const handleOpenDropdown = (id: string) => {
-    setRowId(id);
-    if (rowId === id) {
-      setOpenDropdown(!openDropdown);
+    if (id === rowId) {
+      setRowId("");
+    } else {
+      setRowId(id);
     }
   };
+
+
 
   return (
     <div className="px-3 mt-3">
@@ -63,7 +68,7 @@ const UserTable = ({ data }: Props) => {
             </th>
             <th>Email</th>
             <th>Phone number</th>
-            <th>Role</th>
+            <th>Position</th>
             <th>Salary</th>
             <th>Date joined</th>
           </tr>
@@ -83,7 +88,7 @@ const UserTable = ({ data }: Props) => {
               </td>
               <td>{item.email}</td>
               <td>0{item.phonenumber}</td>
-              <td>{item.role.name}</td>
+              <td>{item.position}</td>
               <td>{item.salary}</td>
               <td className="text-start">
                 {moment(item.createdAt).format("DD-MM-YY")}
@@ -91,32 +96,33 @@ const UserTable = ({ data }: Props) => {
               <td className="relative">
                 <div
                   className="cursor-pointer"
-                  onClick={() => handleOpenDropdown(item._id)}
+                  onClick={() => {
+                    handleOpenDropdown(item._id);
+                  }}
                 >
                   <AiOutlineMore size={24} />
                 </div>
-                {rowId === item._id && openDropdown && (
+                <div
+                  className={`shadow bg-white z-10 absolute p-3 flex flex-col gap-3 ${
+                    rowId === item._id ? "flex" : "hidden"
+                  }`}
+                >
                   <div
-                    className="shadow bg-white z-10 absolute p-3 flex flex-col gap-3"
-                    onClick={() => setOpenDropdown(false)}
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={() => navigate(`/users/${item._id}`, {state: { item, }})}
                   >
-                    <div
-                      className="flex items-center gap-2 cursor-pointer"
-                      onClick={() => navigate(`/users/${item._id}`)}
-                    >
-                      <BiSolidEdit />
-                      <div>Update</div>
-                    </div>
-                    <div className="flex items-center gap-2 cursor-pointer">
-                      <FaUserLock />
-                      <div>Reset password</div>
-                    </div>
-                    <div className="flex items-center gap-2 cursor-pointer text-red-500">
-                      <FaUserLock />
-                      <div>Deactivate</div>
-                    </div>
+                    <BiSolidEdit />
+                    <div>Update</div>
                   </div>
-                )}
+                  <div className="flex items-center gap-2 cursor-pointer">
+                    <FaUserLock />
+                    <div>Reset password</div>
+                  </div>
+                  <div className="flex items-center gap-2 cursor-pointer text-red-500">
+                    <FaUserLock />
+                    <div>Deactivate</div>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}
