@@ -1,25 +1,23 @@
 import { useState } from "react";
 import moment from "moment";
-import { Table, LoadingOverlay } from "@mantine/core";
+import { Table } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
-import { deleteUser, getUsers } from "../../services/Users/users";
-import { showNotification } from "@mantine/notifications";
-import useNotification from "../../hooks/useNotification";
 
 type Props = {
   data: UserType[];
+  handleDelete: (id: string) => void
+  handleOpenDropdown: (id: string) => void
+  rowId: string
 };
 
-const UserTable = ({ data }: Props) => {
+const UserTable = ({ data, handleDelete, handleOpenDropdown, rowId }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
-  const [rowId, setRowId] = useState<string>("");
-  const [loading, setLoading] = useState(false);
+  
 
-  const { handleError } = useNotification();
 
   const navigate = useNavigate();
 
@@ -44,51 +42,14 @@ const UserTable = ({ data }: Props) => {
 
   const isRowSelected = (id: string) => selectedRowIds.includes(id);
 
-  const handleOpenDropdown = (id: string) => {
-    if (id === rowId) {
-      setRowId("");
-    } else {
-      setRowId(id);
-    }
-  };
+ 
 
-  const handleDelete = (id: string) => {
-    setLoading(true);
-    deleteUser(id)
-      .then(() => {
-        showNotification({
-          title: "Success",
-          message: "User deleted successfully",
-          color: "green",
-        });
-      })
-      .catch((error) => {
-        handleError(error);
-      })
-      .finally(() => {
-        handleOpenDropdown(id);
-        handleGetUsers()
-        setLoading(false);
-      });
-  };
+  
 
-  const handleGetUsers = () => {
-    setLoading(true);
-    getUsers()
-      .then((res: any) => {
-        // setUsers(res.data);
-      })
-      .catch((error) => {
-        handleError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  
 
   return (
     <>
-      <LoadingOverlay visible={loading} />
       <div className="px-3 mt-3">
         <Table verticalSpacing={8} className="xl:w-[90%] mb-32">
           <thead>
