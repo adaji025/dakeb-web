@@ -10,7 +10,7 @@ import {
   LoadingOverlay,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { addUser } from "../../services/Users/users";
+import { addUser, getUsers } from "../../services/Users/users";
 import { showNotification } from "@mantine/notifications";
 import { getDepartments } from "../../services/department/department";
 import useNotification from "../../hooks/useNotification";
@@ -19,13 +19,15 @@ import { PositionsTypes } from "../../types/position";
 import { getRoles } from "../../services/roles/roles";
 // import Multiselect from "multiselect-react-dropdown";
 import { RolesType } from "../../types/role";
+import { UserType } from "../../types/user";
 
 type Props = {
   opened: boolean;
   close: () => void;
+  setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;
 };
 
-const AddUser = ({ close, opened }: Props) => {
+const AddUser = ({ close, opened, setUsers }: Props) => {
   const [loading, setLoading] = useState(false);
   const [departments, setDepartments] = useState<departmentsTypes[]>([]);
   const [positions, setPositions] = useState<PositionsTypes[]>([]);
@@ -69,7 +71,9 @@ const AddUser = ({ close, opened }: Props) => {
         handleError(err);
       })
       .finally(() => {
+        handleGetUsers();
         setLoading(false);
+        close();
       });
   };
 
@@ -111,6 +115,20 @@ const AddUser = ({ close, opened }: Props) => {
         setRoles(res.data);
       })
       .catch((error: any) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleGetUsers = () => {
+    setLoading(true);
+    getUsers()
+      .then((res: any) => {
+        setUsers(res.data);
+      })
+      .catch((error) => {
         handleError(error);
       })
       .finally(() => {
@@ -262,14 +280,7 @@ const AddUser = ({ close, opened }: Props) => {
           </div> */}
 
           <Group position="right">
-            <button
-              type="submit"
-              className="bg-dakeb-green-mid rounded-md mt-[24px] text-white font-bold px-6 py-3"
-              onClick={() => {
-                close();
-                submit(form.values);
-              }}
-            >
+            <button className="bg-dakeb-green-mid rounded-md mt-[24px] text-white font-bold px-6 py-3">
               Add User
             </button>
           </Group>
