@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LoadingOverlay } from "@mantine/core";
+import { LoadingOverlay, Menu, Button } from "@mantine/core";
 import BarChartComponent from "../../components/Dashboard/BarChart";
 import PieChartComponent from "../../components/Dashboard/PieChart";
 import YearFilter from "../../components/Dashboard/YearFilter";
@@ -9,6 +9,8 @@ import { getUsers } from "../../services/Users/users";
 import { UserType } from "../../types/user";
 import useNotification from "../../hooks/useNotification";
 import Layout from "../../components/LoggedIn/Layout";
+import { GoChevronDown } from "react-icons/go";
+import { admiStatsData } from "./data";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,32 +18,7 @@ const AdminDashboard = () => {
 
   const { handleError } = useNotification();
 
-  const statsData = [
-    {
-      increase: true,
-      title: "Revenue",
-      figure: 32787,
-      percentage: "3.3",
-    },
-    {
-      increase: true,
-      title: "Total employees",
-      figure: 32787,
-      percentage: "3.3",
-    },
-    {
-      increase: true,
-      title: "Reports",
-      figure: 32787,
-      percentage: "3.3",
-    },
-    {
-      increase: true,
-      title: "Referral",
-      figure: 32787,
-      percentage: "3.3",
-    },
-  ];
+  
 
   useEffect(() => {
     handleGetUsers();
@@ -64,10 +41,10 @@ const AdminDashboard = () => {
   return (
     <>
       <LoadingOverlay visible={loading} />
-      <Layout title="Admin Dashboard" handleBtnClick={() => {}}>
+      <Layout title="Admin Dashboard">
         <div className="max-w-[1300px] mx-auto overflow-x-hidden pb-10">
           <div className="grid xs:grid-cols-2 md:grid-cols-4 gap-y-5 place-items-center min-h-[116px] xs:border mt-10 p-4">
-            {statsData.map((item, idx) => (
+            {admiStatsData.map((item, idx) => (
               <div
                 className={`border xs:border-0  w-full ${
                   idx === 3 ? "lg:border-r-0" : "lg:border-r"
@@ -122,7 +99,22 @@ const AdminDashboard = () => {
             <div className="flex justify-between items-center pt-10">
               <h2 className="font-medium pl-6">Employee</h2>
               <div className="pr-6">
-                <YearFilter />
+                {/* <YearFilter /> */}
+                <Menu width={150}>
+                  <Menu.Target>
+                    <Button
+                      rightIcon={<GoChevronDown size={20} />}
+                      variant="outline"
+                      color="dark"
+                    >
+                      This Year
+                    </Button>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Item>Last Year</Menu.Item>
+                    <Menu.Item>Next Year</Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
               </div>
             </div>
             <AdminStaffTable data={users} />

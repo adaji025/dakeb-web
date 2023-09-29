@@ -38,7 +38,6 @@ const Forms = () => {
   useEffect(() => {
     handleGetForms();
   }, []);
-  console.log("forms ==>", forms);
 
   const handleGetForms = () => {
     setLoading(true);

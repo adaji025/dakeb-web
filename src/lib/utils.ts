@@ -1,13 +1,12 @@
-
-  
 export function getFirstLetterOfFullName(fullName: string) {
-  const words = fullName.trim().split(' ');
+  const words = fullName.trim().split(" ");
 
   if (words.length === 0) {
-    return ''; // Handle empty input
+    return ""; // Handle empty input
   }
 
-  const initials = words.map(word => word[0].toUpperCase());
+  const initials = words.map((word) => word[0].toUpperCase());
 
-  return initials.join('');
+  return initials.join("");
 }
+

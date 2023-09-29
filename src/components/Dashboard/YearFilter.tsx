@@ -7,7 +7,7 @@ export default function YearFilter() {
     <div className="w-56 z-50 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center rounded-md ">
+          <Menu.Button className="inline-flex gap-2 w-full justify-center items-center font-semibold rounded-md border p-3">
             This year
             <GoChevronDown size={20} />
           </Menu.Button>
