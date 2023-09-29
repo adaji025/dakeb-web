@@ -6,11 +6,12 @@ import ReportTable from "../../components/Reports/ReportTable";
 import useNotification from "../../hooks/useNotification";
 import { getReports } from "../../services/reports/reports";
 import Layout from "../../components/LoggedIn/Layout";
+import { ReportTypes } from "../../types/reports";
 
 const Reports = () => {
   const [tableType, setTableType] = useState("All");
   const [loading, setLoading] = useState(false);
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState<ReportTypes[]>([]);
   const { handleError } = useNotification();
 
   const { createReport } = React.useContext(DataContext);

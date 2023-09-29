@@ -39,13 +39,13 @@ const LoggedInContainer = () => {
 
   return (
     <Routes>
-      <Route
+      {/* <Route
         path="/"
         element={
           role.name === "Admin" ? <AdminDashboard /> : <StaffDashboard />
         }
-      />
-      <Route path="" element={<AdminDashboard />} />
+      /> */}
+      <Route path="/" element={<StaffDashboard />} />
       <Route path="/users" element={<Users />} />
       <Route path="/users/:id" element={<UserDetails />} />
       <Route path="/reports" element={<Reports />} />
