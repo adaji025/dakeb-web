@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { LoadingOverlay } from "@mantine/core";
 import UserTable from "../../components/Users/UserTable";
 import useNotification from "../../hooks/useNotification";
-import { getUsers } from "../../services/Users/users";
+import { deleteUser, getUsers } from "../../services/Users/users";
 import { UserType } from "../../types/user";
 import Layout from "../../components/LoggedIn/Layout";
 import AddUser from "../../components/Users/AddUser";
+import { showNotification } from "@mantine/notifications";
 
 const Users = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ const Users = () => {
   );
   const [users, setUsers] = React.useState<UserType[]>([]);
   const [addUser, setAddUser] = useState<boolean>(false);
- 
+  const [rowId, setRowId] = useState<string>("");
 
   const { handleError } = useNotification();
 
@@ -39,11 +40,41 @@ const Users = () => {
       });
   };
 
+  const handleDelete = (id: string) => {
+    setLoading(true);
+    deleteUser(id)
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "User deleted successfully",
+          color: "green",
+        });
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        handleOpenDropdown(id);
+        handleGetUsers();
+        setLoading(false);
+      });
+  };
 
+  const handleOpenDropdown = (id: string) => {
+    if (id === rowId) {
+      setRowId("");
+    } else {
+      setRowId(id);
+    }
+  };
 
   return (
     <>
-      <AddUser opened={addUser} close={() => setAddUser(false)} setUsers={setUsers} />
+      <AddUser
+        opened={addUser}
+        close={() => setAddUser(false)}
+        setUsers={setUsers}
+      />
 
       <LoadingOverlay visible={loading} overlayBlur={2} />
       <Layout title="User" handleBtnClick={() => setAddUser(true)}>
@@ -73,6 +104,9 @@ const Users = () => {
           <div className="mt-5 overflow-auto">
             <UserTable
               data={active === "administrator" ? addminUsers : staffUsers}
+              rowId={rowId}
+              handleDelete={handleDelete}
+              handleOpenDropdown={handleOpenDropdown}
             />
           </div>
         </div>
