@@ -36,3 +36,14 @@ export const getUser = (id: string) => {
   });
 };
 
+export const updateUser = (id: string, value: {}) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.put(`${APIS.USERS.SINGLE_USER(id)}`, value)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

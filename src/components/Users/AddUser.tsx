@@ -33,6 +33,9 @@ const AddUser = ({ close, opened, setUsers }: Props) => {
   const [positions, setPositions] = useState<PositionsTypes[]>([]);
   const [roles, setRoles] = useState<RolesType[]>([]);
 
+  console.log("role", roles)
+  console.log("position", positions)
+
   const { handleError } = useNotification();
 
   useEffect(() => {
