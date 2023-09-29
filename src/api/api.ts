@@ -20,9 +20,11 @@ export const APIS = {
   },
   ROLE: {
     GET_ROLES: `${api}/role`,
+    SINGLE_ROLE: (id: string) => `${api}/role/${id}`
   },
   POSITION: {
     GET_POSITION: `${api}/position`,
+    SINGLE_POSITION:(id: string) => `${api}/position/${id}`,
   },
   PAYSLIP: {
     GET_PAYSLIP: `${api}/payslip`,

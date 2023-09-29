@@ -47,3 +47,14 @@ export const updateUser = (id: string, value: {}) => {
       });
   });
 };
+export const deleteUser = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.delete(`${APIS.USERS.SINGLE_USER(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

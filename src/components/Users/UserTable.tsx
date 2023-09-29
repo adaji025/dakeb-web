@@ -1,22 +1,25 @@
 import { useState } from "react";
 import moment from "moment";
-import { Table } from "@mantine/core";
+import { Table, LoadingOverlay } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaUserLock } from "react-icons/fa";
 import { UserType } from "../../types/user";
-
+import { deleteUser, getUsers } from "../../services/Users/users";
+import { showNotification } from "@mantine/notifications";
+import useNotification from "../../hooks/useNotification";
 
 type Props = {
   data: UserType[];
 };
 
-const UserTable = ({ data,  }: Props) => {
+const UserTable = ({ data }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const [rowId, setRowId] = useState<string>("");
- 
+  const [loading, setLoading] = useState(false);
 
+  const { handleError } = useNotification();
 
   const navigate = useNavigate();
 
@@ -49,86 +52,126 @@ const UserTable = ({ data,  }: Props) => {
     }
   };
 
+  const handleDelete = (id: string) => {
+    setLoading(true);
+    deleteUser(id)
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "User deleted successfully",
+          color: "green",
+        });
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        handleOpenDropdown(id);
+        handleGetUsers()
+        setLoading(false);
+      });
+  };
 
+  const handleGetUsers = () => {
+    setLoading(true);
+    getUsers()
+      .then((res: any) => {
+        // setUsers(res.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
-    <div className="px-3 mt-3">
-      <Table verticalSpacing={8} className="xl:w-[90%] mb-32">
-        <thead>
-          <tr>
-            <th>
-              <div className="flex gap-3">
-                <input
-                  type="checkbox"
-                  checked={isAllRowsSelected}
-                  onChange={handleSelectAllRows}
-                />
-                <div>Full name</div>
-              </div>
-            </th>
-            <th>Email</th>
-            <th>Phone number</th>
-            <th>Position</th>
-            <th>Salary</th>
-            <th>Date joined</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item._id}>
-              <td>
+    <>
+      <LoadingOverlay visible={loading} />
+      <div className="px-3 mt-3">
+        <Table verticalSpacing={8} className="xl:w-[90%] mb-32">
+          <thead>
+            <tr>
+              <th>
                 <div className="flex gap-3">
                   <input
                     type="checkbox"
-                    checked={isRowSelected(item._id)}
-                    onChange={() => handleRowCheckboxChange(item._id)}
+                    checked={isAllRowsSelected}
+                    onChange={handleSelectAllRows}
                   />
-                  {item.name}
+                  <div>Full name</div>
                 </div>
-              </td>
-              <td>{item.email}</td>
-              <td>0{item.phonenumber}</td>
-              <td>{item.position}</td>
-              <td>{item.salary}</td>
-              <td className="text-start">
-                {moment(item.createdAt).format("DD-MM-YY")}
-              </td>
-              <td className="relative">
-                <div
-                  className="cursor-pointer"
-                  onClick={() => {
-                    handleOpenDropdown(item._id);
-                  }}
-                >
-                  <AiOutlineMore size={24} />
-                </div>
-                <div
-                  className={`shadow bg-white z-10 absolute p-3 flex flex-col gap-3 ${
-                    rowId === item._id ? "flex" : "hidden"
-                  }`}
-                >
-                  <div
-                    className="flex items-center gap-2 cursor-pointer"
-                    onClick={() => navigate(`/users/${item._id}`, {state: { item, }})}
-                  >
-                    <BiSolidEdit />
-                    <div>Update</div>
-                  </div>
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <FaUserLock />
-                    <div>Reset password</div>
-                  </div>
-                  <div className="flex items-center gap-2 cursor-pointer text-red-500">
-                    <FaUserLock />
-                    <div>Deactivate</div>
-                  </div>
-                </div>
-              </td>
+              </th>
+              <th>Email</th>
+              <th>Phone number</th>
+              <th>Position</th>
+              <th>Salary</th>
+              <th>Date joined</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item._id}>
+                <td>
+                  <div className="flex gap-3">
+                    <input
+                      type="checkbox"
+                      checked={isRowSelected(item._id)}
+                      onChange={() => handleRowCheckboxChange(item._id)}
+                    />
+                    {item.name}
+                  </div>
+                </td>
+                <td>{item.email}</td>
+                <td>0{item.phonenumber}</td>
+                <td>{item.position}</td>
+                <td>{item.salary}</td>
+                <td className="text-start">
+                  {moment(item.createdAt).format("DD-MM-YY")}
+                </td>
+                <td className="relative">
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      handleOpenDropdown(item._id);
+                    }}
+                  >
+                    <AiOutlineMore size={24} />
+                  </div>
+                  <div
+                    className={`shadow bg-white z-10 absolute p-3 flex flex-col gap-3 ${
+                      rowId === item._id ? "flex" : "hidden"
+                    }`}
+                  >
+                    <div
+                      className="flex items-center gap-2 cursor-pointer"
+                      onClick={() =>
+                        navigate(`/users/${item._id}`, { state: { item } })
+                      }
+                    >
+                      <BiSolidEdit />
+                      <div>Update</div>
+                    </div>
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <FaUserLock />
+                      <div>Reset password</div>
+                    </div>
+                    <div
+                      className="flex items-center gap-2 cursor-pointer text-red-500"
+                      onClick={() => handleDelete(item._id)}
+                    >
+                      <FaUserLock />
+                      <div>Deactivate</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </>
   );
 };
 
