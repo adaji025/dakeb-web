@@ -2,7 +2,6 @@ import { Table, Avatar } from "@mantine/core";
 import { HuntersType } from "../../types/hunters";
 import { IoCopyOutline } from "react-icons/io5";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaUserLock } from "react-icons/fa";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
@@ -12,7 +11,7 @@ type Props = {
   handleDelete?: (id: string) => void;
   handleOpenDropdown?: (id: string) => void;
   rowId?: string;
-  setAddHunter: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddHunter?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const BeefChicksTable = ({
@@ -127,7 +126,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setAddHunter(true);
+                    setAddHunter && setAddHunter(true);
                   }}
                 >
                   <BiSolidEdit />
@@ -136,7 +135,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setAddHunter(true);
+                    setAddHunter && setAddHunter(true);
                   }}
                 >
                   <FaUserLock />
