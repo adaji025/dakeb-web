@@ -24,3 +24,15 @@ export const getReport = (id: string) => {
       });
   });
 };
+
+export const addReports = (values: {}) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.post(`${APIS.REPORTS.GET_REPORT}`, values)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

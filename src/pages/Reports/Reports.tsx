@@ -7,6 +7,7 @@ import useNotification from "../../hooks/useNotification";
 import { getReports } from "../../services/reports/reports";
 import Layout from "../../components/LoggedIn/Layout";
 import { ReportTypes } from "../../types/reports";
+import { useNavigate } from "react-router-dom";
 
 const Reports = () => {
   const [tableType, setTableType] = useState("All");
@@ -22,6 +23,8 @@ const Reports = () => {
     "Procedure reports",
     "Vaccines reports",
   ];
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     handleGetReports();
@@ -45,8 +48,9 @@ const Reports = () => {
   const memoisedReports = useMemo(() => reports, [reports]);
   return (
     <>
+    
       <LoadingOverlay visible={loading} />
-      <Layout title="Report" handleBtnClick={() => {}}>
+      <Layout title="Report" handleBtnClick={() => navigate("/reports/create-report")}>
         <div className="max-w-[1300px] mx-auto py-10">
           {!createReport && (
             <>
