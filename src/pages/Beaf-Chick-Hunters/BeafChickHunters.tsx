@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { LoadingOverlay } from "@mantine/core";
-import { getHunters } from "../../services/hunters/hunters";
+import { deleteHunter, getHunters } from "../../services/hunters/hunters";
 import useNotification from "../../hooks/useNotification";
 import { HuntersType } from "../../types/hunters";
 import Layout from "../../components/LoggedIn/Layout";
 import AddHunter from "../../components/BeafChickHunters/AddHunter";
 import BeefChicksTable from "../../components/BeafChickHunters/BeefChicksTable";
+import { showNotification } from "@mantine/notifications";
 
 const BeafChickHunters = () => {
   const [active, setActive] = useState<"beaf" | "chick">("beaf");
   const [loading, setLoading] = useState(false);
   const [hunters, setHunters] = useState<HuntersType[]>([]);
   const [addHunter, setAddHunter] = useState<boolean>(false);
+  const [rowId, setRowId] = useState<string>("");
 
   const { handleError } = useNotification();
 
@@ -33,12 +35,40 @@ const BeafChickHunters = () => {
       });
   };
 
+  const handleDelete = (id: string) => {
+    setLoading(true);
+    deleteHunter(id)
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "Hunter deleted successfully",
+          color: "green",
+        });
+      })
+      .catch((error: any) => {
+        handleError(error);
+      })
+      .finally(() => {
+        handleOpenDropdown(id);
+        handleGetHunters();
+        setLoading(false);
+      });
+  };
+
   const beafHunters = hunters.filter((hunter) => hunter.type === "Beef Hunter");
   const chickHunters = hunters.filter(
     (hunter) => hunter.type === "Chick Hunter"
   );
 
   const data = active === "beaf" ? beafHunters : chickHunters;
+
+  const handleOpenDropdown = (id: string) => {
+    if (id === rowId) {
+      setRowId("");
+    } else {
+      setRowId(id);
+    }
+  };
 
   return (
     <>
@@ -73,7 +103,13 @@ const BeafChickHunters = () => {
             </div>
           </div>
           <div className="mt-5 overflow-auto">
-            <BeefChicksTable data={data} />
+            <BeefChicksTable
+              data={data}
+              rowId={rowId}
+              handleDelete={handleDelete}
+              handleOpenDropdown={handleOpenDropdown}
+              setAddHunter={setAddHunter}
+            />
           </div>
         </div>
       </Layout>
