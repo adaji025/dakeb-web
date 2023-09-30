@@ -4,7 +4,6 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
-import AddReport from "../Outsourcing/AddReport";
 import AddBarcode from "../Barcode/AddBarcode";
 import CreateRole from "../Management/CreateRole";
 import { BsArrowLeft } from "react-icons/bs";
@@ -18,7 +17,6 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
-  const [addOutsource, setAddOutsource] = useState<boolean>(false);
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
   const [createRoles, setCreateRoles] = useState<boolean>(false);
   const [createForm, setCreateForm] = useState<boolean>(false);
