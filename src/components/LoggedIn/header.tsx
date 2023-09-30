@@ -31,7 +31,7 @@ const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
 
   return (
     <>
-      <AddReport opened={addOutsource} close={() => setAddOutsource(false)} />
+      
       <AddBarcode opened={addBarcode} close={() => setActiveBarcode(false)} />
       <CreateRole opened={createRoles} close={() => setCreateRoles(false)} />
       <CreateDepartment

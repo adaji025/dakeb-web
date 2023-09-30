@@ -15,7 +15,42 @@ export const getReports = () => {
 
 export const getReport = (id: string) => {
   return new Promise((resolve, reject) => {
-    AxoisApi.get(`${APIS.REPORTS.GET_SINGLE_REPORT(id)}`)
+    AxoisApi.get(`${APIS.REPORTS.SINGLE_REPORT(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const deleteReport = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.delete(`${APIS.REPORTS.SINGLE_REPORT(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const addReports = (id:string, values: {}) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.post(`${APIS.REPORTS.SINGLE_REPORT(id)}`, values)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+export const updateReports = (id:string, values: {}) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.put(`${APIS.REPORTS.SINGLE_REPORT(id)}`, values)
       .then((res) => {
         resolve(res);
       })
