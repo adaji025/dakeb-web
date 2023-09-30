@@ -2,7 +2,6 @@ import { Table, Avatar } from "@mantine/core";
 import { HuntersType } from "../../types/hunters";
 import { IoCopyOutline } from "react-icons/io5";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaUserLock } from "react-icons/fa";
 import { AiOutlineMore } from "react-icons/ai";
 import { BiSolidEdit } from "react-icons/bi";
