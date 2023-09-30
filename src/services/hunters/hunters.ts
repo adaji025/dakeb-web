@@ -12,3 +12,26 @@ export const getHunters = () => {
       });
   });
 };
+export const addHunters = (values: any) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.post(`${APIS.HUNTER.GET_HUNTERS}`, values)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const deleteHunter = (id: string) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.delete(`${APIS.HUNTER.SINGLE_HUNTERS(id)}`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

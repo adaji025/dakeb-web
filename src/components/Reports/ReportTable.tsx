@@ -109,12 +109,6 @@ const ReportTable = ({
               <td>
                 {item.status === true ? <AcceptedIcon /> : <PendingIcon />}
               </td>
-              {/* <td
-                className="cursor-pointer font-medium"
-                onClick={() => navigate(`/reports/${item._id}`)}
-              >
-                View Details
-              </td> */}
               <td className="relative">
                 <div
                   className="cursor-pointer"

@@ -2,12 +2,26 @@ import { Table, Avatar } from "@mantine/core";
 import { HuntersType } from "../../types/hunters";
 import { IoCopyOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaUserLock } from "react-icons/fa";
+import { AiOutlineMore } from "react-icons/ai";
+import { BiSolidEdit } from "react-icons/bi";
 
 type Props = {
   data: HuntersType[];
+  handleDelete?: (id: string) => void;
+  handleOpenDropdown?: (id: string) => void;
+  rowId?: string;
+  setAddHunter: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const BeefChicksTable = ({ data }: Props) => {
+const BeefChicksTable = ({
+  data,
+  handleDelete,
+  handleOpenDropdown,
+  rowId,
+  setAddHunter,
+}: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
 
   const isAllRowsSelected =
@@ -94,6 +108,47 @@ const BeefChicksTable = ({ data }: Props) => {
                     {element.code} <IoCopyOutline />
                   </div>
                 )}
+              </div>
+            </td>
+            <td className="relative">
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  handleOpenDropdown && handleOpenDropdown(element._id);
+                }}
+              >
+                <AiOutlineMore size={24} />
+              </div>
+              <div
+                className={`shadow bg-white z-10 absolute -left-24 p-3 flex flex-col gap-3 ${
+                  rowId === element._id ? "flex" : "hidden"
+                }`}
+              >
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => {
+                    setAddHunter(true);
+                  }}
+                >
+                  <BiSolidEdit />
+                  <div>Edit hunter</div>
+                </div>
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => {
+                    setAddHunter(true);
+                  }}
+                >
+                  <FaUserLock />
+                  <div>View hunter</div>
+                </div>
+                <div
+                  className="flex items-center gap-2 cursor-pointer text-red-500"
+                  onClick={() => handleDelete && handleDelete(element._id)}
+                >
+                  <FaUserLock />
+                  <div>Delete hunter</div>
+                </div>
               </div>
             </td>
           </tr>

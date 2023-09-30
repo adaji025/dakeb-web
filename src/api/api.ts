@@ -36,6 +36,7 @@ export const APIS = {
   },
   HUNTER: {
     GET_HUNTERS: `${api}/hunter`,
+    SINGLE_HUNTERS:(id: string) => `${api}/hunter/${id}`,
   },
   PERMISSION: `${api}/permission`,
 };
