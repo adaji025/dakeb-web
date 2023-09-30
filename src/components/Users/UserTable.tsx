@@ -9,9 +9,9 @@ import { UserType } from "../../types/user";
 
 type Props = {
   data: UserType[];
-  handleDelete: (id: string) => void
-  handleOpenDropdown: (id: string) => void
-  rowId: string
+  handleDelete?: (id: string) => void
+  handleOpenDropdown?: (id: string) => void
+  rowId?: string
 };
 
 const UserTable = ({ data, handleDelete, handleOpenDropdown, rowId }: Props) => {
@@ -95,7 +95,7 @@ const UserTable = ({ data, handleDelete, handleOpenDropdown, rowId }: Props) => 
                   <div
                     className="cursor-pointer"
                     onClick={() => {
-                      handleOpenDropdown(item._id);
+                    handleOpenDropdown &&  handleOpenDropdown(item._id);
                     }}
                   >
                     <AiOutlineMore size={24} />
@@ -120,7 +120,7 @@ const UserTable = ({ data, handleDelete, handleOpenDropdown, rowId }: Props) => 
                     </div>
                     <div
                       className="flex items-center gap-2 cursor-pointer text-red-500"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete&& handleDelete(item._id)}
                     >
                       <FaUserLock />
                       <div>Deactivate</div>
