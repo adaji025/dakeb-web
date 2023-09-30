@@ -141,7 +141,7 @@ const ReportTable = ({
                   <div
                     className="flex items-center gap-2 cursor-pointer"
                     onClick={() =>
-                      navigate(`/reports/${item._id}`, { state: { item } })
+                      navigate(`/reports/${item._id}`,  {state:  item })
                     }
                   >
                     <FaUserLock />

@@ -1,25 +1,40 @@
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import { Select, LoadingOverlay } from "@mantine/core";
+import { Select, LoadingOverlay, TextInput } from "@mantine/core";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Layout from "../../components/LoggedIn/Layout";
-import { addReports } from "../../services/reports/reports";
+import { addReports, updateReports } from "../../services/reports/reports";
 import { showNotification } from "@mantine/notifications";
 import useNotification from "../../hooks/useNotification";
 import { UserType } from "../../types/user";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { useLocation } from "react-router-dom";
+import { ReportTypes } from "../../types/reports";
+
+type ItemProps = {
+  item: ReportTypes
+}
 
 const CreateReports = () => {
+  const location = useLocation();
+
+  console.log("item", location.state);
+
+    
+  const {item }: ItemProps  = location?.state;
+  
+
   const [loading, setLoading] = useState(false);
-  const [reportData, setReportData] = useState("");
+  const [reportData, setReportData] = useState(item? item?.reportdetails :"");
 
   const userData: UserType = useSelector(
     (state: RootState) => state.user.userData
   );
 
   
+
 
   const { handleError } = useNotification();
 
@@ -44,10 +59,11 @@ const CreateReports = () => {
 
   const form = useForm({
     initialValues: {
-      reportdetails: reportData,
-      category: "",
-      priority: "",
-      status: 0,
+      reportdetails: item ? item.reportdetails : reportData,
+      category: item ? item.category : "",
+      priority: item ? item.priority : "",
+      status: item ? item.status : 0,
+      sentTo: item ? item.sentTo: "",
     },
   });
 
@@ -65,10 +81,33 @@ const CreateReports = () => {
         handleError(error);
       })
       .finally(() => {
-        form.reset()
-        setReportData("")
+        form.reset();
+        setReportData("");
         setLoading(false);
       });
+  };
+
+  const handleUpdateReport = (values: any) => {
+    setLoading(true);
+    updateReports(item._id, { ...values, reportdetails: reportData })
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "Report updated successfully",
+          color: "green",
+        });
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleSubmitForm = (values: any) => {
+    item? console.log("update") : console.log("post")
+    item ? handleUpdateReport(values) : submit(values);
   };
 
   return (
@@ -76,7 +115,7 @@ const CreateReports = () => {
       <LoadingOverlay visible={loading} />
       <Layout title="Generate Report">
         <form
-          onSubmit={form.onSubmit((values) => submit(values))}
+          onSubmit={form.onSubmit((values) => handleSubmitForm(values))}
           className="max-w-[1300px] mx-auto py-10"
         >
           <div className="flex gap-10">
@@ -91,6 +130,12 @@ const CreateReports = () => {
                   { value: "Vaccination", label: "Vaccination report" },
                 ]}
                 {...form.getInputProps("category")}
+              />
+              <TextInput
+                mt={16}
+                label="Send To"
+                placeholder="Enter recipient"
+                {...form.getInputProps("sentTo")}
               />
             </div>
 

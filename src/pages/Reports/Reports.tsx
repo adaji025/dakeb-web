@@ -75,13 +75,18 @@ const Reports = () => {
       });
   };
 
+  console.log(reports);
+  const item = {};
+
   const memoisedReports = useMemo(() => reports, [reports]);
   return (
     <>
       <LoadingOverlay visible={loading} />
       <Layout
         title="Report"
-        handleBtnClick={() => navigate("/reports/create-report")}
+        handleBtnClick={() =>
+          navigate("/reports/create-report", { state: item })
+        }
       >
         <div className="max-w-[1300px] mx-auto py-10">
           {!createReport && (

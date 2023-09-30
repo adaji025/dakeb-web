@@ -48,3 +48,14 @@ export const addReports = (id:string, values: {}) => {
       });
   });
 };
+export const updateReports = (id:string, values: {}) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.put(`${APIS.REPORTS.SINGLE_REPORT(id)}`, values)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
