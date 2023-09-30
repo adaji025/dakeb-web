@@ -4,12 +4,23 @@ import { AcceptedIcon, PendingIcon } from "../Svgs";
 import { ReportTypes } from "../../types/reports";
 import moment from "moment";
 import { useNavigate } from "react-router";
+import { BiSolidEdit } from "react-icons/bi";
+import { AiOutlineMore } from "react-icons/ai";
+import { FaUserLock } from "react-icons/fa";
 
 type Props = {
   data: ReportTypes[];
+  handleDelete?: (id: string) => void;
+  handleOpenDropdown?: (id: string) => void;
+  rowId?: string;
 };
 
-const ReportTable = ({ data }: Props) => {
+const ReportTable = ({
+  data,
+  handleDelete,
+  handleOpenDropdown,
+  rowId,
+}: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
 
   const isAllRowsSelected =
@@ -98,11 +109,52 @@ const ReportTable = ({ data }: Props) => {
               <td>
                 {item.status === true ? <AcceptedIcon /> : <PendingIcon />}
               </td>
-              <td
+              {/* <td
                 className="cursor-pointer font-medium"
                 onClick={() => navigate(`/reports/${item._id}`)}
               >
                 View Details
+              </td> */}
+              <td className="relative">
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    handleOpenDropdown && handleOpenDropdown(item._id);
+                  }}
+                >
+                  <AiOutlineMore size={24} />
+                </div>
+                <div
+                  className={`shadow bg-white z-10 absolute -left-24 p-3 flex flex-col gap-3 ${
+                    rowId === item._id ? "flex" : "hidden"
+                  }`}
+                >
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={() =>
+                      navigate(`/reports/create-report`, { state: { item } })
+                    }
+                  >
+                    <BiSolidEdit />
+                    <div>Edit report</div>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 cursor-pointer"
+                    onClick={() =>
+                      navigate(`/reports/${item._id}`, { state: { item } })
+                    }
+                  >
+                    <FaUserLock />
+                    <div>View report</div>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 cursor-pointer text-red-500"
+                    onClick={() => handleDelete && handleDelete(item._id)}
+                  >
+                    <FaUserLock />
+                    <div>Delete report</div>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}

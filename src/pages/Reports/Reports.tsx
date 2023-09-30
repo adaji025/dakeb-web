@@ -4,16 +4,18 @@ import { CatMenu } from "../../components/Reports/CatMenu";
 import { DataContext } from "../../context/DataProvider";
 import ReportTable from "../../components/Reports/ReportTable";
 import useNotification from "../../hooks/useNotification";
-import { getReports } from "../../services/reports/reports";
+import { deleteReport, getReports } from "../../services/reports/reports";
 import Layout from "../../components/LoggedIn/Layout";
 import { ReportTypes } from "../../types/reports";
 import { useNavigate } from "react-router-dom";
+import { showNotification } from "@mantine/notifications";
 
 const Reports = () => {
   const [tableType, setTableType] = useState("All");
   const [loading, setLoading] = useState(false);
   const [reports, setReports] = useState<ReportTypes[]>([]);
   const { handleError } = useNotification();
+  const [rowId, setRowId] = useState<string>("");
 
   const { createReport } = React.useContext(DataContext);
   const tableList = [
@@ -24,7 +26,7 @@ const Reports = () => {
     "Vaccines reports",
   ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     handleGetReports();
@@ -45,12 +47,42 @@ const Reports = () => {
       });
   };
 
+  const handleOpenDropdown = (id: string) => {
+    if (id === rowId) {
+      setRowId("");
+    } else {
+      setRowId(id);
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    setLoading(true);
+    deleteReport(id)
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "User deleted successfully",
+          color: "green",
+        });
+      })
+      .catch((error: any) => {
+        handleError(error);
+      })
+      .finally(() => {
+        handleOpenDropdown(id);
+        handleGetReports();
+        setLoading(false);
+      });
+  };
+
   const memoisedReports = useMemo(() => reports, [reports]);
   return (
     <>
-    
       <LoadingOverlay visible={loading} />
-      <Layout title="Report" handleBtnClick={() => navigate("/reports/create-report")}>
+      <Layout
+        title="Report"
+        handleBtnClick={() => navigate("/reports/create-report")}
+      >
         <div className="max-w-[1300px] mx-auto py-10">
           {!createReport && (
             <>
@@ -73,7 +105,12 @@ const Reports = () => {
                 <CatMenu />
               </div>
               <div className="mt-10">
-                <ReportTable data={memoisedReports} />
+                <ReportTable
+                  data={memoisedReports}
+                  handleDelete={handleDelete}
+                  rowId={rowId}
+                  handleOpenDropdown={handleOpenDropdown}
+                />
               </div>
             </>
           )}
