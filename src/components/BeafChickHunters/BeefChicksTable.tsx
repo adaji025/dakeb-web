@@ -11,7 +11,7 @@ type Props = {
   handleDelete?: (id: string) => void;
   handleOpenDropdown?: (id: string) => void;
   rowId?: string;
-  setAddHunter: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddHunter?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const BeefChicksTable = ({
@@ -126,7 +126,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setAddHunter(true);
+                    setAddHunter && setAddHunter(true);
                   }}
                 >
                   <BiSolidEdit />
@@ -135,7 +135,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setAddHunter(true);
+                    setAddHunter && setAddHunter(true);
                   }}
                 >
                   <FaUserLock />
