@@ -1,16 +1,28 @@
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import { Select } from "@mantine/core";
-// import { useNavigate } from "react-router-dom";
+import { Select, LoadingOverlay } from "@mantine/core";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Layout from "../../components/LoggedIn/Layout";
-// import { addReports } from "../../services/reports/reports";
+import { addReports } from "../../services/reports/reports";
+import { showNotification } from "@mantine/notifications";
+import useNotification from "../../hooks/useNotification";
+import { UserType } from "../../types/user";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 const CreateReports = () => {
+  const [loading, setLoading] = useState(false);
   const [reportData, setReportData] = useState("");
 
-  // const navigate = useNavigate();
+  const userData: UserType = useSelector(
+    (state: RootState) => state.user.userData
+  );
+
+  
+
+  const { handleError } = useNotification();
+
   const modules = {
     toolbar: [
       ["undo", "redo"],
@@ -26,8 +38,6 @@ const CreateReports = () => {
     ],
   };
 
-  console.log(reportData)
-
   const icons = Quill.import("ui/icons");
   icons["undo"] = Undo;
   icons["redo"] = Redo;
@@ -41,10 +51,29 @@ const CreateReports = () => {
     },
   });
 
-  const submit = (values: any) => console.log({...values, reportdetails: reportData});
+  const submit = (values: any) => {
+    setLoading(true);
+    addReports(userData._id, { ...values, reportdetails: reportData })
+      .then(() => {
+        showNotification({
+          title: "Success",
+          message: "Report generated successfully",
+          color: "green",
+        });
+      })
+      .catch((error) => {
+        handleError(error);
+      })
+      .finally(() => {
+        form.reset()
+        setReportData("")
+        setLoading(false);
+      });
+  };
 
   return (
     <>
+      <LoadingOverlay visible={loading} />
       <Layout title="Generate Report">
         <form
           onSubmit={form.onSubmit((values) => submit(values))}
@@ -91,6 +120,7 @@ const CreateReports = () => {
             />
             <div className="mt-24 xl:mt-16">
               <button
+                disabled={loading}
                 className="bg-dakeb-green-mid py-3 px-6 rounded-md text-white font-bold"
                 // onClick={() => navigate("/reports/report-preview")}
               >

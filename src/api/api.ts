@@ -32,7 +32,7 @@ export const APIS = {
   },
   REPORTS: {
     GET_REPORT: `${api}/report`,
-    GET_SINGLE_REPORT: (id: string) => `${api}/report/${id}`,
+    SINGLE_REPORT: (id: string) => `${api}/report/${id}`,
   },
   HUNTER: {
     GET_HUNTERS: `${api}/hunter`,

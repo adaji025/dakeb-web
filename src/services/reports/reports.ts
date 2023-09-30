@@ -15,7 +15,7 @@ export const getReports = () => {
 
 export const getReport = (id: string) => {
   return new Promise((resolve, reject) => {
-    AxoisApi.get(`${APIS.REPORTS.GET_SINGLE_REPORT(id)}`)
+    AxoisApi.get(`${APIS.REPORTS.SINGLE_REPORT(id)}`)
       .then((res) => {
         resolve(res);
       })
@@ -25,9 +25,9 @@ export const getReport = (id: string) => {
   });
 };
 
-export const addReports = (values: {}) => {
+export const addReports = (id:string, values: {}) => {
   return new Promise((resolve, reject) => {
-    AxoisApi.post(`${APIS.REPORTS.GET_REPORT}`, values)
+    AxoisApi.post(`${APIS.REPORTS.SINGLE_REPORT(id)}`, values)
       .then((res) => {
         resolve(res);
       })

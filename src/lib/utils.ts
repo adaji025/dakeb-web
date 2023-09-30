@@ -9,4 +9,3 @@ export function getFirstLetterOfFullName(fullName: string) {
 
   return initials.join("");
 }
-
