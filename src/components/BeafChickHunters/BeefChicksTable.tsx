@@ -116,10 +116,10 @@ const BeefChicksTable = ({
                   handleOpenDropdown && handleOpenDropdown(element._id);
                 }}
               >
-                <AiOutlineMore size={24} />
+                <AiOutlineMore size={30} />
               </div>
               <div
-                className={`shadow bg-white z-10 absolute -left-24 p-3 flex flex-col gap-3 ${
+                className={`shadow bg-white z-10 absolute top-10 -left-28 p-3 flex flex-col gap-3 ${
                   rowId === element._id ? "flex" : "hidden"
                 }`}
               >

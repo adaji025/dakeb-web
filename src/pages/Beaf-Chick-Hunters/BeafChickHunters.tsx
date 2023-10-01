@@ -107,7 +107,7 @@ const BeafChickHunters = () => {
               Chick hunters
             </div>
           </div>
-          <div className="mt-5 overflow-auto">
+          <div className="mt-5 overflow-auto h-full pb-28">
             <BeefChicksTable
               data={data}
               rowId={rowId}

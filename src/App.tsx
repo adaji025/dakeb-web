@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import Login from "./pages/Auth/Login";
 import ResetPassword from "./pages/Auth/Reset-password";
@@ -7,12 +8,17 @@ import LoggedInContainer from "./components/LoggedIn";
 
 import "./App.css";
 
-
 function App() {
   const token = localStorage.getItem("token");
 
   return (
-    <>
+    <MantineProvider
+      theme={{
+        primaryColor: "green",
+        fontFamily: "Aeonik, sans-serif",
+        defaultRadius: 8,
+      }}
+    >
       <Notifications position="top-right" />
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -20,7 +26,7 @@ function App() {
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/*" element={token ? <LoggedInContainer /> : <Login />} />
       </Routes>
-    </>
+    </MantineProvider>
   );
 }
 
