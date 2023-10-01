@@ -10,16 +10,20 @@ type Props = {
   data: HuntersType[];
   handleDelete?: (id: string) => void;
   handleOpenDropdown?: (id: string) => void;
+  handleCloseDropDown?: () => void;
   rowId?: string;
   setAddHunter?: React.Dispatch<React.SetStateAction<boolean>>;
+  setEdit: React.Dispatch<React.SetStateAction<HuntersType | null>>;
 };
 
 const BeefChicksTable = ({
   data,
   handleDelete,
   handleOpenDropdown,
+  handleCloseDropDown,
   rowId,
   setAddHunter,
+  setEdit,
 }: Props) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
 
@@ -126,7 +130,9 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
+                    setEdit(element);
                     setAddHunter && setAddHunter(true);
+                    handleCloseDropDown && handleCloseDropDown();
                   }}
                 >
                   <BiSolidEdit />
@@ -135,7 +141,9 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
+                    setEdit(element);
                     setAddHunter && setAddHunter(true);
+                    handleCloseDropDown && handleCloseDropDown();
                   }}
                 >
                   <FaUserLock />
@@ -143,7 +151,10 @@ const BeefChicksTable = ({
                 </div>
                 <div
                   className="flex items-center gap-2 cursor-pointer text-red-500"
-                  onClick={() => handleDelete && handleDelete(element._id)}
+                  onClick={() => {
+                    handleDelete && handleDelete(element._id);
+                    handleCloseDropDown && handleCloseDropDown();
+                  }}
                 >
                   <FaUserLock />
                   <div>Delete hunter</div>

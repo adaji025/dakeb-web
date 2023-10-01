@@ -1,40 +1,44 @@
-import {
-  Divider,
-  Group,
-  Modal,
-  Select,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Divider, Group, Modal, Select, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import useNotification from "../../hooks/useNotification";
-import { addHunters, getHunters } from "../../services/hunters/hunters";
+import {
+  addHunters,
+  getHunters,
+  updateHunter,
+} from "../../services/hunters/hunters";
 import { HuntersType } from "../../types/hunters";
+import { useEffect } from "react";
 
 type Props = {
   close: () => void;
   opened: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setHunters: React.Dispatch<React.SetStateAction<HuntersType[]>>;
+  edit: HuntersType | null;
 };
 
-const AddHunter = ({
-  close,
-  opened,
-  setLoading,
-  setHunters,
-}: Props) => {
+const AddHunter = ({ close, opened, setLoading, setHunters, edit }: Props) => {
   const { handleError } = useNotification();
   const form = useForm({
     initialValues: {
-      name: "",
-      email: "",
-      phonenumber: "",
-      type: "",
-      code: "",
+      name: edit ? edit.name : "",
+      email: edit ? edit.email : "",
+      phonenumber: edit ? edit.phonenumber : "",
+      type: edit ? edit.type : "",
+      code: edit ? edit.code : "",
     },
   });
+
+  useEffect(() => {
+    form.setValues({
+      name: edit ? edit?.name : "",
+      email: edit ? edit.email : "",
+      phonenumber: edit ? edit.phonenumber : "",
+      type: edit ? edit.type : "",
+      code: edit ? edit.code : "",
+    });
+  }, [edit]);
 
   const handleGetHunters = () => {
     setLoading(true);
@@ -71,8 +75,31 @@ const AddHunter = ({
       });
   };
 
+  const handleUpdateHunter = (values: any) => {
+    setLoading(true);
+    if (edit)
+      updateHunter(edit?._id, values)
+        .then(() => {
+          showNotification({
+            title: "Success",
+            message: "Hunter updated successfully",
+            color: "green",
+          });
+        })
+        .catch((error) => {
+          handleError(error);
+        })
+        .finally(() => {
+          close();
+          handleGetHunters();
+          setLoading(false);
+          form.reset();
+        });
+  };
+
   const submit = (values: any) => {
-    handleAddHunter(values);
+    edit ? console.log("edit") : console.log("post");
+    edit ? handleUpdateHunter(values) : handleAddHunter(values);
   };
   return (
     <>
