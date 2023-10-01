@@ -13,7 +13,7 @@ type Props = {
   handleCloseDropDown?: () => void;
   rowId?: string;
   setAddHunter?: React.Dispatch<React.SetStateAction<boolean>>;
-  setEdit: React.Dispatch<React.SetStateAction<HuntersType | null>>;
+  setEdit?: React.Dispatch<React.SetStateAction<HuntersType | null>>;
 };
 
 const BeefChicksTable = ({
@@ -130,7 +130,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setEdit(element);
+                   setEdit && setEdit(element);
                     setAddHunter && setAddHunter(true);
                     handleCloseDropDown && handleCloseDropDown();
                   }}
@@ -141,7 +141,7 @@ const BeefChicksTable = ({
                 <div
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setEdit(element);
+                    setEdit && setEdit(element);
                     setAddHunter && setAddHunter(true);
                     handleCloseDropDown && handleCloseDropDown();
                   }}
