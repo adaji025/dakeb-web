@@ -35,3 +35,15 @@ export const deleteHunter = (id: string) => {
       });
   });
 };
+
+export const updateHunter = (id: string, data: any) => {
+  return new Promise((resolve, reject) => {
+    AxoisApi.put(`${APIS.HUNTER.SINGLE_HUNTERS(id)}`, data)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

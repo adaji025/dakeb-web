@@ -14,6 +14,7 @@ const BeafChickHunters = () => {
   const [hunters, setHunters] = useState<HuntersType[]>([]);
   const [addHunter, setAddHunter] = useState<boolean>(false);
   const [rowId, setRowId] = useState<string>("");
+  const [edit, setEdit] = useState<HuntersType | null>(null);
 
   const { handleError } = useNotification();
 
@@ -70,6 +71,10 @@ const BeafChickHunters = () => {
     }
   };
 
+  const handleCloseDropDown = () => {
+    setRowId("")
+  }
+
   return (
     <>
       <AddHunter
@@ -77,12 +82,16 @@ const BeafChickHunters = () => {
         close={() => setAddHunter(false)}
         setLoading={setLoading}
         setHunters={setHunters}
+        edit={edit}
       />
 
-      <LoadingOverlay  visible={loading} />
+      <LoadingOverlay visible={loading} />
       <Layout
         title="Beef and chick hunters"
-        handleBtnClick={() => setAddHunter(true)}
+        handleBtnClick={() => {
+          setEdit(null);
+          setAddHunter(true);
+        }}
       >
         <div className="max-w-[1300px] mx-auto overflow-x-hidden py-10">
           <div className="flex gap-5">
@@ -114,6 +123,8 @@ const BeafChickHunters = () => {
               handleDelete={handleDelete}
               handleOpenDropdown={handleOpenDropdown}
               setAddHunter={setAddHunter}
+              setEdit={setEdit}
+              handleCloseDropDown={handleCloseDropDown}
             />
           </div>
         </div>
