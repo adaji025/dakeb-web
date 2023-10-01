@@ -72,9 +72,14 @@ const BeafChickHunters = () => {
 
   return (
     <>
-      <AddHunter opened={addHunter} close={() => setAddHunter(false)} />
+      <AddHunter
+        opened={addHunter}
+        close={() => setAddHunter(false)}
+        setLoading={setLoading}
+        setHunters={setHunters}
+      />
 
-      <LoadingOverlay visible={loading} />
+      <LoadingOverlay  visible={loading} />
       <Layout
         title="Beef and chick hunters"
         handleBtnClick={() => setAddHunter(true)}

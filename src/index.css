@@ -5,3 +5,8 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
+
+.mantine-LoadingOverlay-root {
+    position: fixed !important;
+  }
+  
