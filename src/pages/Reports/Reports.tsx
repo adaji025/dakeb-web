@@ -75,10 +75,34 @@ const Reports = () => {
       });
   };
 
-  console.log(reports);
   const item = {};
 
   const memoisedReports = useMemo(() => reports, [reports]);
+
+  const activityReport = memoisedReports.filter(
+    (item) => item.category === "Activity"
+  );
+  const incidentReport = memoisedReports.filter(
+    (item) => item.category === "Incident"
+  );
+  const procedureReport = memoisedReports.filter(
+    (item) => item.category === "Procedure"
+  );
+  const vacinationReport = memoisedReports.filter(
+    (item) => item.category === "Vaccination"
+  );
+
+  const filteredReports =
+    tableType === "All"
+      ? memoisedReports
+      : tableType === "Activity reports"
+      ? activityReport
+      : tableType === "Incident reports"
+      ? incidentReport
+      : tableType === "Procedure reports"
+      ? procedureReport
+      : vacinationReport;
+
   return (
     <>
       <LoadingOverlay visible={loading} />
@@ -101,7 +125,10 @@ const Reports = () => {
                           ? "border-dakeb-green-mid text-[#333333] font-semibold"
                           : "border-transparent"
                       }`}
-                      onClick={() => setTableType(item)}
+                      onClick={() => {
+                        setTableType(item);
+                        console.log(item);
+                      }}
                     >
                       {item}
                     </div>
@@ -111,7 +138,7 @@ const Reports = () => {
               </div>
               <div className="mt-10">
                 <ReportTable
-                  data={memoisedReports}
+                  data={filteredReports}
                   handleDelete={handleDelete}
                   rowId={rowId}
                   handleOpenDropdown={handleOpenDropdown}
