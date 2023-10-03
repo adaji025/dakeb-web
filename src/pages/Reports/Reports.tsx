@@ -127,7 +127,6 @@ const Reports = () => {
                       }`}
                       onClick={() => {
                         setTableType(item);
-                        console.log(item);
                       }}
                     >
                       {item}
