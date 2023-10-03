@@ -7,6 +7,7 @@ import { FormsTypes } from "../../types/forms";
 import useNotification from "../../hooks/useNotification";
 import FormTable from "../../components/Forms/FormTable";
 import Layout from "../../components/LoggedIn/Layout";
+import Comfirmation from "../../components/Forms/Comfirmation";
 
 const Forms = () => {
   const [tableType, setTableType] = useState<
@@ -20,6 +21,7 @@ const Forms = () => {
   const [forms, setForms] = useState<FormsTypes[]>([]);
   const { loading, setLoading } = useContext(DataContext);
   const { handleError } = useNotification();
+  const [createForm, setCreateForm] = useState<boolean>(false);
 
   const { createReport } = React.useContext(DataContext);
   const tableList = [
@@ -56,8 +58,10 @@ const Forms = () => {
 
   return (
     <>
+      <Comfirmation opened={createForm} close={() => setCreateForm(false)} />
+      
       <LoadingOverlay visible={loading} />
-      <Layout title="Forms" handleBtnClick={() => {}}>
+      <Layout title="Forms" handleBtnClick={() => setCreateForm(true)}>
         <div className="max-w-[1300px] mx-auto py-10">
           {!createReport && (
             <>

@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "@mantine/core";
 import Download from "../../components/Barcode/Download";
 import { useDisclosure } from "@mantine/hooks";
+import Layout from "../../components/LoggedIn/Layout";
 
 const users = [
   {
@@ -44,63 +45,65 @@ const Barcode = () => {
   return (
     <>
       <Download {...{ opened, open, close }} />
-      <div className="max-w-[1300px] mx-auto py-10">
-        <div className="flex gap-5">
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "all"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("all")}
-          >
-            All
+      <Layout title="Barcode Development">
+        <div className="max-w-[1300px] mx-auto py-10">
+          <div className="flex gap-5">
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "all"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("all")}
+            >
+              All
+            </div>
+            <div
+              className={`text-base font-medium cursor-pointer ${
+                active === "activity"
+                  ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
+                  : "text-[#828282]"
+              }`}
+              onClick={() => setActive("activity")}
+            >
+              Activity Report
+            </div>
           </div>
-          <div
-            className={`text-base font-medium cursor-pointer ${
-              active === "activity"
-                ? "border-b-4 border-dakeb-green-dark text-[#4F4F4F]"
-                : "text-[#828282]"
-            }`}
-            onClick={() => setActive("activity")}
-          >
-            Activity Report
-          </div>
-        </div>
 
-        <div className="mt-5 overflow-auto">
-          <Table verticalSpacing="md">
-            <thead>
-              <tr>
-                <th>Barcode type</th>
-                <th>Data</th>
-                <th>Width</th>
-                <th>Output type</th>
-                <th>Date generated</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((element) => (
-                <tr key={element.id}>
-                  <td>{element.barcode_type}</td>
-                  <td>{element.data}</td>
-                  <td>{element.width}</td>
-                  <td>{element.output_type}</td>
-                  <td>{element.date_generated}</td>
-                  <td>
-                    <button
-                      className="font-semibold text-dakeb-green-mid"
-                      onClick={open}
-                    >
-                      Download
-                    </button>
-                  </td>
+          <div className="mt-5 overflow-auto">
+            <Table verticalSpacing="md">
+              <thead>
+                <tr>
+                  <th>Barcode type</th>
+                  <th>Data</th>
+                  <th>Width</th>
+                  <th>Output type</th>
+                  <th>Date generated</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {users.map((element) => (
+                  <tr key={element.id}>
+                    <td>{element.barcode_type}</td>
+                    <td>{element.data}</td>
+                    <td>{element.width}</td>
+                    <td>{element.output_type}</td>
+                    <td>{element.date_generated}</td>
+                    <td>
+                      <button
+                        className="font-semibold text-dakeb-green-mid"
+                        onClick={open}
+                      >
+                        Download
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };
