@@ -59,7 +59,7 @@ const FormTable = ({ data }: Props) => {
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr>
+            <tr key={item._id}>
               <td>
                 <div className="flex gap-3">
                   <input

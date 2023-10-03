@@ -17,7 +17,7 @@ const Comfirmation: React.FC<Props> = ({ close, opened }) => {
   };
 
   const handleSubmit = () => {
-    catValue === "animal observation" && navigate("/animal-observation-form");
+    catValue === "animal observation" && navigate("/forms/animal-observation-form");
     catValue === "purchase" && navigate("/forms/purchase-form");
     catValue === "daily expense" && navigate("/forms/daily-expenses-form");
     catValue === "turn over" && navigate("/forms/turn-over-form");

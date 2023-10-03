@@ -7,7 +7,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import AddBarcode from "../Barcode/AddBarcode";
 import CreateRole from "../Management/CreateRole";
 import { BsArrowLeft } from "react-icons/bs";
-import Comfirmation from "../Forms/Comfirmation";
 import CreateDepartment from "../Management/CreateDepartment";
 
 type Props = {
@@ -19,7 +18,6 @@ type Props = {
 const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
   const [addBarcode, setActiveBarcode] = useState<boolean>(false);
   const [createRoles, setCreateRoles] = useState<boolean>(false);
-  const [createForm, setCreateForm] = useState<boolean>(false);
   const [createDepartments, setCreateDepartments] = useState<boolean>(false);
 
   const history = useLocation();
@@ -36,7 +34,6 @@ const Header: React.FC<Props> = ({ openMobileNav, title, handleBtnClick }) => {
         opened={createDepartments}
         close={() => setCreateDepartments(false)}
       />
-      <Comfirmation opened={createForm} close={() => setCreateForm(false)} />
 
       <div className="h-[100px] w-full flex justify-between items-center border-b px-4 lg:px-10">
         <div className="flex items-center gap-2">
