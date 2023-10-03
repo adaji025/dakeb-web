@@ -3,14 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface UserState {
   userData: any
 }
-// _id: string
-// name: string
-// email: string
-// department: string
-// position: string
-// role: string
-// salary: string
-// phonenumber: number
 
 const initialState: UserState = {
   userData: null,
