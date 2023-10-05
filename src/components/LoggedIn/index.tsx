@@ -35,14 +35,18 @@ const LoggedInContainer = () => {
     (state: RootState) => state.user.userData
   );
 
-  const role = userData.role;
+  const role = userData?.role;
 
   return (
     <Routes>
       <Route
         path="/"
         element={
-          role.name === "Admin" ? <AdminDashboard /> : <StaffDashboard />
+          role && role.name === "Admin" ? (
+            <AdminDashboard />
+          ) : (
+            <StaffDashboard />
+          )
         }
       />
       <Route path="/users" element={<Users />} />

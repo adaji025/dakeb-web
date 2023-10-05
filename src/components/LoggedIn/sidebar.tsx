@@ -95,7 +95,7 @@ const Sidebar = () => {
               size={100}
               radius={50}
             >
-              {getFirstLetterOfFullName(userData.name)}
+              {getFirstLetterOfFullName(userData && userData?.name)}
             </Avatar>
             <div
               className={`absolute top-0 left-0 w-[100px] rounded-full h-[100px] bg-black/50 mx-auto  flex-col justify-center items-center  ${
