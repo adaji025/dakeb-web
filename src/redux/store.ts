@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import userReducer from "../features/userSlice";
+import userReducer from "./features/userSlice";
 
 const persistConfig = {
   key: "root",

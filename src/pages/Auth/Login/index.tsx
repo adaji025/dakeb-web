@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../features/userSlice";
+import { setUser } from "../../../redux/features/userSlice";
 import useNotification from "../../../hooks/useNotification";
 
 import Logo from "../../../assets/svgs/dakeb-logo.svg";
