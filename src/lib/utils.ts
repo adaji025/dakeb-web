@@ -1,5 +1,5 @@
 export function getFirstLetterOfFullName(fullName: string) {
-  const words = fullName.trim().split(" ");
+  const words = fullName && fullName.trim().split(" ") || [];
 
   if (words.length === 0) {
     return ""; // Handle empty input
