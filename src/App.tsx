@@ -5,7 +5,6 @@ import Login from "./pages/Auth/Login";
 import ResetPassword from "./pages/Auth/Reset-password";
 import NewPassword from "./pages/Auth/New-password";
 import LoggedInContainer from "./components/LoggedIn";
-import "@mantine/core/styles.css";
 import "./App.css";
 
 function App() {
