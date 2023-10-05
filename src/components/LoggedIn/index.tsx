@@ -27,7 +27,7 @@ import TurnOverForm from "../../pages/Forms/TurnOverform";
 import PurchaseForm from "../../pages/Forms/PurchaseForm";
 import DailyExpenseForm from "../../pages/Forms/DailyExpenseForm";
 import PlantationObservation from "../../pages/Forms/PlantationObservation";
-import { RootState } from "../../app/store";
+import { RootState } from "../../redux/store";
 import FormDetail from "../../pages/Forms/FormDetail";
 
 const LoggedInContainer = () => {

@@ -9,7 +9,7 @@ import { showNotification } from "@mantine/notifications";
 import useNotification from "../../hooks/useNotification";
 import { UserType } from "../../types/user";
 import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../redux/store";
 import { useLocation } from "react-router-dom";
 import { ReportTypes } from "../../types/reports";
 

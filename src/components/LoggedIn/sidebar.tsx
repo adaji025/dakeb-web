@@ -3,7 +3,7 @@ import React from "react";
 import { BsCamera } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../redux/store";
 import { UserType } from "../../types/user";
 import { getFirstLetterOfFullName } from "../../lib/utils";
 import useNotification from "../../hooks/useNotification";
